@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Grid {
     private static final Random RANDOM = new Random();
-    public static final int TILE_SIZE = 25;
+    public static final int TILE_SIZE = 10;
     private final int numRows;
     private final int numCols;
 
@@ -26,7 +26,6 @@ public class Grid {
             throw new IndexOutOfBoundsException("Grid does not contain square at: (" + point.x + ", " + point.y + ")");
         }
 
-        // TODO: fix rounding errors when testing for tiles going left and up
         return new GridSquare(point.y / TILE_SIZE, point.x / TILE_SIZE);
     }
 
