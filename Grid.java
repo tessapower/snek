@@ -20,11 +20,17 @@ public class Grid {
         return numCols;
     }
 
-    public GridSquare tileForPosition(Point point) {
-        return new GridSquare(0, 0);
+    public GridSquare squareForPosition(Point point) {
+        if (point.x >= numCols * TILE_SIZE || point.y >= numRows * TILE_SIZE
+                || point.x < 0 || point.y < 0) {
+            throw new IndexOutOfBoundsException("Grid does not contain square at: (" + point.x + ", " + point.y + ")");
+        }
+
+        // TODO: fix rounding errors when testing for tiles going left and up
+        return new GridSquare(point.y / TILE_SIZE, point.x / TILE_SIZE);
     }
 
-    public Point positionForTile(GridSquare gridSquare) {
+    public Point positionForSquare(GridSquare gridSquare) {
         if (gridSquare.row() >= numRows() || gridSquare.col() >= numCols()
                 || gridSquare.row() < 0 || gridSquare.col() < 0) {
             throw new IndexOutOfBoundsException("Grid does not contain position: " + gridSquare.row() + ", " + gridSquare.col());

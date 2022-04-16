@@ -3,6 +3,7 @@ import engine.GameEngine;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class SnakeGame extends GameEngine {
     private static final int WINDOW_WIDTH = 500;
@@ -25,6 +26,13 @@ public class SnakeGame extends GameEngine {
     public void update(double dt) {
         if (!isGameOver()) {
             world.update(dt);
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> world.keyPressed(e);
         }
     }
 
