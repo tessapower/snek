@@ -6,14 +6,15 @@ import java.util.*;
 import java.util.List;
 
 public class World {
+    private static final int N_TILES = 50;
     private final Dimension dimension;
     private final Grid grid;
     private List<Actor> actors;
     private final Snek snek;
 
-    public World(int size, int numTiles) {
+    public World(int size) {
         dimension = new Dimension(size, size);
-        grid = new Grid(numTiles, numTiles);
+        grid = new Grid(N_TILES, N_TILES);
         actors = new ArrayList<>();
 
         snek = new Snek(this, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE), Direction.RIGHT);

@@ -3,7 +3,6 @@ import engine.GameEngine;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class SnakeGame extends GameEngine {
     private static final int WINDOW_WIDTH = 500;
@@ -11,12 +10,12 @@ public class SnakeGame extends GameEngine {
     private World world;
 
     public static void main(String[] args) {
-        createGame(new SnakeGame(), 60);
+        createGame(new SnakeGame(), 5);
     }
 
     public void init() {
         setupWindow(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), "Snek!");
-        world = new World(WINDOW_WIDTH, 20);
+        world = new World(WINDOW_WIDTH);
         for (Actor a : world.actors()) {
             addActor(a);
         }
