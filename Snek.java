@@ -18,7 +18,6 @@ public class Snek extends Actor {
     private SnekTail tail;
     private boolean shouldGrowTail;
     private SnekPiece head;
-    private int score;
 
     public static @NotNull
     Snek spawnAt(SnakeWorld world, GridSquare gridSquare) {
@@ -31,7 +30,6 @@ public class Snek extends Actor {
     private Snek(SnakeWorld world, GridSquare gridSquare, Dimension dimension, Direction initialDirection) {
         this.world = world;
         this.dimension = dimension;
-        score = 0;
 
         direction = initialDirection;
         pendingDirection = null;
@@ -72,6 +70,10 @@ public class Snek extends Actor {
         }
     }
 
+    /**
+     * Mark the tail to grow by one on the next update. Should only be called <i>once</i>
+     * per update cycle, multiple calls will still only grow the tail by one on the next draw.
+     */
     public void growTail() {
         shouldGrowTail = true;
     }
@@ -82,14 +84,6 @@ public class Snek extends Actor {
 
     public boolean occupies(GridSquare gridSquare) {
         return gridSquare == head.gridSquare;
-    }
-
-    public int score() {
-        return score;
-    }
-
-    public void increaseScore() {
-        System.out.println("Score: " + ++score);
     }
 
     private void advanceHead() {

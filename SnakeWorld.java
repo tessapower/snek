@@ -12,6 +12,7 @@ public class SnakeWorld extends World {
     private final Grid grid;
     private Snek snek;
     private Apple apple;
+    private int score;
 
     public SnakeWorld(Point origin, GameEngine engine) {
         super(engine);
@@ -26,6 +27,8 @@ public class SnakeWorld extends World {
 
         snek = Snek.spawnAt(this, snekSpawnPosition());
         apple = Apple.spawnAt(this, randomUnoccupiedSquare());
+
+        score = 0;
     }
 
     public void update(double dt) {
@@ -37,7 +40,7 @@ public class SnakeWorld extends World {
         }
 
         if (hasSnekEatenApple()) {
-            snek.increaseScore();
+            score++;
             snek.growTail();
             apple.removeFromWorld();
             apple = Apple.spawnAt(this, randomUnoccupiedSquare());
