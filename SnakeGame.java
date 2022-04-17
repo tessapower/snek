@@ -1,4 +1,3 @@
-import actors.Actor;
 import engine.GameEngine;
 
 import java.awt.*;
@@ -7,18 +6,18 @@ import java.awt.event.KeyEvent;
 public class SnakeGame extends GameEngine {
     private static final int WINDOW_WIDTH = 500;
     private static final int WINDOW_HEIGHT = 500;
-    private World world;
+    private SnakeWorld world;
+    // Menu
+    // Difficulty
+    // Credits
 
     public static void main(String[] args) {
-        createGame(new SnakeGame(), 5);
+        createGame(new SnakeGame(), 10);
     }
 
     public void init() {
         setupWindow(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), "Snek!");
-        world = new World(WINDOW_WIDTH);
-        for (Actor a : world.actors()) {
-            addActor(a);
-        }
+        world = new SnakeWorld(new Point(0, 0), this);
     }
 
     @Override
@@ -36,8 +35,8 @@ public class SnakeGame extends GameEngine {
     }
 
     public boolean isGameOver() {
-
         return false;
     }
 
+    // Load world from list of worlds that correspond to harder levels?
 }
