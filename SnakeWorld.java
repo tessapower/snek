@@ -37,6 +37,8 @@ public class SnakeWorld extends World {
         }
 
         if (hasSnekEatenApple()) {
+            snek.increaseScore();
+            snek.growTail();
             apple.removeFromWorld();
             apple = Apple.spawnAt(this, randomUnoccupiedSquare());
         }

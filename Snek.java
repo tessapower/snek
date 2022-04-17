@@ -16,6 +16,7 @@ public class Snek extends Actor {
     private Direction pendingDirection;
     private Direction direction;
     private SnekTail tail;
+    private boolean shouldGrowTail;
     private SnekPiece head;
     private int score;
 
@@ -36,6 +37,7 @@ public class Snek extends Actor {
         pendingDirection = null;
 
         sprite = initSprite(gridSquare, world);
+        shouldGrowTail = false;
     }
 
     private TCompound initSprite(GridSquare gridSquare, SnakeWorld world) {
@@ -57,7 +59,21 @@ public class Snek extends Actor {
     public void update(double dt) {
         direction = (pendingDirection == null) ? direction : pendingDirection;
         pendingDirection = null;
-        advanceToNextGridSquare(dt);
+        if (shouldGrowTail) {
+            // Grow the tail toward the head
+            SnekPiece newTailPiece = tail.growToward(head.gridSquare, world);
+            ((TCompound) sprite).add(newTailPiece);
+            advanceHead();
+            shouldGrowTail = false;
+        } else {
+            // Move the tail toward the head
+            tail.moveToward(head.gridSquare, world);
+            advanceHead();
+        }
+    }
+
+    public void growTail() {
+        shouldGrowTail = true;
     }
 
     public GridSquare gridSquare() {
@@ -76,10 +92,7 @@ public class Snek extends Actor {
         System.out.println("Score: " + ++score);
     }
 
-    private void advanceToNextGridSquare(double dt) {
-        // Move the tail toward the head
-        tail.moveToward(head.gridSquare, world);
-
+    private void advanceHead() {
         switch(direction) {
             case UP ->
                     head.setGridSquare(new GridSquare(head.gridSquare.row() - 1, head.gridSquare.col()), world);
@@ -118,14 +131,11 @@ public class Snek extends Actor {
 
     static class SnekTail {
         private static final Color SNEK_GREEN = new Color(119, 167, 117);
-        private static final int STARTING_LEN = 2;
         public static final int MAX_TAIL_LEN = 19;
         List<SnekPiece> tailPieces;
-        int length;
 
         public SnekTail(Dimension dimension, GridSquare gridSquare, SnakeWorld world) {
             tailPieces = new ArrayList<>(MAX_TAIL_LEN);
-            length = STARTING_LEN;
 
             SnekPiece t1 = new SnekPiece(dimension, SNEK_GREEN);
             t1.setGridSquare(gridSquare, world);
@@ -138,22 +148,26 @@ public class Snek extends Actor {
         }
 
         public void moveToward(GridSquare gridSquare, SnakeWorld world) {
-            SnekPiece endOfTail = tailPieces.get(length - 1);
+            // Recycle the end of the tail, so we don't have to allocate a new tailpiece
+            SnekPiece endOfTail = pop();
             endOfTail.setGridSquare(gridSquare, world);
-            shiftTailPiecesDown();
-            tailPieces.set(0, endOfTail);
+            tailPieces.add(0, endOfTail);
         }
 
-        private void shiftTailPiecesDown() {
-            for(var i = length - 1; i > 0; --i) {
-                tailPieces.set(i, tailPieces.get(i - 1));
-            }
+        public SnekPiece growToward(GridSquare gridSquare, SnakeWorld world) {
+            SnekPiece newTailPiece = new SnekPiece(tailPieces.get(0).dimension(), SNEK_GREEN);
+            newTailPiece.setGridSquare(gridSquare, world);
+            tailPieces.add(0, newTailPiece);
+
+            return newTailPiece;
         }
 
-        public void grow() {
-            // tailLen++;
-            //
-            // tail.add(new SnekPiece(dimension, snekGreen));
+        public SnekPiece end() {
+            return tailPieces.get(tailPieces.size() - 1);
+        }
+
+        private SnekPiece pop() {
+            return tailPieces.remove(tailPieces.size() - 1);
         }
     }
 
