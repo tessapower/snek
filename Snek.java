@@ -1,6 +1,6 @@
 import actors.Actor;
 import graphics.TOval;
-import graphics.TRect;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -8,54 +8,58 @@ import java.awt.event.KeyEvent;
 public class Snek extends Actor {
     private final Color snekGreen = new Color(119, 167, 117);
     private final Color snekRed = new Color(230, 82, 83);
-    private final World world;
 
     private Direction pendingDirection;
     private Direction direction;
     private GridSquare gridSquare;
     private final TOval head;
+    private final SnakeWorld world;
 
-    public Snek(World world, Dimension dimension, Direction initialDirection) {
+    public static @NotNull
+    Snek spawnAt(SnakeWorld world, GridSquare gridSquare) {
+        Snek snek = new Snek(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE), Direction.RIGHT);
+        world.add(snek);
+
+        return snek;
+    }
+
+    private Snek(SnakeWorld world, GridSquare gridSquare, Dimension dimension, Direction initialDirection) {
         this.world = world;
-        direction = initialDirection;
 
-        origin = new Point();
-        gridSquare = new GridSquare(0, 0);
+        direction = initialDirection;
         pendingDirection = null;
 
         head = new TOval(dimension);
         head.isFilled = true;
         head.fillColor = snekRed;
         sprite = head;
-        sprite.setOrigin(origin);
-    }
 
-    public void setGridSquare(GridSquare gridSquare) {
-        this.gridSquare = gridSquare;
-        setOrigin(world.grid().positionForSquare(this.gridSquare));
+        setGridSquare(gridSquare);
     }
 
     public void update(double dt) {
-        // TODO: Remove this :)
-        // toggleColor();
         direction = (pendingDirection == null) ? direction : pendingDirection;
         pendingDirection = null;
         advanceToNextGridSquare(dt);
     }
 
-    private void toggleColor() {
-        head.fillColor = (head.fillColor == snekGreen) ? snekRed : snekGreen;
+    public GridSquare gridSquare() {
+        return gridSquare;
     }
 
     private void advanceToNextGridSquare(double dt) {
         switch(direction) {
-            case UP -> gridSquare = new GridSquare(gridSquare.row() - 1, gridSquare.col());
-            case DOWN -> gridSquare = new GridSquare(gridSquare.row() + 1, gridSquare.col());
-            case LEFT -> gridSquare = new GridSquare(gridSquare.row(), gridSquare.col() - 1);
-            case RIGHT -> gridSquare = new GridSquare(gridSquare.row(), gridSquare.col() + 1);
+            case UP ->    setGridSquare(new GridSquare(gridSquare.row() - 1, gridSquare.col())    );
+            case DOWN ->  setGridSquare(new GridSquare(gridSquare.row() + 1, gridSquare.col())    );
+            case LEFT ->  setGridSquare(new GridSquare(gridSquare.row(),     gridSquare.col() - 1));
+            case RIGHT -> setGridSquare(new GridSquare(gridSquare.row(),     gridSquare.col() + 1));
         }
+    }
 
-        setOrigin(world.grid().positionForSquare(gridSquare));
+    private void setGridSquare(GridSquare gridSquare) {
+        this.gridSquare = gridSquare;
+        // set origin to world.origin() + position for square
+        setOrigin(world.grid().positionForSquare(this.gridSquare));
     }
 
     private void setPendingDirection(Direction direction) {
