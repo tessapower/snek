@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 
 public class SnakeGame extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(512, 512);
-    private static final String TITLE = "snek.Snek!";
+    private static final String TITLE = "Snek!";
 
     private final Screen menu = new MenuScreen(this, this::onScreenChange);
     private final Screen game = new PlayGameScreen(this, this::onScreenChange);
@@ -20,7 +20,7 @@ public class SnakeGame extends GameEngine {
     }
 
     public void init() {
-        setupWindow(WINDOW_DIMENSION, TITLE);
+        setWindowProperties(WINDOW_DIMENSION, TITLE);
         activeScreen.addToCanvas();
     }
 
