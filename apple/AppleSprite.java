@@ -1,5 +1,8 @@
-import graphics.MasseyGraphicsCtx;
+package apple;
+
+import graphics.GraphicsCtx;
 import graphics.Sprite;
+import screens.Grid;
 
 import java.awt.*;
 

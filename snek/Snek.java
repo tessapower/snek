@@ -1,8 +1,13 @@
+package snek;
+
 import actors.Actor;
+import actors.GridSquare;
 import graphics.TGraphicCompound;
 import graphics.TOval;
-import org.jetbrains.annotations.NotNull;
+import screens.Grid;
+import screens.SnakeWorld;
 
+import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

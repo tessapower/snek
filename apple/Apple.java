@@ -1,6 +1,9 @@
+package apple;
+
 import actors.Actor;
 import actors.GridSquare;
 import org.jetbrains.annotations.NotNull;
+import screens.SnakeWorld;
 
 import java.awt.*;
 

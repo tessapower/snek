@@ -1,7 +1,11 @@
+package screens;
+
 import actors.Actor;
 import actors.GridSquare;
 import actors.World;
+import apple.Apple;
 import engine.GameEngine;
+import snek.Snek;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -85,9 +89,9 @@ public class SnakeWorld extends World {
             //   tileActor.occupies(square) ?
             //   tileActor.occupiedSquares(): List<GridSquare>
 
-            // TODO: this will need to change for the Snek to determine if any part of
+            // TODO: this will need to change for the snek.Snek to determine if any part of
             //   the tail is on the grid square too
-            if (actor instanceof Snek && ((Snek) actor).gridSquare() == gridSquare
+            if (actor instanceof Snek && ((Snek) actor).gridSquare().equals(gridSquare)
                     || actor instanceof Apple && ((Apple) actor).gridSquare() == gridSquare) {
                 return actor;
             }

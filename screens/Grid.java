@@ -1,3 +1,5 @@
+package screens;
+
 import actors.GridSquare;
 
 import java.awt.*;

@@ -1,3 +1,5 @@
+package snek;
+
 public enum Direction {
     UP,
     DOWN,
