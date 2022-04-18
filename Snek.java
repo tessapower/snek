@@ -1,5 +1,5 @@
 import actors.Actor;
-import graphics.TCompound;
+import graphics.TGraphicCompound;
 import graphics.TOval;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,11 +34,11 @@ public class Snek extends Actor {
         direction = initialDirection;
         pendingDirection = null;
 
-        sprite = initSprite(gridSquare, world);
+        graphicObject = initSprite(gridSquare, world);
         shouldGrowTail = false;
     }
 
-    private TCompound initSprite(GridSquare gridSquare, SnakeWorld world) {
+    private TGraphicCompound initSprite(GridSquare gridSquare, SnakeWorld world) {
         // Head
         head = new SnekPiece(dimension, SNEK_RED);
         head.setGridSquare(gridSquare, world);
@@ -47,7 +47,7 @@ public class Snek extends Actor {
         tail = new SnekTail(dimension, new GridSquare(head.gridSquare.row(), head.gridSquare.col() - 1), world);
 
         // Sprite
-        TCompound body = new TCompound(dimension);
+        TGraphicCompound body = new TGraphicCompound(dimension);
         body.add(head);
         tail.tailPieces.forEach(body::add);
 
@@ -60,7 +60,7 @@ public class Snek extends Actor {
         if (shouldGrowTail) {
             // Grow the tail toward the head
             SnekPiece newTailPiece = tail.growToward(head.gridSquare, world);
-            ((TCompound) sprite).add(newTailPiece);
+            ((TGraphicCompound) graphicObject).add(newTailPiece);
             advanceHead();
             shouldGrowTail = false;
         } else {
@@ -154,10 +154,6 @@ public class Snek extends Actor {
             tailPieces.add(0, newTailPiece);
 
             return newTailPiece;
-        }
-
-        public SnekPiece end() {
-            return tailPieces.get(tailPieces.size() - 1);
         }
 
         private SnekPiece pop() {
