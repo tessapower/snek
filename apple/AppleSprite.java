@@ -1,7 +1,7 @@
 package apple;
 
 import graphics.GraphicsCtx;
-import graphics.Sprite;
+import graphics.sprites.Sprite;
 import screens.Grid;
 
 import java.awt.*;
