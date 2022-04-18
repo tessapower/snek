@@ -101,9 +101,9 @@ public class SnakeWorld extends World {
     }
 
     // Dispatch relevant key events to the appropriate actors
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snek.keyPressed(e);
+    public void handleKeyEvent(KeyEvent keyEvent) {
+        switch (keyEvent.getKeyCode()) {
+            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snek.handleKeyEvent(keyEvent);
         }
     }
 

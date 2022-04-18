@@ -24,15 +24,7 @@ public class AppleSprite extends Sprite {
     }
 
     @Override
-    protected void paint(MasseyGraphicsCtx graphicsCtx) {
+    protected void draw(GraphicsCtx graphicsCtx) {
         graphicsCtx.drawImage(image, DIMENSION);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AppleSprite other)) return false;
-
-        return this.image == other.image;
     }
 }

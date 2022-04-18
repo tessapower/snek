@@ -59,7 +59,7 @@ public class Snek extends Actor {
         return body;
     }
 
-    public void update(double dt) {
+    public void update(double dtMillis) {
         direction = (pendingDirection == null) ? direction : pendingDirection;
         pendingDirection = null;
         if (shouldGrowTail) {
@@ -88,6 +88,7 @@ public class Snek extends Actor {
     }
 
     public boolean occupies(GridSquare gridSquare) {
+        // TODO: Extend this to checking if the tail pieces, either inclusive or exclusive of the head
         return gridSquare == head.gridSquare;
     }
 
@@ -119,8 +120,8 @@ public class Snek extends Actor {
         }
     }
 
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
+    public void handleKeyEvent(KeyEvent keyEvent) {
+        switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_UP -> setPendingDirection(Direction.UP);
             case KeyEvent.VK_DOWN -> setPendingDirection(Direction.DOWN);
             case KeyEvent.VK_LEFT -> setPendingDirection(Direction.LEFT);
