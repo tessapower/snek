@@ -101,4 +101,9 @@ public class SnakeWorld extends World {
             case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snek.keyPressed(e);
         }
     }
+
+
+    public int score() {
+        return score;
+    }
 }
