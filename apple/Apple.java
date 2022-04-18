@@ -1,4 +1,5 @@
 import actors.Actor;
+import actors.GridSquare;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;

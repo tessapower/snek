@@ -1,4 +1,5 @@
 import actors.Actor;
+import actors.GridSquare;
 import actors.World;
 import engine.GameEngine;
 

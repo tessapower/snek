@@ -1,3 +1,5 @@
+import actors.GridSquare;
+
 import java.awt.*;
 import java.util.Random;
 
