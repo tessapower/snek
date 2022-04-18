@@ -19,7 +19,11 @@ public class PlayGameScreen implements Screen {
 
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
-        world.handleKeyEvent(keyEvent);
+        if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
+            paused = !paused;
+        } else {
+            world.handleKeyEvent(keyEvent);
+        }
     }
 
     @Override
