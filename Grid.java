@@ -1,24 +1,9 @@
 import java.awt.*;
 import java.util.Random;
 
-public class Grid {
+public record Grid(int numRows, int numCols) {
     private static final Random RANDOM = new Random();
-    public static final int TILE_SIZE = 10;
-    private final int numRows;
-    private final int numCols;
-
-    public Grid(int numRows, int numCols) {
-        this.numRows = numRows;
-        this.numCols = numCols;
-    }
-
-    public int numRows() {
-        return numRows;
-    }
-
-    public int numCols() {
-        return numCols;
-    }
+    public static final int TILE_SIZE = 16;
 
     public GridSquare squareForPosition(Point point) {
         return new GridSquare(point.y / TILE_SIZE, point.x / TILE_SIZE);
