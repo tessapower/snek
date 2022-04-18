@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class SnakeWorld extends World {
-    private static final int N_TILES = 50;
+    private static final int N_TILES = 32;
     // Future support for offsetting the world around other UI elements
     private final Point origin;
     private final Grid grid;

@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class SnakeGame extends GameEngine {
-    private static final int WINDOW_WIDTH = 500;
-    private static final int WINDOW_HEIGHT = 500;
+    private static final Dimension WINDOW_DIMENSION = new Dimension(512, 512);
+    private static final String TITLE = "Snek!";
     private SnakeWorld world;
     // Menu
     // Difficulty
@@ -16,7 +16,7 @@ public class SnakeGame extends GameEngine {
     }
 
     public void init() {
-        setupWindow(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT), "Snek!");
+        setupWindow(WINDOW_DIMENSION, TITLE);
         world = new SnakeWorld(new Point(0, 0), this);
     }
 
