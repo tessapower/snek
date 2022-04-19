@@ -5,7 +5,7 @@ import graphics.graphicsObjects.text.TLabel;
 import main.FontBook;
 import main.SnakeGame;
 import screens.ScreenIdentifier;
-import screens.GameScreenChangeNotifier;
+import screens.ScreenChangeRequestCallback;
 import screens.Screen;
 import snek.AnimatedSnek;
 
@@ -15,16 +15,16 @@ import java.awt.event.KeyEvent;
 public class MenuScreen implements Screen {
     private static final double ANIMATION_SPEED = 0.5;
 
-    private final GameScreenChangeNotifier screenChangeNotifier;
+    private final ScreenChangeRequestCallback screenChangeCallback;
     private final SnakeGame engine;
     private final TGraphicCompound graphic;
     private final AnimatedSnek snek;
 
     private final Point snekStartOrigin;
 
-    public MenuScreen(SnakeGame snakeGame, GameScreenChangeNotifier screenChangeNotifier) {
+    public MenuScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback) {
         this.engine = snakeGame;
-        this.screenChangeNotifier = screenChangeNotifier;
+        this.screenChangeCallback = screenChangeCallback;
 
         // Title
         TLabel title = new TLabel("snek!");
@@ -56,7 +56,7 @@ public class MenuScreen implements Screen {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
-            screenChangeNotifier.notifyScreenChange(ScreenIdentifier.PLAYING);
+            screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
         }
     }
 

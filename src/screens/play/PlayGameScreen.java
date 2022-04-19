@@ -2,28 +2,29 @@ package screens.play;
 
 import main.SnakeGame;
 import screens.ScreenIdentifier;
-import screens.GameScreenChangeNotifier;
+import screens.ScreenChangeRequestCallback;
 import screens.Screen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class PlayGameScreen implements Screen {
-    private final GameScreenChangeNotifier screenChangeNotifier;
+    private final ScreenChangeRequestCallback screenChangeCallback;
     private final SnakeGame engine;
     private final SnakeWorld world;
     private boolean paused;
 
-    public PlayGameScreen(SnakeGame snakeGame, GameScreenChangeNotifier screenChangeNotifier) {
+    public PlayGameScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback) {
         this.engine = snakeGame;
-        this.screenChangeNotifier = screenChangeNotifier;
+        this.screenChangeCallback = screenChangeCallback;
         paused = false;
         world = new SnakeWorld(new Point(0, 0), SnakeGame.WINDOW_DIMENSION, this::onGameOver);
     }
 
     public void onGameOver() {
+        // TODO: Remove this for sad bonk noise
         System.out.println("Game over! Your score was " + score());
-        screenChangeNotifier.notifyScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
+        screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
     }
 
     public int score() {

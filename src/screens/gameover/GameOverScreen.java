@@ -5,7 +5,7 @@ import graphics.graphicsObjects.text.TLabel;
 import main.FontBook;
 import main.SnakeGame;
 import screens.ScreenIdentifier;
-import screens.GameScreenChangeNotifier;
+import screens.ScreenChangeRequestCallback;
 import screens.Screen;
 import snek.AnimatedSnek;
 
@@ -13,13 +13,13 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class GameOverScreen implements Screen {
-    private final GameScreenChangeNotifier screenChangeNotifier;
+    private final ScreenChangeRequestCallback screenChangeCallback;
     private final SnakeGame engine;
     private final TGraphicCompound graphic;
 
-    public GameOverScreen(SnakeGame snakeGame, GameScreenChangeNotifier screenChangeNotifier, int finalScore) {
+    public GameOverScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback, int finalScore) {
         this.engine = snakeGame;
-        this.screenChangeNotifier = screenChangeNotifier;
+        this.screenChangeCallback = screenChangeCallback;
 
         // Title
         TLabel title = new TLabel("game over");
@@ -57,8 +57,8 @@ public class GameOverScreen implements Screen {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_ESCAPE -> screenChangeNotifier.notifyScreenChange(ScreenIdentifier.SHOWING_MENU);
-            case KeyEvent.VK_ENTER -> screenChangeNotifier.notifyScreenChange(ScreenIdentifier.PLAYING);
+            case KeyEvent.VK_ESCAPE -> screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_MENU);
+            case KeyEvent.VK_ENTER -> screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
         }
     }
 
