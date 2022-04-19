@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class AnimatedSnek extends AnimatedSprite {
     // We scale up the Snek otherwise he is only 32 x 32 points big
     private static final Dimension FRAME_DIMENSION = new Dimension(32, 32);
-    private static final String FILEPATH = "src/main/resources/snek-sprite-sheet.png";
+    private static final String FILEPATH = "src/main/resources/animated-snek-sprite-sheet.png";
     private static final int NUM_FRAMES = 10;
     private static final int SCALE = 4;
     private static final int FPS = 5;
