@@ -1,6 +1,7 @@
 package main;
 
-import screens.*;
+import screens.Screen;
+import screens.ScreenIdentifier;
 import screens.gameover.GameOverScreen;
 import screens.menu.MenuScreen;
 import screens.play.PlayGameScreen;

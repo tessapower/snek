@@ -1,9 +1,9 @@
 package screens.play;
 
 import main.SnakeGame;
-import screens.ScreenIdentifier;
-import screens.ScreenChangeRequestCallback;
 import screens.Screen;
+import screens.ScreenChangeRequestCallback;
+import screens.ScreenIdentifier;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

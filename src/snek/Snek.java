@@ -1,8 +1,6 @@
 package snek;
 
 import graphics.graphicsObjects.TGraphicCompound;
-import graphics.graphicsObjects.shapes.TRect;
-import graphics.graphicsObjects.sprites.Sprite;
 import main.Actor;
 import org.jetbrains.annotations.NotNull;
 import screens.play.Grid;

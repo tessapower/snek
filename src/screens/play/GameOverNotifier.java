@@ -1,6 +1,6 @@
 package screens.play;
 
 @FunctionalInterface
-public interface GameOverNotifier {
+interface GameOverNotifier {
     void notifyGameOver();
 }

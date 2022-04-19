@@ -4,9 +4,9 @@ import graphics.graphicsObjects.TGraphicCompound;
 import graphics.graphicsObjects.text.TLabel;
 import main.FontBook;
 import main.SnakeGame;
-import screens.ScreenIdentifier;
-import screens.ScreenChangeRequestCallback;
 import screens.Screen;
+import screens.ScreenChangeRequestCallback;
+import screens.ScreenIdentifier;
 import snek.AnimatedSnek;
 
 import java.awt.*;
