@@ -1,30 +1,33 @@
 package screens;
 
-import actors.Actor;
-import actors.GridSquare;
-import actors.World;
 import apple.Apple;
-import engine.GameEngine;
+import main.Actor;
 import snek.Snek;
+import world.GridSquare;
+import world.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class SnakeWorld extends World {
     private static final int N_TILES = 32;
+
     // Future support for offsetting the world around other UI elements
     private final Point origin;
     private final Grid grid;
-    private Snek snek;
+
+    private final GameOverNotifier gameOverNotifier;
+    private final Snek snek;
     private Apple apple;
     private int score;
 
-    public SnakeWorld(Point origin, GameEngine engine) {
-        super(engine);
+    public SnakeWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier) {
+        super(dimension);
 
         // The world is a fixed size, but the location of where it can be placed in a
         // window can differ, so we need the origin relative to the window.
         this.origin = origin;
+        this.gameOverNotifier = gameOverNotifier;
 
         // The grid tile size is fixed, so we just specify the
         // number of tiles to create different sized grids
@@ -39,14 +42,22 @@ public class SnakeWorld extends World {
     public void update(double dt) {
         snek.update(dt);
 
-        if (hasSnekHitWall()) {
-            snek.removeFromWorld();
-            snek = Snek.spawnAt(this, snekSpawnPosition());
+        // TODO: handle collision with tail
+        if (hasSnekHitWall() || snek.hasHitSelf()) {
+            // TODO: play BONK! noise
+
+            gameOverNotifier.notifyGameOver();
         }
 
         if (hasSnekEatenApple()) {
             score++;
-            snek.growTail();
+
+            if (snek.tailLength() < Snek.SnekTail.MAX_TAIL_LEN) {
+                snek.growTail();
+            } else {
+                snek.increaseSpeed();
+            }
+
             apple.removeFromWorld();
             apple = Apple.spawnAt(this, randomUnoccupiedSquare());
         }
@@ -83,16 +94,13 @@ public class SnakeWorld extends World {
     }
 
     private Actor getActorAtSquare(GridSquare gridSquare) {
-        for (Actor actor : actors) {
-            // TODO: this is ugly because we don't have the concept of a tile actor
-            //   - how do we ask for the tiles that a tile actor occupies
-            //   tileActor.occupies(square) ?
-            //   tileActor.occupiedSquares(): List<GridSquare>
+        if (snek.occupies(gridSquare)) {
+            return snek;
+        }
 
-            // TODO: this will need to change for the snek.Snek to determine if any part of
-            //   the tail is on the grid square too
-            if (actor instanceof Snek && ((Snek) actor).gridSquare().equals(gridSquare)
-                    || actor instanceof Apple && ((Apple) actor).gridSquare() == gridSquare) {
+        for (Actor actor : actors) {
+            if (actor instanceof Snek) continue;
+            if (((Apple) actor).gridSquare().equals(gridSquare)) {
                 return actor;
             }
         }
@@ -106,7 +114,6 @@ public class SnakeWorld extends World {
             case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snek.handleKeyEvent(keyEvent);
         }
     }
-
 
     public int score() {
         return score;

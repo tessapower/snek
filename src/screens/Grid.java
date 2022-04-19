@@ -1,6 +1,6 @@
 package screens;
 
-import actors.GridSquare;
+import world.GridSquare;
 
 import java.awt.*;
 import java.util.Random;

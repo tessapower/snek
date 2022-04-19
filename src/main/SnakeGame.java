@@ -1,6 +1,5 @@
 package main;
 
-import engine.GameEngine;
 import screens.*;
 
 import java.awt.*;
@@ -8,12 +7,13 @@ import java.awt.event.KeyEvent;
 
 public class SnakeGame extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(512, 512);
+    public static final Point WINDOW_CENTER = new Point(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Snek!";
 
-    private final Screen menu = new MenuScreen(this, this::onScreenChange);
-    private final Screen game = new PlayGameScreen(this, this::onScreenChange);
-    private final Screen gameOver = new GameOverScreen(this, this::onScreenChange);
-    private Screen activeScreen = game;
+    private final MenuScreen menu = new MenuScreen(this, this::onScreenChange);
+
+    private Screen activeScreen = menu;
+    private PlayGameScreen game;
 
     public static void main(String[] args) {
         createGame(new SnakeGame(), 10);
@@ -26,7 +26,6 @@ public class SnakeGame extends GameEngine {
 
     @Override
     public void update(double dtMillis) {
-        // TODO: I don't think I should be calling this here??
         activeScreen.update(dtMillis);
         graphicsEngine().update(dtMillis);
     }
@@ -45,8 +44,15 @@ public class SnakeGame extends GameEngine {
 
         switch(screen) {
             case SHOWING_MENU -> activeScreen = menu;
-            case PLAYING -> activeScreen = game;
-            case SHOWING_GAME_OVER -> activeScreen = gameOver;
+            case PLAYING -> {
+                game = new PlayGameScreen(this, this::onScreenChange);
+                activeScreen = game;
+            }
+            case SHOWING_GAME_OVER -> {
+                GameOverScreen gameOver = new GameOverScreen(this, this::onScreenChange, game.score());
+
+                activeScreen = gameOver;
+            }
         }
 
         activeScreen.addToCanvas();

@@ -8,32 +8,42 @@ import java.awt.event.KeyEvent;
 public class PlayGameScreen implements Screen {
     private final GameScreenChangeNotifier screenChangeNotifier;
     private final SnakeGame engine;
-    private SnakeWorld world;
+    private final SnakeWorld world;
     private boolean paused;
 
     public PlayGameScreen(SnakeGame snakeGame, GameScreenChangeNotifier screenChangeNotifier) {
         this.engine = snakeGame;
         this.screenChangeNotifier = screenChangeNotifier;
         paused = false;
+        world = new SnakeWorld(new Point(0, 0), SnakeGame.WINDOW_DIMENSION, this::onGameOver);
+    }
+
+    public void onGameOver() {
+        System.out.println("Game over! Your score was " + score());
+        screenChangeNotifier.notifyScreenChange(GameScreen.SHOWING_GAME_OVER);
+    }
+
+    public int score() {
+        return world.score();
     }
 
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_P) {
             paused = !paused;
-        } else {
+        } else if (!paused) {
             world.handleKeyEvent(keyEvent);
         }
     }
 
     @Override
     public void addToCanvas() {
-        world = new SnakeWorld(new Point(0, 0), engine);
+        engine.loadWorld(world);
     }
 
     @Override
     public void removeFromCanvas() {
-
+        engine.unloadWorld(world);
     }
 
     @Override

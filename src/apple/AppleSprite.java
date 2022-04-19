@@ -1,14 +1,15 @@
 package apple;
 
-import graphics.GraphicsCtx;
-import graphics.sprites.Sprite;
+
+import graphics.context.GraphicsCtx;
+import graphics.graphicsObjects.sprites.Sprite;
 import screens.Grid;
 
 import java.awt.*;
 
 public class AppleSprite extends Sprite {
-    private static final String GOOD_APPLE = "res/apple-good.png";
-    private static final String BAD_APPLE = "res/apple-bad.png";
+    private static final String GOOD_APPLE = "src/main/resources/apple-good-pixel.png";
+    private static final String BAD_APPLE = "src/main/resources/apple-bad.png";
     private static final Dimension DIMENSION = new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE);
 
     protected AppleSprite(String filename, Dimension dimension) {
