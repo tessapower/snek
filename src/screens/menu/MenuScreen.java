@@ -7,7 +7,7 @@ import main.SnakeGame;
 import screens.GameScreen;
 import screens.GameScreenChangeNotifier;
 import screens.Screen;
-import snek.SnekSprite;
+import snek.AnimatedSnek;
 import snek.Snek;
 
 import java.awt.*;
@@ -19,7 +19,7 @@ public class MenuScreen implements Screen {
     private final GameScreenChangeNotifier screenChangeNotifier;
     private final SnakeGame engine;
     private final TGraphicCompound graphic;
-    private final SnekSprite snek;
+    private final AnimatedSnek snek;
 
     private final Point snekStartOrigin;
 
@@ -42,10 +42,10 @@ public class MenuScreen implements Screen {
         prompt.setOrigin(new Point(50, 250));
 
         // Snek
-        snek = new SnekSprite();
+        snek = new AnimatedSnek();
         snekStartOrigin = new Point(SnakeGame.WINDOW_DIMENSION.width, SnakeGame.WINDOW_CENTER.y - snek.height());
         snek.setOrigin(snekStartOrigin);
-        snek.setState(SnekSprite.State.MOVING);
+        snek.setState(AnimatedSnek.State.MOVING);
 
         // Graphic
         graphic = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);

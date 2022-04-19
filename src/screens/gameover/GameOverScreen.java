@@ -8,7 +8,7 @@ import screens.GameScreen;
 import screens.GameScreenChangeNotifier;
 import screens.Screen;
 import snek.Snek;
-import snek.SnekSprite;
+import snek.AnimatedSnek;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -31,9 +31,9 @@ public class GameOverScreen implements Screen {
         title.setOrigin(new Point(75, 90));
 
         // Snek
-        SnekSprite snek = new SnekSprite();
+        AnimatedSnek snek = new AnimatedSnek();
         snek.setOrigin(new Point(SnakeGame.WINDOW_CENTER.x - (snek.width() / 2), SnakeGame.WINDOW_CENTER.y - snek.height()));
-        snek.setState(SnekSprite.State.DYING);
+        snek.setState(AnimatedSnek.State.DYING);
 
         // Score
         TLabel score = new TLabel("apples eaten: " + finalScore);

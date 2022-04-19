@@ -7,13 +7,13 @@ import world.GridSquare;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class SnekSprite extends AnimatedSprite {
+public class AnimatedSnek extends AnimatedSprite {
     // We scale up the Snek otherwise he is only 32 x 32 points big
-    private static final int SCALE = 4;
-    private static final String FILEPATH = "src/main/resources/snek-sprite-sheet.png";
     private static final Dimension FRAME_DIMENSION = new Dimension(32, 32);
-    private static final int FPS = 5;
+    private static final String FILEPATH = "src/main/resources/snek-sprite-sheet.png";
     private static final int NUM_FRAMES = 10;
+    private static final int SCALE = 4;
+    private static final int FPS = 5;
 
     private static final SpriteSequence IDLE = new SpriteSequence(generateRow(0), true);
     private static final SpriteSequence SPINNING = new SpriteSequence(generateRow(1), true);
@@ -21,7 +21,7 @@ public class SnekSprite extends AnimatedSprite {
     private static final SpriteSequence EATING = new SpriteSequence(generateRow(3), false);
     private static final SpriteSequence DYING = new SpriteSequence(generateRow(4), false);
 
-    public SnekSprite() {
+    public AnimatedSnek() {
         super(FILEPATH, FRAME_DIMENSION, FPS, MOVING);
         setScale(SCALE);
     }
