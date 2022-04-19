@@ -13,10 +13,9 @@ public class SnakeGame extends GameEngine {
     public static final Point WINDOW_CENTER = new Point(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Snek!";
 
-    private final MenuScreen menu = new MenuScreen(this, this::onScreenChange);
+    private final MenuScreen menu = new MenuScreen(this, this::requestScreenChange);
 
     private Screen activeScreen = menu;
-    private PlayGameScreen game;
 
     public static void main(String[] args) {
         createGame(new SnakeGame(), 10);
@@ -38,20 +37,17 @@ public class SnakeGame extends GameEngine {
         activeScreen.handleKeyEvent(keyEvent);
     }
 
-    public void onScreenChange(GameScreen screen) {
-        if (activeScreen.screen() == screen) return;
+    public void requestScreenChange(GameScreen newScreen) {
+        if (activeScreen.screen() == newScreen) return;
+        if (activeScreen != null) activeScreen.removeFromCanvas();
 
-        if (activeScreen != null) {
-            activeScreen.removeFromCanvas();
-        }
-
-        switch(screen) {
+        switch(newScreen) {
             case SHOWING_MENU -> activeScreen = menu;
-            case PLAYING -> {
-                game = new PlayGameScreen(this, this::onScreenChange);
-                activeScreen = game;
+            case PLAYING -> activeScreen = new PlayGameScreen(this, this::requestScreenChange);
+            case SHOWING_GAME_OVER -> {
+                assert activeScreen != null;
+                activeScreen = new GameOverScreen(this, this::requestScreenChange, ((PlayGameScreen) activeScreen).score());
             }
-            case SHOWING_GAME_OVER -> activeScreen = new GameOverScreen(this, this::onScreenChange, game.score());
         }
 
         activeScreen.addToCanvas();
