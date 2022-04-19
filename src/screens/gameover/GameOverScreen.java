@@ -4,10 +4,9 @@ import graphics.graphicsObjects.TGraphicCompound;
 import graphics.graphicsObjects.text.TLabel;
 import main.FontBook;
 import main.SnakeGame;
-import screens.GameScreen;
+import screens.ScreenIdentifier;
 import screens.GameScreenChangeNotifier;
 import screens.Screen;
-import snek.Snek;
 import snek.AnimatedSnek;
 
 import java.awt.*;
@@ -58,8 +57,8 @@ public class GameOverScreen implements Screen {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_ESCAPE -> screenChangeNotifier.notifyScreenChange(GameScreen.SHOWING_MENU);
-            case KeyEvent.VK_ENTER -> screenChangeNotifier.notifyScreenChange(GameScreen.PLAYING);
+            case KeyEvent.VK_ESCAPE -> screenChangeNotifier.notifyScreenChange(ScreenIdentifier.SHOWING_MENU);
+            case KeyEvent.VK_ENTER -> screenChangeNotifier.notifyScreenChange(ScreenIdentifier.PLAYING);
         }
     }
 
@@ -74,8 +73,8 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public GameScreen screen() {
-        return GameScreen.SHOWING_GAME_OVER;
+    public ScreenIdentifier screen() {
+        return ScreenIdentifier.SHOWING_GAME_OVER;
     }
 
     @Override

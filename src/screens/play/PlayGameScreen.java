@@ -1,7 +1,7 @@
 package screens.play;
 
 import main.SnakeGame;
-import screens.GameScreen;
+import screens.ScreenIdentifier;
 import screens.GameScreenChangeNotifier;
 import screens.Screen;
 
@@ -23,7 +23,7 @@ public class PlayGameScreen implements Screen {
 
     public void onGameOver() {
         System.out.println("Game over! Your score was " + score());
-        screenChangeNotifier.notifyScreenChange(GameScreen.SHOWING_GAME_OVER);
+        screenChangeNotifier.notifyScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
     }
 
     public int score() {
@@ -57,7 +57,7 @@ public class PlayGameScreen implements Screen {
     }
 
     @Override
-    public GameScreen screen() {
-        return GameScreen.PLAYING;
+    public ScreenIdentifier screen() {
+        return ScreenIdentifier.PLAYING;
     }
 }

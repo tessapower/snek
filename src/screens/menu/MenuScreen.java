@@ -4,11 +4,10 @@ import graphics.graphicsObjects.TGraphicCompound;
 import graphics.graphicsObjects.text.TLabel;
 import main.FontBook;
 import main.SnakeGame;
-import screens.GameScreen;
+import screens.ScreenIdentifier;
 import screens.GameScreenChangeNotifier;
 import screens.Screen;
 import snek.AnimatedSnek;
-import snek.Snek;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -57,7 +56,7 @@ public class MenuScreen implements Screen {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
-            screenChangeNotifier.notifyScreenChange(GameScreen.PLAYING);
+            screenChangeNotifier.notifyScreenChange(ScreenIdentifier.PLAYING);
         }
     }
 
@@ -72,8 +71,8 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public GameScreen screen() {
-        return GameScreen.SHOWING_MENU;
+    public ScreenIdentifier screen() {
+        return ScreenIdentifier.SHOWING_MENU;
     }
 
     @Override

@@ -37,7 +37,7 @@ public class SnakeGame extends GameEngine {
         activeScreen.handleKeyEvent(keyEvent);
     }
 
-    public void requestScreenChange(GameScreen newScreen) {
+    public void requestScreenChange(ScreenIdentifier newScreen) {
         if (activeScreen.screen() == newScreen) return;
         if (activeScreen != null) activeScreen.removeFromCanvas();
 
