@@ -1,7 +1,8 @@
-package screens;
+package screens.play;
 
 import apple.Apple;
 import main.Actor;
+import screens.gameover.GameOverNotifier;
 import snek.Snek;
 import world.GridSquare;
 import world.World;

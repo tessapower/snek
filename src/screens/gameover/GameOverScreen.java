@@ -1,9 +1,12 @@
-package screens;
+package screens.gameover;
 
 import graphics.graphicsObjects.TGraphicCompound;
 import graphics.graphicsObjects.text.TLabel;
 import main.FontBook;
 import main.SnakeGame;
+import screens.GameScreen;
+import screens.GameScreenChangeNotifier;
+import screens.Screen;
 import snek.Snek;
 import snek.SnekSprite;
 

@@ -1,6 +1,9 @@
-package screens;
+package screens.play;
 
 import main.SnakeGame;
+import screens.GameScreen;
+import screens.GameScreenChangeNotifier;
+import screens.Screen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

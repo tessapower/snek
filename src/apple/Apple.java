@@ -2,7 +2,7 @@ package apple;
 
 import main.Actor;
 import org.jetbrains.annotations.NotNull;
-import screens.SnakeWorld;
+import screens.play.SnakeWorld;
 import world.GridSquare;
 
 import java.awt.*;

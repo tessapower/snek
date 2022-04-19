@@ -1,6 +1,9 @@
 package main;
 
 import screens.*;
+import screens.gameover.GameOverScreen;
+import screens.menu.MenuScreen;
+import screens.play.PlayGameScreen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -48,11 +51,7 @@ public class SnakeGame extends GameEngine {
                 game = new PlayGameScreen(this, this::onScreenChange);
                 activeScreen = game;
             }
-            case SHOWING_GAME_OVER -> {
-                GameOverScreen gameOver = new GameOverScreen(this, this::onScreenChange, game.score());
-
-                activeScreen = gameOver;
-            }
+            case SHOWING_GAME_OVER -> activeScreen = new GameOverScreen(this, this::onScreenChange, game.score());
         }
 
         activeScreen.addToCanvas();

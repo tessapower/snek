@@ -1,4 +1,4 @@
-package screens;
+package screens.play;
 
 import world.GridSquare;
 
