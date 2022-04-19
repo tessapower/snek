@@ -156,17 +156,16 @@ public class Snek extends Actor {
     }
 
     public static class SnekTail {
-        private static final String SNEK_TAIL_FILE = "src/main/resources/snek-body-p1.png";
         public static final int MAX_TAIL_LEN = 19;
         List<SnekTailSprite> tailPieces;
 
         public SnekTail(Dimension dimension, GridSquare gridSquare, SnakeWorld world) {
             tailPieces = new ArrayList<>(MAX_TAIL_LEN);
 
-            SnekTailSprite t1 = new SnekTailSprite(dimension, SNEK_TAIL_FILE);
+            SnekTailSprite t1 = new SnekTailSprite(dimension);
             t1.setGridSquare(gridSquare, world);
 
-            SnekTailSprite t2 = new SnekTailSprite(dimension, SNEK_TAIL_FILE);
+            SnekTailSprite t2 = new SnekTailSprite(dimension);
             t2.setGridSquare(new GridSquare(gridSquare.row(), gridSquare.col() - 1), world);
 
             tailPieces.add(t1);
@@ -185,7 +184,7 @@ public class Snek extends Actor {
         }
 
         public SnekTailSprite growToward(GridSquare gridSquare, SnakeWorld world) {
-            SnekTailSprite newTailPiece = new SnekTailSprite(tailPieces.get(0).dimension(), SNEK_TAIL_FILE);
+            SnekTailSprite newTailPiece = new SnekTailSprite(tailPieces.get(0).dimension());
             newTailPiece.setGridSquare(gridSquare, world);
             tailPieces.add(0, newTailPiece);
 
@@ -194,71 +193,6 @@ public class Snek extends Actor {
 
         private SnekTailSprite pop() {
             return tailPieces.remove(tailPieces.size() - 1);
-        }
-    }
-
-    static class SnekTailSprite extends Sprite {
-        GridSquare gridSquare;
-
-        public SnekTailSprite(Dimension dimension, String spriteFile) {
-            super(spriteFile, dimension);
-
-            gridSquare = null;
-        }
-
-        void setGridSquare(GridSquare gridSquare, SnakeWorld world) {
-            this.gridSquare = gridSquare;
-            // set origin to world.origin() + position for square
-            setOrigin(world.grid().positionForSquare(this.gridSquare));
-        }
-    }
-
-    static class SnekHeadSprite extends TGraphicCompound {
-        private static final String SNEK_HEAD_FILE = "src/main/resources/snek-head.png";
-
-        Direction direction;
-        GridSquare gridSquare;
-        TGraphicCompound rotationContainer;
-
-        public SnekHeadSprite(Dimension dimension, Direction initialDirection) {
-            super(dimension);
-            direction = initialDirection;
-
-            rotationContainer = new TGraphicCompound(dimension);
-            rotationContainer.setOrigin(new Point(dimension.width / 2, dimension.height / 2));
-
-            Sprite sprite = new Sprite(SNEK_HEAD_FILE, dimension);
-
-            TRect mlem = new TRect(new Dimension(4, 4));
-            mlem.isFilled = true;
-            mlem.fillColor = Snek.SNEK_RED;
-
-            sprite.setOrigin(new Point(-dimension.width / 2, -dimension.height / 2));
-            // We want this to extend outside the snake head sprite
-            mlem.setOrigin(new Point(-dimension.width / 2 + 6, -dimension.height / 2 - 4));
-            rotationContainer.add(sprite);
-            rotationContainer.add(mlem);
-
-            add(rotationContainer);
-
-            gridSquare = null;
-        }
-
-        void setGridSquare(GridSquare gridSquare, SnakeWorld world) {
-            this.gridSquare = gridSquare;
-            // set origin to world.origin() + position for square
-            setOrigin(world.grid().positionForSquare(this.gridSquare));
-        }
-
-        @Override
-        public void update(double dtMillis) {
-            super.update(dtMillis);
-            switch(direction) {
-                case UP -> rotationContainer.setRotation(0);
-                case RIGHT -> rotationContainer.setRotation(90);
-                case DOWN -> rotationContainer.setRotation(180);
-                case LEFT -> rotationContainer.setRotation(270);
-            }
         }
     }
 }
