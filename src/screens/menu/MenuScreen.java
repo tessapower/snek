@@ -29,7 +29,7 @@ public class MenuScreen implements Screen {
 
         // Title
         TLabel title = new TLabel("snek!");
-        title.setColor(Snek.SNEK_GREEN);
+        title.setColor(FontBook.SNEK_GREEN);
         title.setFont(FontBook.shared().titleFont());
         // The origin of text is unfortunately manual as we cannot query
         // the size of the text beforehand to properly align it
@@ -37,7 +37,7 @@ public class MenuScreen implements Screen {
 
         // Prompt
         TLabel prompt = new TLabel("press enter to play...");
-        prompt.setColor(Snek.SNEK_GREEN);
+        prompt.setColor(FontBook.SNEK_GREEN);
         prompt.setFont(FontBook.shared().promptFont());
         prompt.setOrigin(new Point(50, 250));
 

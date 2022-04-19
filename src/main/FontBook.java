@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class FontBook {
+    public static final Color SNEK_GREEN = new Color(119, 167, 117);
+    public static final Color SNEK_RED = new Color(230, 82, 83);
     private static final String RETRO_FONT_FILE = "src/main/resources/RetroGaming.ttf";
 
     private static FontBook singleton = null;
