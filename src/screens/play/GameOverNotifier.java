@@ -1,4 +1,4 @@
-package screens.gameover;
+package screens.play;
 
 @FunctionalInterface
 public interface GameOverNotifier {
