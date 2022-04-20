@@ -24,7 +24,7 @@ public class GameOverScreen implements Screen {
 
         // Title
         TLabel title = new TLabel("game over");
-        title.setColor(Colors.SNEK_RED);
+        title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
         // The origin of text is unfortunately manual as we cannot query
         // the size of the text beforehand to properly align it
@@ -37,7 +37,7 @@ public class GameOverScreen implements Screen {
 
         // Score
         TLabel score = new TLabel("apples eaten: " + finalScore);
-        score.setColor(Colors.SNEK_GREEN);
+        score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
         score.setOrigin(new Point(45, 160));
 

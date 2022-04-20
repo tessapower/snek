@@ -39,11 +39,11 @@ public class FontBook {
         return new Font(gameFont.getFontName(), Font.BOLD, 32);
     }
 
-    public Font promptFont() {
+    public Font bodyFont() {
         return new Font(gameFont.getFontName(), Font.PLAIN, 24);
     }
 
-    public Font instructionFont() {
-        return new Font(gameFont.getFontName(), Font.PLAIN, 16);
+    public Font buttonFont() {
+        return new Font(gameFont.getFontName(), Font.PLAIN, 18);
     }
 }

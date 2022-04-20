@@ -18,9 +18,10 @@ public class MenuScreen implements Screen {
 
     private final ScreenChangeRequestCallback screenChangeCallback;
     private final SnakeGame engine;
-    private final TGraphicCompound graphic;
-    private final AnimatedSnek snek;
 
+    private final TGraphicCompound graphic;
+
+    private final AnimatedSnek snek;
     private final Point snekStartOrigin;
 
     public MenuScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback) {
@@ -29,7 +30,7 @@ public class MenuScreen implements Screen {
 
         // Title
         TLabel title = new TLabel("snek!");
-        title.setColor(Colors.SNEK_GREEN);
+        title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
         // The origin of text is unfortunately manual as we cannot query
         // the size of the text beforehand to properly align it
