@@ -13,7 +13,7 @@ A simple remake of the classic game Snake, built in Java.
 
 If you are using IntelliJ, you can use the pre-existing run configuration "Run Game":
 
-!["Run Game" run configuration](./assets/images/run-game-config.png)
+!["Run Game" run configuration](docs/images/run-game-config.png)
 
 ### Run from Commandline
 
@@ -28,7 +28,7 @@ java -jar target/snek.jar
 
 A window should appear for you to play the game!
 
-![`snek!` running](./assets/images/game-running.png)
+![`snek!` running](docs/images/game-running.png)
 
 The rules are simple:
 
