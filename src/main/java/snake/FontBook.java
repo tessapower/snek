@@ -40,7 +40,7 @@ public class FontBook {
     }
 
     public Font bodyFont() {
-        return new Font(gameFont.getFontName(), Font.PLAIN, 24);
+        return new Font(gameFont.getFontName(), Font.PLAIN, 16);
     }
 
     public Font buttonFont() {

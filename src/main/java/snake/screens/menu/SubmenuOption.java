@@ -5,5 +5,6 @@ public enum SubmenuOption {
     TWO_PLAYER,
     INFINITE_MODE,
     HOW_TO_PLAY,
-    CREDITS
+    CREDITS,
+    CLOSE
 }

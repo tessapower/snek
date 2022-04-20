@@ -4,35 +4,28 @@ import snake.Colors;
 import snake.FontBook;
 import snake.screens.Button;
 import snake.screens.ButtonGroup;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.text.TLabel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-class MainMenu extends TGraphicCompound {
-    SubmenuSelectionNotifier submenuSelectionNotifier;
-    TLabel mainTitle;
-
-    ButtonGroup menuButtons;
-    Button onePlayer;
-    Button twoPlayer;
-    Button infiniteMode;
-    Button howToPlay;
-    Button credits;
+class MainMenu extends Menu {
+    private final ButtonGroup buttons;
+    private final Button onePlayer;
+    private final Button twoPlayer;
+    private final Button infiniteMode;
+    private final Button howToPlay;
+    private final Button credits;
 
    public MainMenu(SubmenuSelectionNotifier submenuSelectionNotifier) {
-       super(new Dimension());
+       super(submenuSelectionNotifier);
 
-       this.submenuSelectionNotifier = submenuSelectionNotifier;
-
-       // Titles
-       mainTitle = new TLabel("snek!");
-       mainTitle.setColor(Colors.Text.PRIMARY);
-       mainTitle.setFont(FontBook.shared().titleFont());
+       TLabel title = new TLabel("snek!");
+       title.setColor(Colors.Text.PRIMARY);
+       title.setFont(FontBook.shared().titleFont());
        // The origin of text is unfortunately manual as we cannot query
        // the size of the text beforehand to properly align it
-       mainTitle.setOrigin(new Point(100, 90));
+       title.setOrigin(new Point(100, 90));
 
        onePlayer = new Button("one player");
        onePlayer.setOrigin(new Point(95, 150));
@@ -49,17 +42,18 @@ class MainMenu extends TGraphicCompound {
        credits = new Button("credits");
        credits.setOrigin(new Point(105, 230));
 
-       menuButtons = new ButtonGroup(onePlayer, twoPlayer, infiniteMode, howToPlay, credits);
+       buttons = new ButtonGroup(onePlayer, twoPlayer, infiniteMode, howToPlay, credits);
 
-       addAll(mainTitle, onePlayer, twoPlayer, infiniteMode, howToPlay, credits);
+       addAll(title, onePlayer, twoPlayer, infiniteMode, howToPlay, credits);
    }
 
+    @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP -> menuButtons.previous();
-            case KeyEvent.VK_DOWN -> menuButtons.next();
+            case KeyEvent.VK_UP -> buttons.previous();
+            case KeyEvent.VK_DOWN -> buttons.next();
             case KeyEvent.VK_ENTER -> {
-                Button focussed = menuButtons.getFocussed();
+                Button focussed = buttons.getFocussed();
                 if (focussed.equals(onePlayer)) {
                    submenuSelectionNotifier.notifySelection(SubmenuOption.ONE_PLAYER);
                 } else if (focussed.equals(twoPlayer)) {
