@@ -56,6 +56,7 @@ public class Credits extends Menu {
         return line;
     }
 
+    @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
             submenuSelectionNotifier.notifySelection(SubmenuOption.CLOSE);

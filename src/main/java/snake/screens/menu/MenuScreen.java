@@ -20,7 +20,7 @@ public class MenuScreen implements Screen {
     private Menu displayedMenu;
 
     private final Menu mainMenu;
-//    private final Menu howToPlay;
+    private final Menu howToPlay;
     private final Menu credits;
 
     private final AnimatedSnek snek;
@@ -32,6 +32,7 @@ public class MenuScreen implements Screen {
 
         // Menus
         mainMenu = new MainMenu(this::onSubmenuSelection);
+        howToPlay = new HowToPlay(this::onSubmenuSelection);
         credits = new Credits(this::onSubmenuSelection);
 
         // Snek
@@ -43,7 +44,7 @@ public class MenuScreen implements Screen {
         // Graphic
         container = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);
         displayedMenu = mainMenu;
-        container.addAll(mainMenu, snek);
+        container.addAll(displayedMenu, snek);
     }
 
     @Override
@@ -83,16 +84,19 @@ public class MenuScreen implements Screen {
     }
 
     private void onSubmenuSelection(SubmenuOption submenuOption) {
+        displayedMenu.removeFromParent();
+
         switch(submenuOption) {
             case ONE_PLAYER, TWO_PLAYER, INFINITE_MODE -> screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
             case CREDITS -> {
-                displayedMenu.removeFromParent();
                 displayedMenu = credits;
                 container.add(credits);
             }
-            case HOW_TO_PLAY -> displayedMenu.removeFromParent();
+            case HOW_TO_PLAY -> {
+                displayedMenu = howToPlay;
+                container.add(howToPlay);
+            }
             case CLOSE -> {
-                displayedMenu.removeFromParent();
                 displayedMenu = mainMenu;
                 container.add(mainMenu);
             }
