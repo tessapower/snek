@@ -56,11 +56,7 @@ public class GameOverScreen implements Screen {
         // Graphic
         graphic = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);
 
-        graphic.add(title);
-        graphic.add(snek);
-        graphic.add(score);
-        graphic.add(playAgain);
-        graphic.add(quit);
+        graphic.addAll(title, snek, score, playAgain, quit);
     }
 
     @Override
