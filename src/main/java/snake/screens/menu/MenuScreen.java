@@ -3,9 +3,8 @@ package snake.screens.menu;
 import snake.Colors;
 import snake.FontBook;
 import snake.SnakeGame;
-import snake.screens.Screen;
-import snake.screens.ScreenChangeRequestCallback;
-import snake.screens.ScreenIdentifier;
+import snake.screens.*;
+import snake.screens.Button;
 import snake.snek.AnimatedSnek;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.text.TLabel;
@@ -23,6 +22,13 @@ public class MenuScreen implements Screen {
 
     private final AnimatedSnek snek;
     private final Point snekStartOrigin;
+    Button onePlayer;
+    Button twoPlayer;
+    Button infiniteMode;
+    Button howToPlay;
+    Button credits;
+
+    private final ButtonGroup menuButtons;
 
     public MenuScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback) {
         this.engine = snakeGame;
@@ -36,29 +42,55 @@ public class MenuScreen implements Screen {
         // the size of the text beforehand to properly align it
         title.setOrigin(new Point(100, 90));
 
-        // Prompt
-        TLabel prompt = new TLabel("press enter to play...");
-        prompt.setColor(Colors.SNEK_GREEN);
-        prompt.setFont(FontBook.shared().promptFont());
-        prompt.setOrigin(new Point(50, 250));
-
         // Snek
         snek = new AnimatedSnek();
         snekStartOrigin = new Point(SnakeGame.WINDOW_DIMENSION.width, SnakeGame.WINDOW_CENTER.y - snek.height());
         snek.setOrigin(snekStartOrigin);
         snek.setState(AnimatedSnek.State.MOVING);
 
+
+        // Menu Buttons
+        onePlayer = new Button("one player");
+        onePlayer.setOrigin(new Point(95, 150));
+
+        twoPlayer = new Button("two player");
+        twoPlayer.setOrigin(new Point(95, 170));
+
+        infiniteMode = new Button("infinite mode");
+        infiniteMode.setOrigin(new Point(90, 190));
+
+        howToPlay = new Button("how to play");
+        howToPlay.setOrigin(new Point(95, 210));
+
+        credits = new Button("credits");
+        credits.setOrigin(new Point(105, 230));
+
+        menuButtons = new ButtonGroup(onePlayer, twoPlayer, infiniteMode, howToPlay, credits);
+
         // Graphic
         graphic = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);
-        graphic.add(title);
-        graphic.add(prompt);
-        graphic.add(snek);
+        graphic.addAll(title, snek, onePlayer, twoPlayer, infiniteMode, howToPlay, credits);
     }
 
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
-        if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
-            screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+        switch(keyEvent.getKeyCode()) {
+            case KeyEvent.VK_UP -> menuButtons.previous();
+            case KeyEvent.VK_DOWN -> menuButtons.next();
+            case KeyEvent.VK_ENTER -> {
+                Button focussed = menuButtons.getFocussed();
+                if (focussed.equals(onePlayer)) {
+                    screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+                } else if (focussed.equals(twoPlayer)) {
+                    System.out.println("two player");
+                } else if (focussed.equals(infiniteMode)) {
+                    System.out.println("infinite mode");
+                } else if (focussed.equals(howToPlay)) {
+                    System.out.println("how to play");
+                } else if (focussed.equals(credits)) {
+                    System.out.println("credits");
+                }
+            }
         }
     }
 
