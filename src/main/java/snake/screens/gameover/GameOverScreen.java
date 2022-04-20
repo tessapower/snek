@@ -3,11 +3,9 @@ package snake.screens.gameover;
 import snake.Colors;
 import snake.FontBook;
 import snake.SnakeGame;
-import snake.screens.Screen;
-import snake.screens.ScreenChangeRequestCallback;
-import snake.screens.ScreenIdentifier;
-import snake.snek.AnimatedSnek;
+import snake.screens.*;
 import snake.screens.Button;
+import snake.snek.AnimatedSnek;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.text.TLabel;
 
@@ -19,6 +17,7 @@ public class GameOverScreen implements Screen {
     private final SnakeGame engine;
     private final TGraphicCompound graphic;
 
+    private final ButtonGroup buttonGroup;
     private final Button playAgain;
     private final Button quit;
 
@@ -47,12 +46,12 @@ public class GameOverScreen implements Screen {
 
         // Buttons
         playAgain = new Button("play again");
-        playAgain.setState(Button.ButtonState.FOCUSSED);
         playAgain.setOrigin(new Point(40, 245));
 
         quit = new Button("quit to menu");
-        quit.setState(Button.ButtonState.UNFOCUSED);
         quit.setOrigin(new Point(145, 245));
+
+        buttonGroup = new ButtonGroup(playAgain, quit);
 
         // Graphic
         graphic = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);
@@ -67,20 +66,12 @@ public class GameOverScreen implements Screen {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_LEFT -> {
-                playAgain.setState(Button.ButtonState.FOCUSSED);
-                quit.setState(Button.ButtonState.UNFOCUSED);
-            }
-
-            case KeyEvent.VK_RIGHT -> {
-                playAgain.setState(Button.ButtonState.UNFOCUSED);
-                quit.setState(Button.ButtonState.FOCUSSED);
-            }
-
+            case KeyEvent.VK_LEFT -> buttonGroup.previous();
+            case KeyEvent.VK_RIGHT -> buttonGroup.next();
             case KeyEvent.VK_ENTER -> {
-                if (playAgain.state() == Button.ButtonState.FOCUSSED) {
+                if (buttonGroup.getFocussed() == playAgain) {
                     screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
-                } else {
+                } else if (buttonGroup.getFocussed() == quit){
                     screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_MENU);
                 }
             }

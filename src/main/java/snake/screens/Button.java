@@ -5,24 +5,24 @@ import snake.FontBook;
 import tengine.graphics.graphicsObjects.text.TLabel;
 
 public class Button extends TLabel {
-    public enum ButtonState {
+    public enum State {
         FOCUSSED, UNFOCUSED
     }
 
-    private ButtonState state;
+    private State state;
 
     public Button(String text) {
         super(text);
-        setState(ButtonState.UNFOCUSED);
+        setState(State.UNFOCUSED);
         setFont(FontBook.shared().buttonFont());
     }
 
-    public ButtonState state() {
+    public State state() {
         return state;
     }
 
-    public void setState(ButtonState state) {
-        setColor(state == ButtonState.FOCUSSED ? Colors.Button.FOCUSSED : Colors.Button.PRIMARY);
+    public void setState(State state) {
+        setColor(state == State.FOCUSSED ? Colors.Button.FOCUSSED : Colors.Button.PRIMARY);
         this.state = state;
     }
 }
