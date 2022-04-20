@@ -14,9 +14,7 @@ public class SnakeGame extends GameEngine {
     public static final Point WINDOW_CENTER = new Point(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Snek!";
 
-    private final MenuScreen menu = new MenuScreen(this, this::requestScreenChange);
-
-    private Screen activeScreen = menu;
+    private Screen activeScreen;
 
     public static void main(String[] args) {
         createGame(new SnakeGame(), 10);
@@ -24,7 +22,8 @@ public class SnakeGame extends GameEngine {
 
     public void init() {
         setWindowProperties(WINDOW_DIMENSION, TITLE);
-        activeScreen.addToCanvas();
+        activeScreen = null;
+        requestScreenChange(ScreenIdentifier.SHOWING_MENU);
     }
 
     @Override
@@ -39,11 +38,11 @@ public class SnakeGame extends GameEngine {
     }
 
     public void requestScreenChange(ScreenIdentifier newScreen) {
-        if (activeScreen.screen() == newScreen) return;
+        if (activeScreen != null && activeScreen.screen() == newScreen) return;
         if (activeScreen != null) activeScreen.removeFromCanvas();
 
         switch(newScreen) {
-            case SHOWING_MENU -> activeScreen = menu;
+            case SHOWING_MENU -> activeScreen = new MenuScreen(this, this::requestScreenChange);
             case PLAYING -> activeScreen = new PlayGameScreen(this, this::requestScreenChange);
             case SHOWING_GAME_OVER -> {
                 assert activeScreen != null;

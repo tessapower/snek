@@ -1,13 +1,12 @@
 package main;
 
+import utils.ResourceLoader;
+
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
 public class FontBook {
-    public static final Color SNEK_GREEN = new Color(119, 167, 117);
-    public static final Color SNEK_RED = new Color(230, 82, 83);
-    private static final String RETRO_FONT_FILE = "src/main/resources/RetroGaming.ttf";
+    private static final String FONT_NAME = "RetroGaming.ttf";
 
     private static FontBook singleton = null;
 
@@ -28,7 +27,7 @@ public class FontBook {
 
     private void loadFonts() {
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File(RETRO_FONT_FILE));
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.load(FONT_NAME));
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(gameFont);
         } catch (IOException | FontFormatException e) {
