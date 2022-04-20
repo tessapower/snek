@@ -7,6 +7,7 @@ import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
 import snake.snek.AnimatedSnek;
+import snake.screens.Button;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.text.TLabel;
 
@@ -17,6 +18,9 @@ public class GameOverScreen implements Screen {
     private final ScreenChangeRequestCallback screenChangeCallback;
     private final SnakeGame engine;
     private final TGraphicCompound graphic;
+
+    private final Button playAgain;
+    private final Button quit;
 
     public GameOverScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback, int finalScore) {
         this.engine = snakeGame;
@@ -41,25 +45,45 @@ public class GameOverScreen implements Screen {
         score.setFont(FontBook.shared().titleFont());
         score.setOrigin(new Point(45, 160));
 
-        // Prompt
-        TLabel prompt = new TLabel("enter: play again     esc: go to menu");
-        prompt.setColor(Colors.SNEK_GREEN);
-        prompt.setFont(FontBook.shared().instructionFont());
-        prompt.setOrigin(new Point(40, 250));
+        // Buttons
+        playAgain = new Button("play again");
+        playAgain.setState(Button.ButtonState.FOCUSSED);
+        playAgain.setOrigin(new Point(40, 245));
+
+        quit = new Button("quit to menu");
+        quit.setState(Button.ButtonState.UNFOCUSED);
+        quit.setOrigin(new Point(145, 245));
 
         // Graphic
         graphic = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);
+
         graphic.add(title);
         graphic.add(snek);
         graphic.add(score);
-        graphic.add(prompt);
+        graphic.add(playAgain);
+        graphic.add(quit);
     }
 
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_ESCAPE -> screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_MENU);
-            case KeyEvent.VK_ENTER -> screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+            case KeyEvent.VK_LEFT -> {
+                playAgain.setState(Button.ButtonState.FOCUSSED);
+                quit.setState(Button.ButtonState.UNFOCUSED);
+            }
+
+            case KeyEvent.VK_RIGHT -> {
+                playAgain.setState(Button.ButtonState.UNFOCUSED);
+                quit.setState(Button.ButtonState.FOCUSSED);
+            }
+
+            case KeyEvent.VK_ENTER -> {
+                if (playAgain.state() == Button.ButtonState.FOCUSSED) {
+                    screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+                } else {
+                    screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_MENU);
+                }
+            }
         }
     }
 
