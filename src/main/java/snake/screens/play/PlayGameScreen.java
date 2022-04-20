@@ -23,7 +23,6 @@ public class PlayGameScreen implements Screen {
 
     public void onGameOver() {
         // TODO: Remove this for sad bonk noise
-        System.out.println("Game over! Your score was " + score());
         screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
     }
 
