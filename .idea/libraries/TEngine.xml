@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="TEngine">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../TEngine/out/artifacts/TEngine_jar/TEngine.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
