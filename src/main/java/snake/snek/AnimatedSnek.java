@@ -25,6 +25,8 @@ public class AnimatedSnek extends AnimatedSprite {
     public AnimatedSnek() {
         super(ResourceLoader.load(SNEK_SPRITE_SHEET), FRAME_DIMENSION, FPS, MOVING);
         setScale(SCALE);
+        // TODO: maybe fix this hack to make snek animation delay for a second before dying
+        DYING.frames().add(0, IDLE.frames().get(0));
     }
 
     private static ArrayList<GridSquare> generateRow(int row) {
