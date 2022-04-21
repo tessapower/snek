@@ -69,14 +69,10 @@ public class GameWorld extends World {
             gameOverNotifier.notifyGameOver();
         }
 
-        if (hasSnekEatenApple()) {
-            score++;
+        Apple maybeApple = checkForEatenApples();
 
-            if (snekPlayer.tailLength() < SnekTail.MAX_TAIL_LEN) {
-                snekPlayer.growTail();
-            } else {
-                snekPlayer.increaseSpeed();
-            }
+        if (maybeApple != null) {
+            playerOne.eat(apple, gameConfig.gameMode());
 
             apple.removeFromWorld();
             apple = Apple.spawnAt(this, randomUnoccupiedSquare());
@@ -89,20 +85,18 @@ public class GameWorld extends World {
 
     // Dispatch relevant key events to the appropriate actors
     public void handleKeyEvent(KeyEvent keyEvent) {
+        // TODO: check key events on player config first
         switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snekPlayer.handleKeyEvent(keyEvent);
+            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> playerOne.handleKeyEvent(keyEvent);
         }
     }
 
-    public int score() {
-        return score;
+    public PlayerState finalGameState() {
+        return playerOne.state();
     }
 
-    private boolean hasSnekHitWall() {
-        int row = snekPlayer.gridSquare().row();
-        int col = snekPlayer.gridSquare().col();
-
-        return col < 0 || col >= grid.numCols() || row < 0 || row >= grid.numRows();
+    private Apple checkForEatenApples() {
+        return apple.gridSquare().equals(playerOne.gridSquare()) ? apple : null;
     }
 
     private GridSquare playerOneSpawnSquare() {

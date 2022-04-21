@@ -20,4 +20,9 @@ public record Grid(int numRows, int numCols) {
     public GridSquare randomGridSquare() {
         return new GridSquare(RANDOM.nextInt(0, numCols), RANDOM.nextInt(0, numRows));
     }
+
+    public boolean contains(GridSquare gridSquare) {
+        return gridSquare.col() >= 0 && gridSquare.col() < numCols
+                && gridSquare.row() >= 0 && gridSquare.row() < numRows;
+    }
 }
