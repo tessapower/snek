@@ -1,9 +1,6 @@
 package snake.screens.gameover;
 
-import snake.Colors;
-import snake.FontBook;
-import snake.Game;
-import snake.GameResult;
+import snake.*;
 import snake.screens.Button;
 import snake.screens.*;
 import snake.snek.AnimatedSnek;
@@ -40,10 +37,19 @@ public class GameOverScreen implements Screen {
         snek.setState(AnimatedSnek.State.DYING);
 
         // Score
-        TLabel score = new TLabel("apples eaten: " + GameResult.shared().finalScore());
+        TLabel score = new TLabel("apples eaten: " + GameResult.shared().winningScore());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
         score.setOrigin(new Point(45, 160));
+
+        // Display results based on Multiplayer Mode
+        if (Settings.shared().playerMode() == MultiplayerMode.MULTIPLAYER) {
+            title.setOrigin(new Point(40, 90));
+            switch (GameResult.shared().winner()) {
+                case PLAYER_ONE -> title.setText("player one wins!");
+                case PLAYER_TWO -> title.setText("player two wins!");
+            }
+        }
 
         // Buttons
         playAgain = new Button("play again");

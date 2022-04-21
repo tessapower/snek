@@ -8,7 +8,8 @@ public class GameResult {
     private static GameResult singleton = null;
 
     private static Player winner;
-    private static int finalScore;
+    private static int winningScore;
+    private static int losingScore;
 
     public static GameResult shared() {
         if (singleton == null) {
@@ -20,22 +21,31 @@ public class GameResult {
 
     private GameResult()  {
         winner = null;
-        finalScore = 0;
+        winningScore = 0;
+        losingScore = 0;
     }
 
     public void setWinner(Player winner) {
         GameResult.winner = winner;
     }
 
-    public void setFinalScore(int finalScore) {
-        GameResult.finalScore = finalScore;
+    public void setWinningScore(int score) {
+        GameResult.winningScore = score;
+    }
+
+    public void setLosingScore(int score) {
+        GameResult.losingScore = score;
     }
 
     public Player winner() {
         return winner;
     }
 
-    public int finalScore() {
-        return finalScore;
+    public int winningScore() {
+        return winningScore;
+    }
+
+    public int losingScore() {
+        return winningScore;
     }
 }

@@ -6,7 +6,6 @@ import snake.MultiplayerMode;
 import snake.apple.Apple;
 import snake.player.Player;
 import snake.player.PlayerConfig;
-import snake.player.PlayerState;
 import snake.snek.SnekPlayer;
 import tengine.Actor;
 import tengine.world.GridSquare;
@@ -14,6 +13,8 @@ import tengine.world.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameWorld extends World {
     private static final int N_TILES = 32;
@@ -30,7 +31,7 @@ public class GameWorld extends World {
     private SnekPlayer playerTwo = null;
 
     // Apples
-    private Apple apple;
+    private final Set<Apple> apples;
 
     public GameWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier, GameConfig gameConfig) {
         super(dimension);
@@ -47,7 +48,8 @@ public class GameWorld extends World {
 
         initPlayers(gameConfig);
 
-        apple = Apple.spawnAt(this, randomUnoccupiedSquare());
+        apples = new HashSet<>();
+        apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
     }
 
     private void initPlayers(GameConfig gameConfig) {
@@ -60,22 +62,64 @@ public class GameWorld extends World {
 
     public void update(double dt) {
         playerOne.update(dt);
-
-        // TODO: check for number of players and if two player check second player
-        if (playerOne.hasHitWall() || playerOne.hasHitSelf()) {
-            // TODO: play BONK! noise
-            GameResult.shared().setFinalScore(playerOne.state().score());
-            gameOverNotifier.notifyGameOver();
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerTwo.update(dt);
         }
 
-        Apple maybeApple = checkForEatenApples();
+        checkCollisions(playerOne);
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            checkCollisions(playerTwo);
+        }
+    }
+
+    public void checkCollisions(SnekPlayer player) {
+        if (player.hasHitWall() || player.hasHitSelf() || playersCollided()) {
+            // TODO: play BONK! noise
+            setGameOver();
+        }
+
+        Apple maybeApple = checkForEatenApples(player);
 
         if (maybeApple != null) {
-            playerOne.eat(apple, gameConfig.gameMode());
+            player.eat(maybeApple, gameConfig.gameMode());
 
-            apple.removeFromWorld();
-            apple = Apple.spawnAt(this, randomUnoccupiedSquare());
+            apples.remove(maybeApple);
+            maybeApple.removeFromWorld();
+            apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
         }
+    }
+
+    public boolean playersCollided() {
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            return playerOne.occupies(playerTwo.gridSquare()) || playerTwo.occupies(playerOne.gridSquare());
+        }
+
+        return false;
+    }
+
+    private void setGameOver() {
+        // TODO: Implement life bonus!
+        int playerOneScore = playerOne.state().score();
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            int playerTwoScore = playerTwo.state().score();
+
+            if (playerOneScore < playerTwoScore) {
+                GameResult.shared().setWinner(Player.PLAYER_TWO);
+                GameResult.shared().setWinningScore(playerTwo.state().score());
+                GameResult.shared().setLosingScore(playerOne.state().score());
+            } else if (playerOneScore > playerTwoScore) {
+                GameResult.shared().setWinner(Player.PLAYER_ONE);
+                GameResult.shared().setWinningScore(playerOne.state().score());
+                GameResult.shared().setLosingScore(playerTwo.state().score());
+            } else {
+                GameResult.shared().setWinningScore(playerOneScore);
+                GameResult.shared().setWinner(null);
+            }
+        } else {
+            GameResult.shared().setWinningScore(playerOneScore);
+        }
+
+        gameOverNotifier.notifyGameOver();
     }
 
     public Grid grid() {
@@ -84,18 +128,21 @@ public class GameWorld extends World {
 
     // Dispatch relevant key events to the appropriate actors
     public void handleKeyEvent(KeyEvent keyEvent) {
-        // TODO: check key events on player config first
-        switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> playerOne.handleKeyEvent(keyEvent);
+        if (playerOne.handleKeyEvent(keyEvent)) return;
+
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerTwo.handleKeyEvent(keyEvent);
         }
     }
 
-    public PlayerState finalGameState() {
-        return playerOne.state();
-    }
+    private Apple checkForEatenApples(SnekPlayer player) {
+        for (var apple : apples) {
+            if (apple.gridSquare().equals(player.gridSquare())) {
+                return apple;
+            }
+        }
 
-    private Apple checkForEatenApples() {
-        return apple.gridSquare().equals(playerOne.gridSquare()) ? apple : null;
+        return null;
     }
 
     private GridSquare playerOneSpawnSquare() {
@@ -103,7 +150,7 @@ public class GameWorld extends World {
     }
 
     private GridSquare playerTwoSpawnSquare() {
-        return new GridSquare(24, 24);
+        return new GridSquare(8, 4);
     }
 
     private GridSquare randomUnoccupiedSquare() {

@@ -140,11 +140,15 @@ public class SnekPlayer extends Actor {
         return false;
     }
 
-    public void handleKeyEvent(KeyEvent keyEvent) {
+    public boolean handleKeyEvent(KeyEvent keyEvent) {
         Action action = config.controls().get(keyEvent.getKeyCode());
         if (action != null) {
             performAction(action);
+
+            return true;
         }
+
+        return false;
     }
 
     public void performAction(Action action) {
