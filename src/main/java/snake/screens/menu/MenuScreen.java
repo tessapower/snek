@@ -38,7 +38,7 @@ public class MenuScreen implements Screen {
         credits = new Credits(this::onSubmenuSelection);
 
         // Snek
-        snek = new AnimatedSnek();
+        snek = AnimatedSnek.animatedSnek();
         snekStartOrigin = new Point(Game.WINDOW_DIMENSION.width, Game.WINDOW_CENTER.y - snek.height());
         snek.setOrigin(snekStartOrigin);
         snek.setState(AnimatedSnek.State.MOVING);

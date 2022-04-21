@@ -35,7 +35,7 @@ public class GameOverScreen implements Screen {
         title.setOrigin(new Point(75, 90));
 
         // Snek
-        AnimatedSnek snek = new AnimatedSnek();
+        AnimatedSnek snek = AnimatedSnek.animatedSnek();
         snek.setOrigin(new Point(Game.WINDOW_CENTER.x - (snek.width() / 2), Game.WINDOW_CENTER.y - snek.height()));
         snek.setState(AnimatedSnek.State.DYING);
 
