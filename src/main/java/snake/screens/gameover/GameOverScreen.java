@@ -2,7 +2,7 @@ package snake.screens.gameover;
 
 import snake.Colors;
 import snake.FontBook;
-import snake.SnakeGame;
+import snake.Game;
 import snake.screens.Button;
 import snake.screens.*;
 import snake.snek.AnimatedSnek;
@@ -14,15 +14,15 @@ import java.awt.event.KeyEvent;
 
 public class GameOverScreen implements Screen {
     private final ScreenChangeRequestCallback screenChangeCallback;
-    private final SnakeGame engine;
+    private final Game engine;
     private final TGraphicCompound graphic;
 
     private final ButtonGroup buttonGroup;
     private final Button playAgain;
     private final Button quit;
 
-    public GameOverScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback, int finalScore) {
-        this.engine = snakeGame;
+    public GameOverScreen(Game game, ScreenChangeRequestCallback screenChangeCallback, int finalScore) {
+        this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
 
         // Title
@@ -35,7 +35,7 @@ public class GameOverScreen implements Screen {
 
         // Snek
         AnimatedSnek snek = new AnimatedSnek();
-        snek.setOrigin(new Point(SnakeGame.WINDOW_CENTER.x - (snek.width() / 2), SnakeGame.WINDOW_CENTER.y - snek.height()));
+        snek.setOrigin(new Point(Game.WINDOW_CENTER.x - (snek.width() / 2), Game.WINDOW_CENTER.y - snek.height()));
         snek.setState(AnimatedSnek.State.DYING);
 
         // Score
@@ -54,7 +54,7 @@ public class GameOverScreen implements Screen {
         buttonGroup = new ButtonGroup(playAgain, quit);
 
         // Graphic
-        graphic = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);
+        graphic = new TGraphicCompound(Game.WINDOW_DIMENSION);
 
         graphic.addAll(title, snek, score, playAgain, quit);
     }

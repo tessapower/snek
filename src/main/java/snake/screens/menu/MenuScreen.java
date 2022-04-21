@@ -1,6 +1,6 @@
 package snake.screens.menu;
 
-import snake.SnakeGame;
+import snake.Game;
 import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
@@ -14,7 +14,7 @@ public class MenuScreen implements Screen {
     private static final double ANIMATION_SPEED = 0.5;
 
     private final ScreenChangeRequestCallback screenChangeCallback;
-    private final SnakeGame engine;
+    private final Game engine;
 
     private final TGraphicCompound container;
     private Menu displayedMenu;
@@ -26,8 +26,8 @@ public class MenuScreen implements Screen {
     private final AnimatedSnek snek;
     private final Point snekStartOrigin;
 
-    public MenuScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback) {
-        this.engine = snakeGame;
+    public MenuScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
+        this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
 
         // Menus
@@ -37,12 +37,12 @@ public class MenuScreen implements Screen {
 
         // Snek
         snek = new AnimatedSnek();
-        snekStartOrigin = new Point(SnakeGame.WINDOW_DIMENSION.width, SnakeGame.WINDOW_CENTER.y - snek.height());
+        snekStartOrigin = new Point(Game.WINDOW_DIMENSION.width, Game.WINDOW_CENTER.y - snek.height());
         snek.setOrigin(snekStartOrigin);
         snek.setState(AnimatedSnek.State.MOVING);
 
         // Graphic
-        container = new TGraphicCompound(SnakeGame.WINDOW_DIMENSION);
+        container = new TGraphicCompound(Game.WINDOW_DIMENSION);
         displayedMenu = mainMenu;
         container.addAll(displayedMenu, snek);
     }

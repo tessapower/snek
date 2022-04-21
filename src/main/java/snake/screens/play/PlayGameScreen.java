@@ -1,6 +1,6 @@
 package snake.screens.play;
 
-import snake.SnakeGame;
+import snake.Game;
 import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
@@ -10,15 +10,15 @@ import java.awt.event.KeyEvent;
 
 public class PlayGameScreen implements Screen {
     private final ScreenChangeRequestCallback screenChangeCallback;
-    private final SnakeGame engine;
+    private final Game engine;
     private final SnakeWorld world;
     private boolean paused;
 
-    public PlayGameScreen(SnakeGame snakeGame, ScreenChangeRequestCallback screenChangeCallback) {
-        this.engine = snakeGame;
+    public PlayGameScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
+        this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         paused = false;
-        world = new SnakeWorld(new Point(0, 0), SnakeGame.WINDOW_DIMENSION, this::onGameOver);
+        world = new SnakeWorld(new Point(0, 0), Game.WINDOW_DIMENSION, this::onGameOver);
     }
 
     public void onGameOver() {

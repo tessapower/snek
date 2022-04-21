@@ -10,7 +10,7 @@ import tengine.GameEngine;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class SnakeGame extends GameEngine {
+public class Game extends GameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(512, 512);
     public static final Point WINDOW_CENTER = new Point(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Snek!";
@@ -18,7 +18,7 @@ public class SnakeGame extends GameEngine {
     private Screen activeScreen;
 
     public static void main(String[] args) {
-        createGame(new SnakeGame(), 10);
+        createGame(new Game(), 10);
     }
 
     public void init() {
