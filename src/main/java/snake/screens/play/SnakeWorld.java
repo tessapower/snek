@@ -16,10 +16,16 @@ public class SnakeWorld extends World {
     // Future support for offsetting the world around other UI elements
     private final Point origin;
     private final Grid grid;
-
+    // TODO: Change this for supplier?
     private final GameOverNotifier gameOverNotifier;
+
+    // Players
     private final Snek snek;
+    // player two
+
+    // Apples
     private Apple apple;
+
     private int score;
 
     public SnakeWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier) {
@@ -43,7 +49,6 @@ public class SnakeWorld extends World {
     public void update(double dt) {
         snek.update(dt);
 
-        // TODO: handle collision with tail
         if (hasSnekHitWall() || snek.hasHitSelf()) {
             // TODO: play BONK! noise
 
@@ -66,6 +71,17 @@ public class SnakeWorld extends World {
 
     public Grid grid() {
         return grid;
+    }
+
+    // Dispatch relevant key events to the appropriate actors
+    public void handleKeyEvent(KeyEvent keyEvent) {
+        switch (keyEvent.getKeyCode()) {
+            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snek.handleKeyEvent(keyEvent);
+        }
+    }
+
+    public int score() {
+        return score;
     }
 
     private boolean hasSnekHitWall() {
@@ -107,16 +123,5 @@ public class SnakeWorld extends World {
         }
 
         return null;
-    }
-
-    // Dispatch relevant key events to the appropriate actors
-    public void handleKeyEvent(KeyEvent keyEvent) {
-        switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snek.handleKeyEvent(keyEvent);
-        }
-    }
-
-    public int score() {
-        return score;
     }
 }
