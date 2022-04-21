@@ -1,6 +1,6 @@
 package snake.snek;
 
-import snake.screens.play.SnakeWorld;
+import snake.screens.play.GameWorld;
 import snake.utils.ResourceLoader;
 import tengine.graphics.graphicsObjects.sprites.Sprite;
 import tengine.world.GridSquare;
@@ -17,7 +17,7 @@ class SnekTailSprite extends Sprite {
         gridSquare = null;
     }
 
-    void setGridSquare(GridSquare gridSquare, SnakeWorld world) {
+    void setGridSquare(GridSquare gridSquare, GameWorld world) {
         this.gridSquare = gridSquare;
         // set origin to world.origin() + position for square
         setOrigin(world.grid().positionForSquare(this.gridSquare));

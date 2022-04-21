@@ -1,7 +1,7 @@
 package snake.snek;
 
 import snake.Colors;
-import snake.screens.play.SnakeWorld;
+import snake.screens.play.GameWorld;
 import snake.utils.ResourceLoader;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.shapes.TRect;
@@ -53,7 +53,7 @@ class SnekHeadSprite extends TGraphicCompound {
         }
     }
 
-    void setGridSquare(GridSquare gridSquare, SnakeWorld world) {
+    void setGridSquare(GridSquare gridSquare, GameWorld world) {
         this.gridSquare = gridSquare;
         // set origin to world.origin() + position for square
         setOrigin(world.grid().positionForSquare(this.gridSquare));

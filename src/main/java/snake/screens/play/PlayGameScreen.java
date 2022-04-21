@@ -11,14 +11,14 @@ import java.awt.event.KeyEvent;
 public class PlayGameScreen implements Screen {
     private final ScreenChangeRequestCallback screenChangeCallback;
     private final Game engine;
-    private final SnakeWorld world;
+    private final GameWorld world;
     private boolean paused;
 
     public PlayGameScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         paused = false;
-        world = new SnakeWorld(new Point(0, 0), Game.WINDOW_DIMENSION, this::onGameOver);
+        world = new GameWorld(new Point(0, 0), Game.WINDOW_DIMENSION, this::onGameOver);
     }
 
     public void onGameOver() {

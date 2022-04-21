@@ -22,8 +22,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: co.tessapower.tengine:TEngine:0.1.0" level="project" />
-    <orderEntry type="library" name="Maven: junit:junit:4.13.2" level="project" />
-    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven.plugins:maven-assembly-plugin:maven-plugin:3.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-api:3.0" level="project" />
     <orderEntry type="library" name="Maven: org.sonatype.sisu:sisu-inject-plexus:1.4.2" level="project" />

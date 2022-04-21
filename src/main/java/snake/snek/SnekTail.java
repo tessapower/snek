@@ -1,6 +1,6 @@
 package snake.snek;
 
-import snake.screens.play.SnakeWorld;
+import snake.screens.play.GameWorld;
 import tengine.world.GridSquare;
 
 import java.awt.*;
@@ -11,7 +11,7 @@ public class SnekTail {
     public static final int MAX_TAIL_LEN = 19;
     List<SnekTailSprite> tailPieces;
 
-    public SnekTail(Dimension dimension, GridSquare gridSquare, SnakeWorld world) {
+    public SnekTail(Dimension dimension, GridSquare gridSquare, GameWorld world) {
         tailPieces = new ArrayList<>(MAX_TAIL_LEN);
 
         SnekTailSprite t1 = new SnekTailSprite(dimension);
@@ -28,14 +28,14 @@ public class SnekTail {
         return tailPieces.size();
     }
 
-    public void moveToward(GridSquare gridSquare, SnakeWorld world) {
+    public void moveToward(GridSquare gridSquare, GameWorld world) {
         // Recycle the end of the tail, so we don't have to allocate a new tailpiece
         SnekTailSprite endOfTail = pop();
         endOfTail.setGridSquare(gridSquare, world);
         tailPieces.add(0, endOfTail);
     }
 
-    public SnekTailSprite growToward(GridSquare gridSquare, SnakeWorld world) {
+    public SnekTailSprite growToward(GridSquare gridSquare, GameWorld world) {
         SnekTailSprite newTailPiece = new SnekTailSprite(tailPieces.get(0).dimension());
         newTailPiece.setGridSquare(gridSquare, world);
         tailPieces.add(0, newTailPiece);

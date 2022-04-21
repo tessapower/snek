@@ -1,17 +1,17 @@
 package snake.apple;
 
-import snake.screens.play.SnakeWorld;
+import snake.screens.play.GameWorld;
 import tengine.Actor;
 import tengine.world.GridSquare;
 
 import java.awt.*;
 
 public class Apple extends Actor {
-    private final SnakeWorld world;
+    private final GameWorld world;
     private GridSquare gridSquare;
     private final AppleType appleType;
 
-    public static Apple spawnAt(SnakeWorld world, GridSquare gridSquare) {
+    public static Apple spawnAt(GameWorld world, GridSquare gridSquare) {
         Apple apple = new Apple(world, gridSquare, AppleType.CROMCHY);
         world.add(apple);
 
@@ -26,7 +26,7 @@ public class Apple extends Actor {
         return appleType;
     }
 
-    private Apple(SnakeWorld world, GridSquare gridSquare, AppleType appleType) {
+    private Apple(GameWorld world, GridSquare gridSquare, AppleType appleType) {
         this.world = world;
         this.appleType = appleType;
         switch(appleType) {

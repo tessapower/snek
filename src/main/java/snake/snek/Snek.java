@@ -1,7 +1,7 @@
 package snake.snek;
 
 import snake.screens.play.Grid;
-import snake.screens.play.SnakeWorld;
+import snake.screens.play.GameWorld;
 import tengine.Actor;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.world.GridSquare;
@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Snek extends Actor {
-    private final SnakeWorld world;
+    private final GameWorld world;
     private final Dimension dimension;
 
     private Direction pendingDirection;
@@ -19,14 +19,14 @@ public class Snek extends Actor {
     private SnekTail tail;
     private boolean shouldGrowTail;
 
-    public static Snek spawnAt(SnakeWorld world, GridSquare gridSquare) {
+    public static Snek spawnAt(GameWorld world, GridSquare gridSquare) {
         Snek snek = new Snek(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE), Direction.RIGHT);
         world.add(snek);
 
         return snek;
     }
 
-    private Snek(SnakeWorld world, GridSquare gridSquare, Dimension dimension, Direction initialDirection) {
+    private Snek(GameWorld world, GridSquare gridSquare, Dimension dimension, Direction initialDirection) {
         this.world = world;
         this.dimension = dimension;
 
@@ -37,7 +37,7 @@ public class Snek extends Actor {
         shouldGrowTail = false;
     }
 
-    private TGraphicCompound initSprite(GridSquare gridSquare, SnakeWorld world) {
+    private TGraphicCompound initSprite(GridSquare gridSquare, GameWorld world) {
         // Head
         head = new SnekHeadSprite(dimension, direction);
         head.setGridSquare(gridSquare, world);

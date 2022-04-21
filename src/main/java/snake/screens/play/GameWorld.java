@@ -10,7 +10,7 @@ import tengine.world.World;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class SnakeWorld extends World {
+public class GameWorld extends World {
     private static final int N_TILES = 32;
 
     // Future support for offsetting the world around other UI elements
@@ -28,7 +28,7 @@ public class SnakeWorld extends World {
 
     private int score;
 
-    public SnakeWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier) {
+    public GameWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier) {
         super(dimension);
 
         // The world is a fixed size, but the location of where it can be placed in a
