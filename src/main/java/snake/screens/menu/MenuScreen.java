@@ -1,6 +1,8 @@
 package snake.screens.menu;
 
 import snake.Game;
+import snake.MultiplayerMode;
+import snake.Settings;
 import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
@@ -87,7 +89,14 @@ public class MenuScreen implements Screen {
         displayedMenu.removeFromParent();
 
         switch(submenuOption) {
-            case ONE_PLAYER, TWO_PLAYER, INFINITE_MODE -> screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+            case ONE_PLAYER -> {
+                Settings.shared().setPlayerMode(MultiplayerMode.SINGLE_PLAYER);
+                screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+            }
+            case TWO_PLAYER -> {
+                Settings.shared().setPlayerMode(MultiplayerMode.MULTIPLAYER);
+                screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+            }
             case CREDITS -> {
                 displayedMenu = credits;
                 container.add(credits);

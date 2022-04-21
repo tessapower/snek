@@ -38,7 +38,7 @@ class HowToPlay extends Menu {
         twoPlayerKeys.setOrigin(new Point(40, 185));
 
         TLabel infiniteMode = bodyText("INFINITE MODE");
-        TLabel infiniteModeText = bodyText("how many apples can you eat before you die?");
+        TLabel infiniteModeText = bodyText("turn on to let your tail grow forever!");
         infiniteMode.setOrigin(new Point(90, 200));
         infiniteModeText.setOrigin(new Point(15, 210));
 

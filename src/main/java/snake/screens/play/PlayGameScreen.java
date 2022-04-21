@@ -19,7 +19,11 @@ public class PlayGameScreen implements Screen {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         paused = false;
-        world = new GameWorld(new Point(0, 0), Game.WINDOW_DIMENSION, this::onGameOver);
+        world = new GameWorld(
+                new Point(0, 0),
+                Game.WINDOW_DIMENSION,
+                this::onGameOver,
+                Settings.shared().config());
     }
 
     public void onGameOver() {
