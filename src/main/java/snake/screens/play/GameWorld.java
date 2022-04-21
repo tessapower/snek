@@ -1,6 +1,7 @@
 package snake.screens.play;
 
 import snake.GameConfig;
+import snake.GameResult;
 import snake.MultiplayerMode;
 import snake.apple.Apple;
 import snake.player.Player;
@@ -44,14 +45,12 @@ public class GameWorld extends World {
         // number of tiles to create different sized grids
         grid = new Grid(N_TILES, N_TILES);
 
-        // TODO: init players based on gameConfig
         initPlayers(gameConfig);
 
         apple = Apple.spawnAt(this, randomUnoccupiedSquare());
     }
 
     private void initPlayers(GameConfig gameConfig) {
-        // Player one config
         playerOne = SnekPlayer.spawnAt(this, playerOneSpawnSquare(), PlayerConfig.configFor(Player.PLAYER_ONE));
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
@@ -65,7 +64,7 @@ public class GameWorld extends World {
         // TODO: check for number of players and if two player check second player
         if (playerOne.hasHitWall() || playerOne.hasHitSelf()) {
             // TODO: play BONK! noise
-
+            GameResult.shared().setFinalScore(playerOne.state().score());
             gameOverNotifier.notifyGameOver();
         }
 

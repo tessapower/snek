@@ -47,8 +47,7 @@ public class Game extends GameEngine {
             case PLAYING -> activeScreen = new PlayGameScreen(this, this::requestScreenChange);
             case SHOWING_GAME_OVER -> {
                 assert activeScreen != null;
-                // TODO: if two-player, pass in final result
-                activeScreen = new GameOverScreen(this, this::requestScreenChange, 0);
+                activeScreen = new GameOverScreen(this, this::requestScreenChange);
             }
         }
 

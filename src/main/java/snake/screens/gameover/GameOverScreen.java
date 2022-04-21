@@ -3,6 +3,7 @@ package snake.screens.gameover;
 import snake.Colors;
 import snake.FontBook;
 import snake.Game;
+import snake.GameResult;
 import snake.screens.Button;
 import snake.screens.*;
 import snake.snek.AnimatedSnek;
@@ -21,7 +22,7 @@ public class GameOverScreen implements Screen {
     private final Button playAgain;
     private final Button quit;
 
-    public GameOverScreen(Game game, ScreenChangeRequestCallback screenChangeCallback, int finalScore) {
+    public GameOverScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
 
@@ -39,7 +40,7 @@ public class GameOverScreen implements Screen {
         snek.setState(AnimatedSnek.State.DYING);
 
         // Score
-        TLabel score = new TLabel("apples eaten: " + finalScore);
+        TLabel score = new TLabel("apples eaten: " + GameResult.shared().finalScore());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
         score.setOrigin(new Point(45, 160));
