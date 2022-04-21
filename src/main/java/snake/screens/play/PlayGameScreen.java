@@ -1,6 +1,7 @@
 package snake.screens.play;
 
 import snake.Game;
+import snake.Settings;
 import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
@@ -22,12 +23,8 @@ public class PlayGameScreen implements Screen {
     }
 
     public void onGameOver() {
-        // TODO: Remove this for sad bonk noise
+        // TODO: sad bonk noise
         screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
-    }
-
-    public int score() {
-        return world.score();
     }
 
     @Override

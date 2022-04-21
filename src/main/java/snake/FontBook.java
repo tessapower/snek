@@ -1,11 +1,13 @@
 package snake;
 
+import com.google.inject.Singleton;
 import snake.utils.ResourceLoader;
 
 import java.awt.*;
 import java.io.IOException;
 
-public class FontBook {
+@Singleton
+public final class FontBook {
     private static final String FONT_NAME = "RetroGaming.ttf";
 
     private static FontBook singleton = null;

@@ -8,7 +8,7 @@ import tengine.graphics.graphicsObjects.text.TLabel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class HowToPlay extends Menu {
+class HowToPlay extends Menu {
     public HowToPlay(SubmenuSelectionNotifier submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
 

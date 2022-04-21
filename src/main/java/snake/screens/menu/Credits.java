@@ -8,7 +8,7 @@ import tengine.graphics.graphicsObjects.text.TLabel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Credits extends Menu {
+class Credits extends Menu {
     public Credits(SubmenuSelectionNotifier submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
 
