@@ -42,12 +42,6 @@ class SnekHeadSprite extends TGraphicCompound {
         gridSquare = null;
     }
 
-    void setGridSquare(GridSquare gridSquare, SnakeWorld world) {
-        this.gridSquare = gridSquare;
-        // set origin to world.origin() + position for square
-        setOrigin(world.grid().positionForSquare(this.gridSquare));
-    }
-
     @Override
     public void update(double dtMillis) {
         super.update(dtMillis);
@@ -57,5 +51,11 @@ class SnekHeadSprite extends TGraphicCompound {
             case DOWN -> rotationContainer.setRotation(180);
             case LEFT -> rotationContainer.setRotation(270);
         }
+    }
+
+    void setGridSquare(GridSquare gridSquare, SnakeWorld world) {
+        this.gridSquare = gridSquare;
+        // set origin to world.origin() + position for square
+        setOrigin(world.grid().positionForSquare(this.gridSquare));
     }
 }

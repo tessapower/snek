@@ -22,6 +22,10 @@ public class Apple extends Actor {
         return gridSquare;
     }
 
+    public AppleType appleType() {
+        return appleType;
+    }
+
     private Apple(SnakeWorld world, GridSquare gridSquare, AppleType appleType) {
         this.world = world;
         this.appleType = appleType;
@@ -40,9 +44,5 @@ public class Apple extends Actor {
         newOrigin.y += 1;
 
         setOrigin(newOrigin);
-    }
-
-    public AppleType appleType() {
-        return appleType;
     }
 }
