@@ -1,7 +1,7 @@
 package snake.screens.play;
 
 import snake.apple.Apple;
-import snake.snek.Snek;
+import snake.snek.SnekPlayer;
 import snake.snek.SnekTail;
 import tengine.Actor;
 import tengine.world.GridSquare;
@@ -20,7 +20,7 @@ public class GameWorld extends World {
     private final GameOverNotifier gameOverNotifier;
 
     // Players
-    private final Snek snek;
+    private final SnekPlayer snekPlayer;
     // player two
 
     // Apples
@@ -40,16 +40,16 @@ public class GameWorld extends World {
         // number of tiles to create different sized grids
         grid = new Grid(N_TILES, N_TILES);
 
-        snek = Snek.spawnAt(this, snekSpawnPosition());
+        snekPlayer = SnekPlayer.spawnAt(this, snekSpawnPosition());
         apple = Apple.spawnAt(this, randomUnoccupiedSquare());
 
         score = 0;
     }
 
     public void update(double dt) {
-        snek.update(dt);
+        snekPlayer.update(dt);
 
-        if (hasSnekHitWall() || snek.hasHitSelf()) {
+        if (hasSnekHitWall() || snekPlayer.hasHitSelf()) {
             // TODO: play BONK! noise
 
             gameOverNotifier.notifyGameOver();
@@ -58,10 +58,10 @@ public class GameWorld extends World {
         if (hasSnekEatenApple()) {
             score++;
 
-            if (snek.tailLength() < SnekTail.MAX_TAIL_LEN) {
-                snek.growTail();
+            if (snekPlayer.tailLength() < SnekTail.MAX_TAIL_LEN) {
+                snekPlayer.growTail();
             } else {
-                snek.increaseSpeed();
+                snekPlayer.increaseSpeed();
             }
 
             apple.removeFromWorld();
@@ -76,7 +76,7 @@ public class GameWorld extends World {
     // Dispatch relevant key events to the appropriate actors
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snek.handleKeyEvent(keyEvent);
+            case KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> snekPlayer.handleKeyEvent(keyEvent);
         }
     }
 
@@ -85,14 +85,14 @@ public class GameWorld extends World {
     }
 
     private boolean hasSnekHitWall() {
-        int row = snek.gridSquare().row();
-        int col = snek.gridSquare().col();
+        int row = snekPlayer.gridSquare().row();
+        int col = snekPlayer.gridSquare().col();
 
         return col < 0 || col >= grid.numCols() || row < 0 || row >= grid.numRows();
     }
 
     private boolean hasSnekEatenApple() {
-        return apple.gridSquare().equals(snek.gridSquare());
+        return apple.gridSquare().equals(snekPlayer.gridSquare());
     }
 
     private GridSquare snekSpawnPosition() {
@@ -111,12 +111,12 @@ public class GameWorld extends World {
     }
 
     private Actor getActorAtSquare(GridSquare gridSquare) {
-        if (snek.occupies(gridSquare)) {
-            return snek;
+        if (snekPlayer.occupies(gridSquare)) {
+            return snekPlayer;
         }
 
         for (Actor actor : actors) {
-            if (actor instanceof Snek) continue;
+            if (actor instanceof SnekPlayer) continue;
             if (((Apple) actor).gridSquare().equals(gridSquare)) {
                 return actor;
             }

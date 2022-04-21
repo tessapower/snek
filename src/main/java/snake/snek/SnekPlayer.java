@@ -9,7 +9,7 @@ import tengine.world.GridSquare;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Snek extends Actor {
+public class SnekPlayer extends Actor {
     private final GameWorld world;
     private final Dimension dimension;
 
@@ -19,14 +19,14 @@ public class Snek extends Actor {
     private SnekTail tail;
     private boolean shouldGrowTail;
 
-    public static Snek spawnAt(GameWorld world, GridSquare gridSquare) {
-        Snek snek = new Snek(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE), Direction.RIGHT);
-        world.add(snek);
+    public static SnekPlayer spawnAt(GameWorld world, GridSquare gridSquare) {
+        SnekPlayer snekPlayer = new SnekPlayer(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE), Direction.RIGHT);
+        world.add(snekPlayer);
 
-        return snek;
+        return snekPlayer;
     }
 
-    private Snek(GameWorld world, GridSquare gridSquare, Dimension dimension, Direction initialDirection) {
+    private SnekPlayer(GameWorld world, GridSquare gridSquare, Dimension dimension, Direction initialDirection) {
         this.world = world;
         this.dimension = dimension;
 
