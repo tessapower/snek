@@ -2,6 +2,7 @@ package snake.screens.play;
 
 import snake.apple.Apple;
 import snake.snek.Snek;
+import snake.snek.SnekTail;
 import tengine.Actor;
 import tengine.world.GridSquare;
 import tengine.world.World;
@@ -52,7 +53,7 @@ public class SnakeWorld extends World {
         if (hasSnekEatenApple()) {
             score++;
 
-            if (snek.tailLength() < Snek.SnekTail.MAX_TAIL_LEN) {
+            if (snek.tailLength() < SnekTail.MAX_TAIL_LEN) {
                 snek.growTail();
             } else {
                 snek.increaseSpeed();
