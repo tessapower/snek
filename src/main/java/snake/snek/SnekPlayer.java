@@ -1,7 +1,12 @@
 package snake.snek;
 
-import snake.screens.play.Grid;
+import snake.GameMode;
+import snake.apple.Apple;
+import snake.player.Action;
+import snake.player.PlayerConfig;
+import snake.player.PlayerState;
 import snake.screens.play.GameWorld;
+import snake.screens.play.Grid;
 import tengine.Actor;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.world.GridSquare;
@@ -10,40 +15,52 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class SnekPlayer extends Actor {
+    public static final int NUM_STARTING_LIVES = 3;
+
     private final GameWorld world;
     private final Dimension dimension;
+    private final PlayerConfig config;
 
+    private final PlayerState state;
     private Direction pendingDirection;
     private Direction direction;
     private SnekHeadSprite head;
     private SnekTail tail;
     private boolean shouldGrowTail;
 
-    public static SnekPlayer spawnAt(GameWorld world, GridSquare gridSquare) {
-        SnekPlayer snekPlayer = new SnekPlayer(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE), Direction.RIGHT);
+    public static SnekPlayer spawnAt(GameWorld world, GridSquare gridSquare, PlayerConfig config) {
+        SnekPlayer snekPlayer = new SnekPlayer(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE),
+                Direction.RIGHT, config);
         world.add(snekPlayer);
 
         return snekPlayer;
     }
 
-    private SnekPlayer(GameWorld world, GridSquare gridSquare, Dimension dimension, Direction initialDirection) {
+    private SnekPlayer(GameWorld world, GridSquare square, Dimension dimension,
+                       Direction initialDirection, PlayerConfig config) {
         this.world = world;
         this.dimension = dimension;
 
         direction = initialDirection;
         pendingDirection = null;
 
-        graphicObject = initSprite(gridSquare, world);
+        this.config = config;
+
+        graphicObject = initSprite(world, square);
         shouldGrowTail = false;
+
+        state = new PlayerState(NUM_STARTING_LIVES);
     }
 
-    private TGraphicCompound initSprite(GridSquare gridSquare, GameWorld world) {
+    private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
+        // TODO: Change color of snek depending on player number
         // Head
-        head = new SnekHeadSprite(dimension, direction);
-        head.setGridSquare(gridSquare, world);
+        head = new SnekHeadSprite(dimension, direction, config.playerNumber());
+        head.setGridSquare(square, world);
 
         // Tail
-        tail = new SnekTail(dimension, new GridSquare(head.gridSquare.row(), head.gridSquare.col() - 1), world);
+        tail = new SnekTail(dimension, new GridSquare(head.gridSquare.row(), head.gridSquare.col() - 1),
+                world, config.playerNumber());
 
         // Sprite
         TGraphicCompound body = new TGraphicCompound(dimension);
@@ -57,6 +74,7 @@ public class SnekPlayer extends Actor {
         direction = (pendingDirection == null) ? direction : pendingDirection;
         head.direction = direction;
         pendingDirection = null;
+
         if (shouldGrowTail) {
             // Grow the tail toward the head
             SnekTailSprite newTailPiece = tail.growToward(head.gridSquare, world);
@@ -80,24 +98,36 @@ public class SnekPlayer extends Actor {
         return false;
     }
 
-    /**
-     * Mark the tail to grow by one on the next update. Should only be called <i>once</i>
-     * per update cycle, multiple calls will still only grow the tail by one on the next draw.
-     */
-    public void growTail() {
-        shouldGrowTail = true;
+    public boolean hasHitWall() {
+        return !world.grid().contains(gridSquare());
     }
 
-    public int tailLength() {
-        return tail.length();
-    }
+    public void eat(Apple apple, GameMode gameMode) {
+        switch(apple.appleType()) {
+            case CROMCHY -> {
+                state.increaseScore();
 
-    public void increaseSpeed() {
-
+                switch(gameMode) {
+                    case NORMAL -> {
+                        if (tail.length() < SnekTail.MAX_TAIL_LEN) {
+                            growTail();
+                        } else {
+                            increaseSpeed();
+                        }
+                    }
+                    case INFINITE -> growTail();
+                }
+            }
+            case YUCK -> state.reduceLivesLeft();
+        }
     }
 
     public GridSquare gridSquare() {
         return head.gridSquare;
+    }
+
+    public PlayerState state() {
+        return state;
     }
 
     public boolean occupies(GridSquare gridSquare) {
@@ -111,12 +141,31 @@ public class SnekPlayer extends Actor {
     }
 
     public void handleKeyEvent(KeyEvent keyEvent) {
-        switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP -> setPendingDirection(Direction.UP);
-            case KeyEvent.VK_DOWN -> setPendingDirection(Direction.DOWN);
-            case KeyEvent.VK_LEFT -> setPendingDirection(Direction.LEFT);
-            case KeyEvent.VK_RIGHT -> setPendingDirection(Direction.RIGHT);
+        Action action = config.controls().get(keyEvent.getKeyCode());
+        if (action != null) {
+            performAction(action);
         }
+    }
+
+    public void performAction(Action action) {
+        switch(action) {
+            case MOVE_UP -> setPendingDirection(Direction.UP);
+            case MOVE_DOWN -> setPendingDirection(Direction.DOWN);
+            case MOVE_LEFT -> setPendingDirection(Direction.LEFT);
+            case MOVE_RIGHT -> setPendingDirection(Direction.RIGHT);
+        }
+    }
+
+    /**
+     * Mark the tail to grow by one on the next update. Should only be called <i>once</i>
+     * per update cycle, multiple calls will still only grow the tail by one on the next draw.
+     */
+    private void growTail() {
+        shouldGrowTail = true;
+    }
+
+    private void increaseSpeed() {
+        // TODO: Implement this
     }
 
     private void advanceHead() {

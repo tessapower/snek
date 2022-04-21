@@ -1,8 +1,12 @@
 package snake.screens.play;
 
+import snake.GameConfig;
+import snake.MultiplayerMode;
 import snake.apple.Apple;
+import snake.player.Player;
+import snake.player.PlayerConfig;
+import snake.player.PlayerState;
 import snake.snek.SnekPlayer;
-import snake.snek.SnekTail;
 import tengine.Actor;
 import tengine.world.GridSquare;
 import tengine.world.World;
@@ -18,38 +22,48 @@ public class GameWorld extends World {
     private final Grid grid;
     // TODO: Change this for supplier?
     private final GameOverNotifier gameOverNotifier;
+    private final GameConfig gameConfig;
 
     // Players
-    private final SnekPlayer snekPlayer;
-    // player two
+    private SnekPlayer playerOne;
+    private SnekPlayer playerTwo = null;
 
     // Apples
     private Apple apple;
 
-    private int score;
-
-    public GameWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier) {
+    public GameWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier, GameConfig gameConfig) {
         super(dimension);
 
         // The world is a fixed size, but the location of where it can be placed in a
         // window can differ, so we need the origin relative to the window.
         this.origin = origin;
         this.gameOverNotifier = gameOverNotifier;
+        this.gameConfig = gameConfig;
 
         // The grid tile size is fixed, so we just specify the
         // number of tiles to create different sized grids
         grid = new Grid(N_TILES, N_TILES);
 
-        snekPlayer = SnekPlayer.spawnAt(this, snekSpawnPosition());
-        apple = Apple.spawnAt(this, randomUnoccupiedSquare());
+        // TODO: init players based on gameConfig
+        initPlayers(gameConfig);
 
-        score = 0;
+        apple = Apple.spawnAt(this, randomUnoccupiedSquare());
+    }
+
+    private void initPlayers(GameConfig gameConfig) {
+        // Player one config
+        playerOne = SnekPlayer.spawnAt(this, playerOneSpawnSquare(), PlayerConfig.configFor(Player.PLAYER_ONE));
+
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerTwo = SnekPlayer.spawnAt(this, playerTwoSpawnSquare(), PlayerConfig.configFor(Player.PLAYER_TWO));
+        }
     }
 
     public void update(double dt) {
-        snekPlayer.update(dt);
+        playerOne.update(dt);
 
-        if (hasSnekHitWall() || snekPlayer.hasHitSelf()) {
+        // TODO: check for number of players and if two player check second player
+        if (playerOne.hasHitWall() || playerOne.hasHitSelf()) {
             // TODO: play BONK! noise
 
             gameOverNotifier.notifyGameOver();
@@ -91,12 +105,12 @@ public class GameWorld extends World {
         return col < 0 || col >= grid.numCols() || row < 0 || row >= grid.numRows();
     }
 
-    private boolean hasSnekEatenApple() {
-        return apple.gridSquare().equals(snekPlayer.gridSquare());
+    private GridSquare playerOneSpawnSquare() {
+        return new GridSquare(4, 4);
     }
 
-    private GridSquare snekSpawnPosition() {
-        return new GridSquare(10, 10);
+    private GridSquare playerTwoSpawnSquare() {
+        return new GridSquare(24, 24);
     }
 
     private GridSquare randomUnoccupiedSquare() {
@@ -111,8 +125,8 @@ public class GameWorld extends World {
     }
 
     private Actor getActorAtSquare(GridSquare gridSquare) {
-        if (snekPlayer.occupies(gridSquare)) {
-            return snekPlayer;
+        if (playerOne.occupies(gridSquare)) {
+            return playerOne;
         }
 
         for (Actor actor : actors) {
