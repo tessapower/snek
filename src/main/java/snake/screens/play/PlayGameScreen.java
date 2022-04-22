@@ -13,17 +13,19 @@ public class PlayGameScreen implements Screen {
     private final ScreenChangeRequestCallback screenChangeCallback;
     private final Game engine;
     private final GameWorld world;
+    private final GameState gameState;
     private boolean paused;
 
     public PlayGameScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         paused = false;
+        gameState = new GameState(Settings.shared().config());
         world = new GameWorld(
                 new Point(0, 0),
                 Game.WINDOW_DIMENSION,
                 this::onGameOver,
-                Settings.shared().config());
+                gameState);
     }
 
     public void onGameOver() {
@@ -61,5 +63,9 @@ public class PlayGameScreen implements Screen {
     @Override
     public ScreenIdentifier screen() {
         return ScreenIdentifier.PLAYING;
+    }
+
+    public GameState gameState() {
+        return gameState;
     }
 }

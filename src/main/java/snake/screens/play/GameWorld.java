@@ -20,11 +20,18 @@ public class GameWorld extends World {
     private static final int N_TILES = 32;
 
     // Future support for offsetting the world around other UI elements
-    private final Point origin;
     private final Grid grid;
-    // TODO: Change this for supplier?
     private final GameOverNotifier gameOverNotifier;
+    private final GameState gameState;
     private final GameConfig gameConfig;
+
+    private TGraphicCompound hud;
+    private TLabel playerOneScore;
+
+    private TLabel playerTwoScore;
+    private TGraphicCompound playArea;
+    private final Dimension playAreaDimension = new Dimension(TILE_COLS * Grid.TILE_SIZE, TILE_ROWS * Grid.TILE_SIZE);
+    private final Point playAreaOrigin;
 
     // Players
     private SnekPlayer playerOne;
@@ -33,14 +40,18 @@ public class GameWorld extends World {
     // Apples
     private final Set<Apple> apples;
 
-    public GameWorld(Point origin, Dimension dimension, GameOverNotifier gameOverNotifier, GameConfig gameConfig) {
+    public GameWorld(Dimension dimension, GameOverNotifier gameOverNotifier, GameState gameState) {
         super(dimension);
 
         // The world is a fixed size, but the location of where it can be placed in a
         // window can differ, so we need the origin relative to the window.
         this.origin = origin;
         this.gameOverNotifier = gameOverNotifier;
-        this.gameConfig = gameConfig;
+        this.gameState = gameState;
+        this.gameConfig = gameState.gameConfig();
+
+        // Play Area
+        playAreaOrigin = new Point((int) ((dimension.width - playAreaDimension.width) * 0.5), (int) ((dimension.height - playAreaDimension.height) * 0.66));
 
         // The grid tile size is fixed, so we just specify the
         // number of tiles to create different sized grids
@@ -52,11 +63,19 @@ public class GameWorld extends World {
         apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
     }
 
-    private void initPlayers(GameConfig gameConfig) {
-        playerOne = SnekPlayer.spawnAt(this, playerOneSpawnSquare(), PlayerConfig.configFor(Player.PLAYER_ONE));
+    private void initPlayers() {
+        playerOne = SnekPlayer.spawnAt(
+                this,
+                playerOneSpawnSquare(),
+                PlayerConfig.configFor(Player.PLAYER_ONE),
+                gameState.playerOneState());
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwo = SnekPlayer.spawnAt(this, playerTwoSpawnSquare(), PlayerConfig.configFor(Player.PLAYER_TWO));
+            playerTwo = SnekPlayer.spawnAt(
+                    this,
+                    playerTwoSpawnSquare(),
+                    PlayerConfig.configFor(Player.PLAYER_TWO),
+                    gameState.playerTwoState());
         }
     }
 
@@ -75,7 +94,7 @@ public class GameWorld extends World {
     public void checkCollisions(SnekPlayer player) {
         if (player.hasHitWall() || player.hasHitSelf() || playersCollided()) {
             // TODO: play BONK! noise
-            setGameOver();
+            gameOverNotifier.notifyGameOver();
         }
 
         Apple maybeApple = checkForEatenApples(player);
@@ -95,31 +114,6 @@ public class GameWorld extends World {
         }
 
         return false;
-    }
-
-    private void setGameOver() {
-        // TODO: Implement life bonus!
-        int playerOneScore = playerOne.state().score();
-        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            int playerTwoScore = playerTwo.state().score();
-
-            if (playerOneScore < playerTwoScore) {
-                GameResult.shared().setWinner(Player.PLAYER_TWO);
-                GameResult.shared().setWinningScore(playerTwo.state().score());
-                GameResult.shared().setLosingScore(playerOne.state().score());
-            } else if (playerOneScore > playerTwoScore) {
-                GameResult.shared().setWinner(Player.PLAYER_ONE);
-                GameResult.shared().setWinningScore(playerOne.state().score());
-                GameResult.shared().setLosingScore(playerTwo.state().score());
-            } else {
-                GameResult.shared().setWinningScore(playerOneScore);
-                GameResult.shared().setWinner(null);
-            }
-        } else {
-            GameResult.shared().setWinningScore(playerOneScore);
-        }
-
-        gameOverNotifier.notifyGameOver();
     }
 
     public Grid grid() {

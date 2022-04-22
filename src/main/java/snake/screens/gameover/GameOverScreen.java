@@ -1,8 +1,10 @@
 package snake.screens.gameover;
 
 import snake.*;
+import snake.player.Player;
 import snake.screens.Button;
 import snake.screens.*;
+import snake.screens.play.GameState;
 import snake.snek.AnimatedSnek;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.text.TLabel;
@@ -19,7 +21,7 @@ public class GameOverScreen implements Screen {
     private final Button playAgain;
     private final Button quit;
 
-    public GameOverScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
+    public GameOverScreen(Game game, ScreenChangeRequestCallback screenChangeCallback, GameState gameState) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
 
@@ -37,7 +39,7 @@ public class GameOverScreen implements Screen {
         snek.setState(AnimatedSnek.State.DYING);
 
         // Score
-        TLabel score = new TLabel("apples eaten: " + GameResult.shared().winningScore());
+        TLabel score = new TLabel("apples eaten: " + gameState.playerOneState().score());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
         score.setOrigin(new Point(45, 160));
@@ -45,7 +47,8 @@ public class GameOverScreen implements Screen {
         // Display results based on Multiplayer Mode
         if (Settings.shared().playerMode() == MultiplayerMode.MULTIPLAYER) {
             title.setOrigin(new Point(40, 90));
-            switch (GameResult.shared().winner()) {
+            Player winner = gameState.playerOneState().score() > gameState.playerTwoState().score() ? Player.PLAYER_ONE : Player.PLAYER_TWO;
+            switch (winner) {
                 case PLAYER_ONE -> title.setText("player one wins!");
                 case PLAYER_TWO -> title.setText("player two wins!");
             }

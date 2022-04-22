@@ -28,16 +28,17 @@ public class SnekPlayer extends Actor {
     private SnekTail tail;
     private boolean shouldGrowTail;
 
-    public static SnekPlayer spawnAt(GameWorld world, GridSquare gridSquare, PlayerConfig config) {
+    public static SnekPlayer spawnAt(GameWorld world, GridSquare gridSquare, PlayerConfig config,
+                                     PlayerState playerState) {
         SnekPlayer snekPlayer = new SnekPlayer(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE),
-                Direction.RIGHT, config);
+                Direction.RIGHT, config, playerState);
         world.add(snekPlayer);
 
         return snekPlayer;
     }
 
     private SnekPlayer(GameWorld world, GridSquare square, Dimension dimension,
-                       Direction initialDirection, PlayerConfig config) {
+                       Direction initialDirection, PlayerConfig config, PlayerState state) {
         this.world = world;
         this.dimension = dimension;
 
@@ -49,7 +50,7 @@ public class SnekPlayer extends Actor {
         graphicObject = initSprite(world, square);
         shouldGrowTail = false;
 
-        state = new PlayerState(NUM_STARTING_LIVES);
+        this.state = state;
     }
 
     private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
@@ -124,10 +125,6 @@ public class SnekPlayer extends Actor {
 
     public GridSquare gridSquare() {
         return head.gridSquare;
-    }
-
-    public PlayerState state() {
-        return state;
     }
 
     public boolean occupies(GridSquare gridSquare) {
