@@ -1,7 +1,6 @@
 package snake.screens.play;
 
-import snake.Colors;
-import snake.FontBook;
+import snake.*;
 import snake.apple.AppleSprite;
 import snake.player.PlayerState;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
@@ -13,10 +12,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class HeadsUpDisplay extends TGraphicCompound {
+    private static final int AVATAR_X_PAD = -2;
+    private static final int AVATAR_Y_PAD = -7;
+
     Avatar avatar;
-    Scoreboard playerOneScoreboard;
-    Scoreboard playerTwoScoreboard = null;
-    GameState state;
+    private final Scoreboard playerOneScoreboard;
+    private Scoreboard playerTwoScoreboard = null;
+    private final GameState state;
 
     public HeadsUpDisplay(Dimension dimension, Dimension playAreaDimension, Point playAreaOrigin, GameState state) {
         super(dimension);
@@ -31,9 +33,19 @@ public class HeadsUpDisplay extends TGraphicCompound {
         // Add avatar
         // TODO: Pause updating HUD when game is paused
         avatar = new Avatar();
-        avatar.setOrigin(new Point(-2, playAreaOrigin.y - avatar.height() - 7));
+        avatar.setOrigin(new Point(AVATAR_X_PAD, playAreaOrigin.y - avatar.height() + AVATAR_Y_PAD));
 
         // If two player, add player two lives and score and move avatar to center
+        if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerTwoScoreboard = new Scoreboard(state.playerTwoState());
+            scoreboardX = playAreaOrigin.x;
+            scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
+            playerTwoScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
+
+            avatar.setOrigin(new Point((int) ((dimension.width - avatar.width()) * 0.5), avatar.snek.y()));
+
+            add(playerTwoScoreboard);
+        }
 
         // Add border
         TRect border = new TRect(playAreaDimension);
@@ -53,11 +65,11 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
     @Override
     public void update(double dtMillis) {
-        // set player one label text
         playerOneScoreboard.setScore(state.playerOneState().score());
 
-        // set player two label text
-
+        if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerTwoScoreboard.setScore(state.playerTwoState().score());
+        }
 
         super.update(dtMillis);
     }

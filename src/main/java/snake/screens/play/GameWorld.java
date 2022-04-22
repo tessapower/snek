@@ -15,7 +15,6 @@ import tengine.world.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -25,7 +24,6 @@ public class GameWorld extends World {
     private static final double RANDOM_CHANCE = 0.2;
     private static final int TILE_COLS = 28;
     private static final int TILE_ROWS = 24;
-    private static final int MAX_NUM_APPLES = 2;
 
     // Future support for offsetting the world around other UI elements
     private final Grid grid;
@@ -48,7 +46,7 @@ public class GameWorld extends World {
 
         this.gameOverNotifier = gameOverNotifier;
         this.gameState = gameState;
-        this.gameConfig = gameState.gameConfig();
+        gameConfig = gameState.gameConfig();
 
         // Play Area
         Dimension playAreaDimension = new Dimension(TILE_COLS * Grid.TILE_SIZE, TILE_ROWS * Grid.TILE_SIZE);
