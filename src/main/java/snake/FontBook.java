@@ -41,11 +41,15 @@ public final class FontBook {
         return new Font(gameFont.getFontName(), Font.BOLD, 32);
     }
 
-    public Font bodyFont() {
-        return new Font(gameFont.getFontName(), Font.PLAIN, 16);
+    public Font scoreBoardFont() {
+        return new Font(gameFont.getFontName(), Font.BOLD, 20);
     }
 
     public Font buttonFont() {
         return new Font(gameFont.getFontName(), Font.PLAIN, 18);
+    }
+
+    public Font bodyFont() {
+        return new Font(gameFont.getFontName(), Font.PLAIN, 16);
     }
 }

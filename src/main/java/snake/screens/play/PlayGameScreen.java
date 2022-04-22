@@ -6,7 +6,6 @@ import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class PlayGameScreen implements Screen {
@@ -22,7 +21,6 @@ public class PlayGameScreen implements Screen {
         paused = false;
         gameState = new GameState(Settings.shared().config());
         world = new GameWorld(
-                new Point(0, 0),
                 Game.WINDOW_DIMENSION,
                 this::onGameOver,
                 gameState);

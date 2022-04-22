@@ -1,13 +1,14 @@
 package snake.screens.play;
 
 import snake.GameConfig;
-import snake.GameResult;
 import snake.MultiplayerMode;
 import snake.apple.Apple;
 import snake.player.Player;
 import snake.player.PlayerConfig;
 import snake.snek.SnekPlayer;
 import tengine.Actor;
+import tengine.graphics.graphicsObjects.TGraphicCompound;
+import tengine.graphics.graphicsObjects.text.TLabel;
 import tengine.world.GridSquare;
 import tengine.world.World;
 
@@ -17,7 +18,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GameWorld extends World {
-    private static final int N_TILES = 32;
+    private static final int TILE_COLS = 28;
+    private static final int TILE_ROWS = 24;
 
     // Future support for offsetting the world around other UI elements
     private final Grid grid;
@@ -43,9 +45,6 @@ public class GameWorld extends World {
     public GameWorld(Dimension dimension, GameOverNotifier gameOverNotifier, GameState gameState) {
         super(dimension);
 
-        // The world is a fixed size, but the location of where it can be placed in a
-        // window can differ, so we need the origin relative to the window.
-        this.origin = origin;
         this.gameOverNotifier = gameOverNotifier;
         this.gameState = gameState;
         this.gameConfig = gameState.gameConfig();
@@ -53,11 +52,14 @@ public class GameWorld extends World {
         // Play Area
         playAreaOrigin = new Point((int) ((dimension.width - playAreaDimension.width) * 0.5), (int) ((dimension.height - playAreaDimension.height) * 0.66));
 
-        // The grid tile size is fixed, so we just specify the
-        // number of tiles to create different sized grids
-        grid = new Grid(N_TILES, N_TILES);
+        // HUD
+        HeadsUpDisplay hud = new HeadsUpDisplay(canvas.dimension(), playAreaDimension, playAreaOrigin);
+        canvas.add(hud);
 
-        initPlayers(gameConfig);
+        // The grid tile size is fixed, so we just specify the number of tiles to create different sized grids
+        grid = new Grid(playAreaOrigin, TILE_ROWS, TILE_COLS);
+
+        initPlayers();
 
         apples = new HashSet<>();
         apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
