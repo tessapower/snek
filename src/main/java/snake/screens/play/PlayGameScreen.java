@@ -15,11 +15,10 @@ public class PlayGameScreen implements Screen {
     private final Game engine;
     private final GameWorld world;
     private final GameState gameState;
-    private final AudioClip backgroundMusic = SoundEffects.shared().backgroundMusic();
     private boolean paused;
 
     public PlayGameScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
-        SoundEffects.shared().goodApple().playOnLoop();
+        SoundEffects.shared().backgroundMusic().playOnLoop();
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         paused = false;
@@ -31,7 +30,7 @@ public class PlayGameScreen implements Screen {
     }
 
     public void onGameOver() {
-        backgroundMusic.stopPlayingLoop();
+        SoundEffects.shared().backgroundMusic().stopPlayingLoop();
         SoundEffects.shared().gameOver().play();
         screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
     }
