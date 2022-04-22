@@ -28,10 +28,19 @@ public class SnekPlayer extends Actor {
     private SnekTail tail;
     private boolean shouldGrowTail;
 
-    public static SnekPlayer spawnAt(GameWorld world, GridSquare gridSquare, PlayerConfig config,
+    public static SnekPlayer spawnAt(GameWorld world,
+                                     GridSquare gridSquare,
+                                     Direction initialDirection,
+                                     PlayerConfig config,
                                      PlayerState playerState) {
-        SnekPlayer snekPlayer = new SnekPlayer(world, gridSquare, new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE),
-                Direction.RIGHT, config, playerState);
+        SnekPlayer snekPlayer = new SnekPlayer(
+                world,
+                gridSquare,
+                new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE),
+                initialDirection,
+                config,
+                playerState);
+
         world.add(snekPlayer);
 
         return snekPlayer;
@@ -54,14 +63,16 @@ public class SnekPlayer extends Actor {
     }
 
     private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
-        // TODO: Change color of snek depending on player number
         // Head
         head = new SnekHeadSprite(dimension, direction, config.playerNumber());
         head.setGridSquare(square, world);
 
         // Tail
-        tail = new SnekTail(dimension, new GridSquare(head.gridSquare.row(), head.gridSquare.col() - 1),
-                world, config.playerNumber());
+        tail = new SnekTail(dimension,
+                head.gridSquare,
+                direction,
+                world,
+                config.playerNumber());
 
         // Sprite
         TGraphicCompound body = new TGraphicCompound(dimension);

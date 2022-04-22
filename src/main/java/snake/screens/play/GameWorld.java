@@ -4,8 +4,10 @@ import snake.GameConfig;
 import snake.MultiplayerMode;
 import snake.SoundEffects;
 import snake.apple.Apple;
+import snake.apple.AppleType;
 import snake.player.Player;
 import snake.player.PlayerConfig;
+import snake.snek.Direction;
 import snake.snek.SnekPlayer;
 import tengine.Actor;
 import tengine.world.GridSquare;
@@ -13,6 +15,7 @@ import tengine.world.World;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -32,15 +35,13 @@ public class GameWorld extends World {
 
     private final HeadsUpDisplay hud;
 
-    private final Dimension playAreaDimension = new Dimension(TILE_COLS * Grid.TILE_SIZE, TILE_ROWS * Grid.TILE_SIZE);
-    private final Point playAreaOrigin;
-
     // Players
     private SnekPlayer playerOne;
     private SnekPlayer playerTwo = null;
 
     // Apples
-    private final Set<Apple> apples;
+    private Apple goodApple;
+    private final Set<Apple> badApples;
 
     public GameWorld(Dimension dimension, GameOverNotifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -50,7 +51,9 @@ public class GameWorld extends World {
         this.gameConfig = gameState.gameConfig();
 
         // Play Area
-        playAreaOrigin = new Point((int) ((dimension.width - playAreaDimension.width) * 0.5), (int) ((dimension.height - playAreaDimension.height) * 0.66));
+        Dimension playAreaDimension = new Dimension(TILE_COLS * Grid.TILE_SIZE, TILE_ROWS * Grid.TILE_SIZE);
+        Point playAreaOrigin =
+                new Point((int) ((dimension.width - playAreaDimension.width) * 0.5), (int) ((dimension.height - playAreaDimension.height) * 0.66));
 
         // The grid tile size is fixed, so we just specify the number of tiles to create different sized grids
         grid = new Grid(playAreaOrigin, TILE_ROWS, TILE_COLS);
@@ -61,14 +64,15 @@ public class GameWorld extends World {
         hud = new HeadsUpDisplay(canvas.dimension(), playAreaDimension, playAreaOrigin, gameState);
         canvas.add(hud);
 
-        apples = new HashSet<>();
-        apples.add(Apple.spawnGoodApple(this, randomUnoccupiedSquare()));
+        goodApple = Apple.spawnGoodApple(this, randomUnoccupiedSquare());
+        badApples = new HashSet<>();
     }
 
     private void initPlayers() {
         playerOne = SnekPlayer.spawnAt(
                 this,
                 playerOneSpawnSquare(),
+                RANDOM.nextBoolean() ? Direction.RIGHT : Direction.DOWN,
                 PlayerConfig.configFor(Player.PLAYER_ONE),
                 gameState.playerOneState());
 
@@ -76,6 +80,7 @@ public class GameWorld extends World {
             playerTwo = SnekPlayer.spawnAt(
                     this,
                     playerTwoSpawnSquare(),
+                    RANDOM.nextBoolean() ? Direction.UP : Direction.LEFT,
                     PlayerConfig.configFor(Player.PLAYER_TWO),
                     gameState.playerTwoState());
         }
@@ -85,14 +90,12 @@ public class GameWorld extends World {
         playerOne.update(dt);
         if (gameState.playerOneState().livesLeft() == 0) {
             setGameOver();
-            return;
         }
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo.update(dt);
             if (gameState.playerTwoState().livesLeft() == 0) {
                 setGameOver();
-                return;
             }
         }
 
@@ -114,11 +117,10 @@ public class GameWorld extends World {
             SoundEffects.shared().appleCrunch().play();
             hud.animateAvatar();
 
-            apples.remove(maybeApple);
             maybeApple.removeFromWorld();
-            if (apples.size() < MAX_NUM_APPLES) apples.add(Apple.spawnGoodApple(this, randomUnoccupiedSquare()));
 
-            if (RANDOM.nextDouble() < RANDOM_CHANCE) apples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
+            if (maybeApple.appleType() == AppleType.CROMCHY) goodApple = Apple.spawnGoodApple(this, randomUnoccupiedSquare());
+            if (RANDOM.nextDouble() < RANDOM_CHANCE) badApples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
         }
 
     }
@@ -149,9 +151,13 @@ public class GameWorld extends World {
     }
 
     private Apple checkForEatenApples(SnekPlayer player) {
-        for (var apple : apples) {
-            if (apple.gridSquare().equals(player.gridSquare())) {
-                return apple;
+        if (goodApple.gridSquare().equals(player.gridSquare())) {
+            return goodApple;
+        }
+
+        for (var badApple : badApples) {
+            if (badApple.gridSquare().equals(player.gridSquare())) {
+                return badApple;
             }
         }
 
@@ -159,11 +165,11 @@ public class GameWorld extends World {
     }
 
     private GridSquare playerOneSpawnSquare() {
-        return new GridSquare(4, 4);
+        return new GridSquare(10, 10);
     }
 
     private GridSquare playerTwoSpawnSquare() {
-        return new GridSquare(8, 4);
+        return new GridSquare(20, 20);
     }
 
     private GridSquare randomUnoccupiedSquare() {

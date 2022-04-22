@@ -13,25 +13,41 @@ public class SnekTail {
     List<SnekTailSprite> tailPieces;
     Player playerNumber;
 
-    public SnekTail(Dimension dimension, GridSquare gridSquare, GameWorld world, Player playerNumber) {
+    public SnekTail(Dimension dimension, GridSquare headGridSquare, Direction direction, GameWorld world,
+                    Player playerNumber) {
         tailPieces = new ArrayList<>(MAX_TAIL_LEN);
         this.playerNumber = playerNumber;
 
         SnekTailSprite t1 = null, t2 = null;
+
         switch(playerNumber) {
             case PLAYER_ONE -> {
                 t1 = SnekTailSprite.playerOneTailSprite(dimension);
-                t1.setGridSquare(gridSquare, world);
-
                 t2 = SnekTailSprite.playerOneTailSprite(dimension);
-                t2.setGridSquare(new GridSquare(gridSquare.row(), gridSquare.col() - 1), world);
             }
             case PLAYER_TWO -> {
                 t1 = SnekTailSprite.playerTwoTailSprite(dimension);
-                t1.setGridSquare(gridSquare, world);
-
                 t2 = SnekTailSprite.playerTwoTailSprite(dimension);
-                t2.setGridSquare(new GridSquare(gridSquare.row(), gridSquare.col() - 1), world);
+            }
+        }
+
+        // Set the tailpieces according to the direction
+        switch(direction) {
+            case UP -> {
+                t1.setGridSquare(new GridSquare(headGridSquare.row() + 1, headGridSquare.col()), world);
+                t2.setGridSquare(new GridSquare(headGridSquare.row() + 2, headGridSquare.col()), world);
+            }
+            case DOWN -> {
+                t1.setGridSquare(new GridSquare(headGridSquare.row() - 1, headGridSquare.col()), world);
+                t2.setGridSquare(new GridSquare(headGridSquare.row() - 2, headGridSquare.col()), world);
+            }
+            case LEFT -> {
+                t1.setGridSquare(new GridSquare(headGridSquare.row(), headGridSquare.col() + 1), world);
+                t2.setGridSquare(new GridSquare(headGridSquare.row(), headGridSquare.col() + 2), world);
+            }
+            case RIGHT -> {
+                t1.setGridSquare(new GridSquare(headGridSquare.row(), headGridSquare.col() - 1), world);
+                t2.setGridSquare(new GridSquare(headGridSquare.row(), headGridSquare.col() - 2), world);
             }
         }
 

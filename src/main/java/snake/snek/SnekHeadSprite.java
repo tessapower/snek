@@ -60,7 +60,6 @@ class SnekHeadSprite extends TGraphicCompound {
 
     void setGridSquare(GridSquare gridSquare, GameWorld world) {
         this.gridSquare = gridSquare;
-        // set origin to world.origin() + position for square
         setOrigin(world.grid().positionForSquare(this.gridSquare));
     }
 }
