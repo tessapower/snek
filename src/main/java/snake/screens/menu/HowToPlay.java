@@ -15,13 +15,13 @@ class HowToPlay extends Menu {
         TLabel title = new TLabel("how to play");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
-        title.setOrigin(new Point(70, 90));
+        title.setOrigin(new Point(140, 180));
 
         initContent();
 
         Button close = new Button("close");
         close.setState(Button.State.FOCUSSED);
-        close.setOrigin(new Point(110, 245));
+        close.setOrigin(new Point(220, 490));
 
         addAll(title, close);
     }
@@ -29,18 +29,18 @@ class HowToPlay extends Menu {
     public void initContent() {
         TLabel onePlayer = bodyText("PLAYER 1");
         TLabel onePlayerKeys = bodyText("use the arrow keys to move snek");
-        onePlayer.setOrigin(new Point(105, 150));
-        onePlayerKeys.setOrigin(new Point(45, 160));
+        onePlayer.setOrigin(new Point(210, 300));
+        onePlayerKeys.setOrigin(new Point(90, 320));
 
         TLabel twoPlayer = bodyText("PLAYER 2");
         TLabel twoPlayerKeys = bodyText("use the W-A-S-D keys to move snek");
-        twoPlayer.setOrigin(new Point(105, 175));
-        twoPlayerKeys.setOrigin(new Point(40, 185));
+        twoPlayer.setOrigin(new Point(210, 350));
+        twoPlayerKeys.setOrigin(new Point(80, 365));
 
         TLabel infiniteMode = bodyText("INFINITE MODE");
         TLabel infiniteModeText = bodyText("turn on to let your tail grow forever!");
-        infiniteMode.setOrigin(new Point(90, 200));
-        infiniteModeText.setOrigin(new Point(15, 210));
+        infiniteMode.setOrigin(new Point(180, 400));
+        infiniteModeText.setOrigin(new Point(70, 420));
 
         addAll(onePlayer, onePlayerKeys, twoPlayer, twoPlayerKeys, infiniteMode, infiniteModeText);
     }

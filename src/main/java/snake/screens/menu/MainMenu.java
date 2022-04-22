@@ -29,22 +29,22 @@ class MainMenu extends Menu {
        title.setFont(FontBook.shared().titleFont());
        // The origin of text is unfortunately manual as we cannot query
        // the size of the text beforehand to properly align it
-       title.setOrigin(new Point(100, 90));
+       title.setOrigin(new Point(200, 180));
 
        onePlayer = new Button("one player");
-       onePlayer.setOrigin(new Point(95, 150));
+       onePlayer.setOrigin(new Point(190, 300));
 
        twoPlayer = new Button("two player");
-       twoPlayer.setOrigin(new Point(95, 170));
+       twoPlayer.setOrigin(new Point(190, 340));
 
        infiniteMode = new Button("infinite mode: " + (infiniteEnabled ? "on" : "off"));
-       infiniteMode.setOrigin(new Point(80, 190));
+       infiniteMode.setOrigin(new Point(160, 380));
 
        howToPlay = new Button("how to play");
-       howToPlay.setOrigin(new Point(95, 210));
+       howToPlay.setOrigin(new Point(190, 420));
 
        credits = new Button("credits");
-       credits.setOrigin(new Point(105, 230));
+       credits.setOrigin(new Point(210, 460));
 
        buttons = new ButtonGroup(onePlayer, twoPlayer, infiniteMode, howToPlay, credits);
 

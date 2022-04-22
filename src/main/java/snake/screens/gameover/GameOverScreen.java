@@ -31,7 +31,7 @@ public class GameOverScreen implements Screen {
         title.setFont(FontBook.shared().titleFont());
         // The origin of text is unfortunately manual as we cannot query
         // the size of the text beforehand to properly align it
-        title.setOrigin(new Point(75, 90));
+        title.setOrigin(new Point(150, 180));
 
         // Snek
         AnimatedSnek snek = AnimatedSnek.animatedSnek();
@@ -42,7 +42,7 @@ public class GameOverScreen implements Screen {
         TLabel score = new TLabel("apples eaten: " + gameState.playerOneState().score());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
-        score.setOrigin(new Point(45, 160));
+        score.setOrigin(new Point(90, 280));
 
         // Display results based on Multiplayer Mode
         if (Settings.shared().playerMode() == MultiplayerMode.MULTIPLAYER) {
@@ -56,10 +56,10 @@ public class GameOverScreen implements Screen {
 
         // Buttons
         playAgain = new Button("play again");
-        playAgain.setOrigin(new Point(40, 245));
+        playAgain.setOrigin(new Point(80, 490));
 
         quit = new Button("quit to menu");
-        quit.setOrigin(new Point(145, 245));
+        quit.setOrigin(new Point(290, 490));
 
         buttonGroup = new ButtonGroup(playAgain, quit);
 
