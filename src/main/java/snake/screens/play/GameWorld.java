@@ -2,14 +2,12 @@ package snake.screens.play;
 
 import snake.GameConfig;
 import snake.MultiplayerMode;
+import snake.SoundEffects;
 import snake.apple.Apple;
 import snake.player.Player;
 import snake.player.PlayerConfig;
-import snake.snek.AnimatedSnek;
 import snake.snek.SnekPlayer;
 import tengine.Actor;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
-import tengine.graphics.graphicsObjects.text.TLabel;
 import tengine.world.GridSquare;
 import tengine.world.World;
 
@@ -101,7 +99,8 @@ public class GameWorld extends World {
 
         if (maybeApple != null) {
             player.eat(maybeApple, gameConfig.gameMode());
-
+            
+            SoundEffects.shared().appleCrunch().play();
             hud.animateAvatar();
             apples.remove(maybeApple);
             maybeApple.removeFromWorld();
