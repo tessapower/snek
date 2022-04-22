@@ -5,6 +5,7 @@ import snake.MultiplayerMode;
 import snake.apple.Apple;
 import snake.player.Player;
 import snake.player.PlayerConfig;
+import snake.snek.AnimatedSnek;
 import snake.snek.SnekPlayer;
 import tengine.Actor;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
@@ -27,11 +28,8 @@ public class GameWorld extends World {
     private final GameState gameState;
     private final GameConfig gameConfig;
 
-    private TGraphicCompound hud;
-    private TLabel playerOneScore;
+    private final HeadsUpDisplay hud;
 
-    private TLabel playerTwoScore;
-    private TGraphicCompound playArea;
     private final Dimension playAreaDimension = new Dimension(TILE_COLS * Grid.TILE_SIZE, TILE_ROWS * Grid.TILE_SIZE);
     private final Point playAreaOrigin;
 
@@ -58,7 +56,7 @@ public class GameWorld extends World {
         initPlayers();
 
         // HUD
-        HeadsUpDisplay hud = new HeadsUpDisplay(canvas.dimension(), playAreaDimension, playAreaOrigin, gameState);
+        hud = new HeadsUpDisplay(canvas.dimension(), playAreaDimension, playAreaOrigin, gameState);
         canvas.add(hud);
 
         apples = new HashSet<>();
@@ -104,6 +102,7 @@ public class GameWorld extends World {
         if (maybeApple != null) {
             player.eat(maybeApple, gameConfig.gameMode());
 
+            hud.animateAvatar();
             apples.remove(maybeApple);
             maybeApple.removeFromWorld();
             apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));

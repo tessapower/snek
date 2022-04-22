@@ -4,7 +4,6 @@ import snake.Colors;
 import snake.FontBook;
 import snake.apple.AppleSprite;
 import snake.player.PlayerState;
-import snake.snek.AnimatedSnek;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.shapes.TRect;
 import tengine.graphics.graphicsObjects.sprites.Sprite;
@@ -14,6 +13,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class HeadsUpDisplay extends TGraphicCompound {
+    Avatar avatar;
     Scoreboard playerOneScoreboard;
     Scoreboard playerTwoScoreboard = null;
     GameState state;
@@ -30,8 +30,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
         // Add avatar
         // TODO: Pause updating HUD when game is paused
-        AnimatedSnek avatar = AnimatedSnek.playerOneSnek();
-        avatar.setState(AnimatedSnek.State.IDLE);
+        avatar = new Avatar();
         avatar.setOrigin(new Point(-2, playAreaOrigin.y - avatar.height() - 7));
 
         // If two player, add player two lives and score and move avatar to center
@@ -49,7 +48,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
         pauseLabel.setOrigin(new Point(playAreaOrigin.x + playAreaDimension.width - 85,
                 playAreaOrigin.y + playAreaDimension.height + 15));
 
-        addAll(border, avatar, playerOneScoreboard, pauseLabel);
+        addAll(border, avatar.snek, playerOneScoreboard, pauseLabel);
     }
 
     @Override
@@ -61,6 +60,10 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
 
         super.update(dtMillis);
+    }
+
+    public void animateAvatar() {
+        avatar.eat();
     }
 
     static class Scoreboard extends TGraphicCompound {
