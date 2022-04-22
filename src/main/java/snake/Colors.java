@@ -8,7 +8,7 @@ public class Colors {
 
     public static class Text {
         public static final Color PRIMARY = SNEK_GREEN;
-
+        public static final Color HIGHLIGHTED = SNEK_RED;
     }
 
     public static class Button {
