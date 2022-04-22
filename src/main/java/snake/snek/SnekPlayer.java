@@ -132,7 +132,6 @@ public class SnekPlayer extends Actor {
             }
             case YUCK -> {
                 state.reduceLivesLeft();
-                System.out.println(state.livesLeft());
             }
         }
     }

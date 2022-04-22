@@ -1,5 +1,7 @@
 package snake.screens;
 
+import snake.SoundEffects;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +23,7 @@ public class ButtonGroup {
 
     public void next() {
         if (focusIdx < buttons.size() - 1) {
+            SoundEffects.shared().menuMove().play();
             buttons.get(focusIdx).setState(Button.State.UNFOCUSED);
             focusIdx++;
             buttons.get(focusIdx).setState(Button.State.FOCUSSED);
@@ -29,6 +32,7 @@ public class ButtonGroup {
 
     public void previous() {
         if (focusIdx > 0) {
+            SoundEffects.shared().menuMove().play();
             buttons.get(focusIdx).setState(Button.State.UNFOCUSED);
             focusIdx--;
             buttons.get(focusIdx).setState(Button.State.FOCUSSED);

@@ -3,6 +3,7 @@ package snake.screens.play;
 import snake.*;
 import snake.apple.AppleSprite;
 import snake.player.PlayerState;
+import snake.utils.ResourceLoader;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.shapes.TRect;
 import tengine.graphics.graphicsObjects.sprites.Sprite;
@@ -19,13 +20,13 @@ public class HeadsUpDisplay extends TGraphicCompound {
     private final Scoreboard playerOneScoreboard;
     private Scoreboard playerTwoScoreboard = null;
     private final GameState state;
-
+    
     public HeadsUpDisplay(Dimension dimension, Dimension playAreaDimension, Point playAreaOrigin, GameState state) {
         super(dimension);
 
         this.state = state;
 
-        playerOneScoreboard = new Scoreboard(state.playerOneState(), state.gameConfig());
+        playerOneScoreboard = Scoreboard.playerOneScoreboard(state.playerOneState(), state.gameConfig());
         int scoreboardX = playAreaOrigin.x + playAreaDimension.width - playerOneScoreboard.width();
         int scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
         playerOneScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
@@ -37,7 +38,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
         // If two player, add player two lives and score and move avatar to center
         if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwoScoreboard = new Scoreboard(state.playerTwoState(), state.gameConfig());
+            playerTwoScoreboard = Scoreboard.playerTwoScoreboard(state.playerTwoState());
             scoreboardX = playAreaOrigin.x;
             scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
             playerTwoScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
@@ -65,10 +66,10 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
     @Override
     public void update(double dtMillis) {
-        playerOneScoreboard.setScore(state.playerOneState().score());
+        playerOneScoreboard.updateScoreboard(state.playerOneState());
 
         if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwoScoreboard.setScore(state.playerTwoState().score());
+            playerTwoScoreboard.updateScoreboard(state.playerTwoState());
         }
 
         super.update(dtMillis);
@@ -79,37 +80,58 @@ public class HeadsUpDisplay extends TGraphicCompound {
     }
 
     static class Scoreboard extends TGraphicCompound {
+        private static final String HEART = "heart.png";
+        private static final String HEART_P1 = "heart-p1.png";
+        private static final String HEART_P2 = "heart-p2.png";
+        private static final Dimension HEART_DIMENSION = new Dimension(16, 16);
         private static final Dimension DIMENSION = new Dimension(80, 50);
-        TLabel appleCount;
-        ArrayList<Sprite> hearts;
 
-        public Scoreboard(PlayerState playerState, GameConfig gameConfig) {
+        private final TLabel appleCount;
+        private final ArrayList<Sprite> hearts;
+
+        public static Scoreboard playerOneScoreboard(PlayerState playerState, GameConfig gameConfig) {
+            String heart = (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) ? HEART_P1 : HEART;
+
+            return new Scoreboard(playerState, heart);
+        }
+
+        public static Scoreboard playerTwoScoreboard(PlayerState playerState) {
+            return new Scoreboard(playerState, HEART_P2);
+        }
+
+        private Scoreboard(PlayerState playerState, String heart) {
             super(DIMENSION);
-
-            hearts = new ArrayList<>(playerState.livesLeft());
-
-//            if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-//
-//            }
 
             AppleSprite apple = AppleSprite.goodApple();
             apple.setOrigin(new Point(0, DIMENSION.height - (int)(apple.height() * 1.5)));
 
             appleCount = new TLabel("");
-            setScore(playerState.score());
             appleCount.setFont(FontBook.shared().scoreBoardFont());
             appleCount.setColor(Colors.Text.HIGHLIGHTED);
             appleCount.setOrigin(new Point((int) (apple.width() * 1.5), apple.y() + apple.height()));
 
+            hearts = new ArrayList<>(playerState.livesLeft());
+
+            for (var i = 0; i < playerState.livesLeft(); i++) {
+                Sprite heartSprite = new Sprite(ResourceLoader.load(heart), HEART_DIMENSION);
+                heartSprite.setOrigin(new Point(appleCount.x() - 2 + (i * (heartSprite.width() + 2)),
+                        apple.y() - apple.height() - 5));
+                hearts.add(heartSprite);
+                add(heartSprite);
+            }
+
+            updateScoreboard(playerState);
+
             addAll(apple, appleCount);
         }
 
-        public void setScore(int score) {
-            appleCount.setText(padScoreText(score));
-        }
+        public void updateScoreboard(PlayerState playerState) {
+            appleCount.setText(padScoreText(playerState.score()));
 
-        public void removeLife() {
-
+            if (playerState.livesLeft() < hearts.size()) {
+                Sprite heart = hearts.remove(0);
+                heart.removeFromParent();
+            }
         }
 
         private String padScoreText(int score) {

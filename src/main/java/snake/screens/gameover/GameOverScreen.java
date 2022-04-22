@@ -73,14 +73,8 @@ public class GameOverScreen implements Screen {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_LEFT -> {
-                SoundEffects.shared().menuMove().play();
-                buttonGroup.previous();
-            }
-            case KeyEvent.VK_RIGHT -> {
-                SoundEffects.shared().menuMove().play();
-                buttonGroup.next();
-            }
+            case KeyEvent.VK_LEFT -> buttonGroup.previous();
+            case KeyEvent.VK_RIGHT -> buttonGroup.next();
             case KeyEvent.VK_ENTER -> {
                 SoundEffects.shared().menuSelect().play();
                 if (buttonGroup.getFocussed() == playAgain) {

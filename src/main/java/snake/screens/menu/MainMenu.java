@@ -51,14 +51,8 @@ class MainMenu extends Menu {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP -> {
-                SoundEffects.shared().menuMove().play();
-                buttons.previous();
-            }
-            case KeyEvent.VK_DOWN -> {
-                SoundEffects.shared().menuMove().play();
-                buttons.next();
-            }
+            case KeyEvent.VK_UP -> buttons.previous();
+            case KeyEvent.VK_DOWN -> buttons.next();
             case KeyEvent.VK_ENTER -> {
                 SoundEffects.shared().menuSelect().play();
                 Button focussed = buttons.getFocussed();

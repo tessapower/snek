@@ -19,7 +19,7 @@ public class PlayGameScreen implements Screen {
     private boolean paused;
 
     public PlayGameScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
-        backgroundMusic.playOnLoop();
+        SoundEffects.shared().goodApple().playOnLoop();
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
         paused = false;
