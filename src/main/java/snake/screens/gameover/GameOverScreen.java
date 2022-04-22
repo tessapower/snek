@@ -35,6 +35,7 @@ public class GameOverScreen implements Screen {
 
         // Snek
         AnimatedSnek snek = AnimatedSnek.animatedSnek();
+        snek.setFps(7);
         snek.setOrigin(new Point(Game.WINDOW_CENTER.x - (snek.width() / 2), Game.WINDOW_CENTER.y - snek.height()));
         snek.setState(AnimatedSnek.State.DYING);
 
@@ -46,7 +47,7 @@ public class GameOverScreen implements Screen {
 
         // Display results based on Multiplayer Mode
         if (Settings.shared().playerMode() == MultiplayerMode.MULTIPLAYER) {
-            title.setOrigin(new Point(40, 90));
+            title.setOrigin(new Point(80, 180));
             Player winner = gameState.playerOneState().score() > gameState.playerTwoState().score() ? Player.PLAYER_ONE : Player.PLAYER_TWO;
             switch (winner) {
                 case PLAYER_ONE -> title.setText("player one wins!");

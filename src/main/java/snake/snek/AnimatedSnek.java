@@ -22,16 +22,18 @@ public class AnimatedSnek extends AnimatedSprite {
     private static final SpriteSequence SPINNING = new SpriteSequence(State.SPINNING.id, generateRow(1), true);
     private static final SpriteSequence MOVING = new SpriteSequence(State.MOVING.id, generateRow(2), true);
     private static final SpriteSequence EATING = new SpriteSequence(State.EATING.id, generateRow(3), false);
+    static {
+       EATING.frames().remove(0);
+       EATING.frames().remove(0);
+    }
     private static final SpriteSequence DYING = new SpriteSequence(State.DYING.id, generateRow(4), false);
+    static {
+        DYING.frames().add(0, IDLE.frames().get(0));
+    }
 
     private AnimatedSnek(String path) {
         super(ResourceLoader.load(path), FRAME_DIMENSION, DEFAULT_FPS, MOVING);
         setScale(SCALE);
-
-        // TODO: maybe fix this hack to make snek animation delay for a second before dying
-        DYING.frames().add(0, IDLE.frames().get(0));
-        EATING.frames().remove(0);
-        EATING.frames().remove(0);
     }
 
     public static AnimatedSnek animatedSnek() {

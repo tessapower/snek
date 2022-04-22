@@ -90,10 +90,8 @@ public class GameWorld extends World {
     }
 
     public void checkCollisions(SnekPlayer player) {
-        if (player.hasHitWall() || player.hasHitSelf() || playersCollided()) {
-            // TODO: play BONK! noise
-            gameOverNotifier.notifyGameOver();
-        }
+        boolean playerHitSomething = player.hasHitWall() || player.hasHitSelf() || playersCollided();
+        if (playerHitSomething) setGameOver();
 
         Apple maybeApple = checkForEatenApples(player);
 
@@ -102,6 +100,7 @@ public class GameWorld extends World {
             
             SoundEffects.shared().appleCrunch().play();
             hud.animateAvatar();
+
             apples.remove(maybeApple);
             maybeApple.removeFromWorld();
             apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
@@ -119,6 +118,10 @@ public class GameWorld extends World {
 
     public Grid grid() {
         return grid;
+    }
+
+    public void setGameOver() {
+        gameOverNotifier.notifyGameOver();
     }
 
     // Dispatch relevant key events to the appropriate actors

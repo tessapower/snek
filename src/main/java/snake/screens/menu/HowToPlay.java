@@ -35,7 +35,7 @@ class HowToPlay extends Menu {
         TLabel twoPlayer = bodyText("PLAYER 2");
         TLabel twoPlayerKeys = bodyText("use the W-A-S-D keys to move snek");
         twoPlayer.setOrigin(new Point(210, 350));
-        twoPlayerKeys.setOrigin(new Point(80, 365));
+        twoPlayerKeys.setOrigin(new Point(80, 370));
 
         TLabel infiniteMode = bodyText("INFINITE MODE");
         TLabel infiniteModeText = bodyText("turn on to let your tail grow forever!");
