@@ -1,9 +1,6 @@
 package snake.screens.menu;
 
-import snake.Colors;
-import snake.FontBook;
-import snake.GameMode;
-import snake.Settings;
+import snake.*;
 import snake.screens.Button;
 import snake.screens.ButtonGroup;
 import tengine.graphics.graphicsObjects.text.TLabel;
@@ -54,9 +51,16 @@ class MainMenu extends Menu {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
-            case KeyEvent.VK_UP -> buttons.previous();
-            case KeyEvent.VK_DOWN -> buttons.next();
+            case KeyEvent.VK_UP -> {
+                SoundEffects.shared().menuMove().play();
+                buttons.previous();
+            }
+            case KeyEvent.VK_DOWN -> {
+                SoundEffects.shared().menuMove().play();
+                buttons.next();
+            }
             case KeyEvent.VK_ENTER -> {
+                SoundEffects.shared().menuSelect().play();
                 Button focussed = buttons.getFocussed();
                 if (focussed.equals(onePlayer)) {
                    submenuSelectionNotifier.notifySelection(SubmenuOption.ONE_PLAYER);

@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class GameWorld extends World {
     private static final Random RANDOM = new Random();
-    private static final double RANDOM_CHANCE = 0.2;
+    private static final double RANDOM_CHANCE = 0.35;
     private static final int TILE_COLS = 28;
     private static final int TILE_ROWS = 24;
 
@@ -112,12 +112,16 @@ public class GameWorld extends World {
         if (maybeApple != null) {
             player.eat(maybeApple, gameConfig.gameMode());
 
-            SoundEffects.shared().appleCrunch().play();
             hud.animateAvatar();
 
             maybeApple.removeFromWorld();
 
-            if (maybeApple.appleType() == AppleType.CROMCHY) goodApple = Apple.spawnGoodApple(this, randomUnoccupiedSquare());
+            if (maybeApple.appleType() == AppleType.CROMCHY) {
+                SoundEffects.shared().goodApple().play();
+                goodApple = Apple.spawnGoodApple(this, randomUnoccupiedSquare());
+            } else {
+                SoundEffects.shared().badApple().play();
+            }
             if (RANDOM.nextDouble() < RANDOM_CHANCE) badApples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
         }
 

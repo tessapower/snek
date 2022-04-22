@@ -2,6 +2,7 @@ package snake.screens.menu;
 
 import snake.Colors;
 import snake.FontBook;
+import snake.SoundEffects;
 import snake.screens.Button;
 import tengine.graphics.graphicsObjects.text.TLabel;
 
@@ -34,18 +35,23 @@ class Credits extends Menu {
         animatedSnakeAttr1.setOrigin(new Point(60, 280));
         animatedSnakeAttr2.setOrigin(new Point(60, 300));
 
-        TLabel soundsAttr1 = bodyText("Sounds by 8bitlalaland, usuable under");
-        TLabel soundsAttr2 = bodyText("Creative Commons Attribution 3.0");
-        soundsAttr1.setOrigin(new Point(60, 350));
-        soundsAttr2.setOrigin(new Point(80, 365));
+        TLabel soundsAttr1 = bodyText("Sound Effects by Juhani Junkala,");
+        TLabel soundsAttr2 = bodyText("usable under CC0 Creative Commons License");
+        soundsAttr1.setOrigin(new Point(80, 330));
+        soundsAttr2.setOrigin(new Point(40, 350));
+
+        TLabel musicAttr1 = bodyText("Music by Steven Melin, usable");
+        TLabel musicAttr2 = bodyText("under CC0 Creative Commons License");
+        musicAttr1.setOrigin(new Point(100, 380));
+        musicAttr2.setOrigin(new Point(60, 400));
 
         TLabel fontAttr = bodyText("Retro Gaming Font by Damyrius");
-        fontAttr.setOrigin(new Point(100, 400));
+        fontAttr.setOrigin(new Point(100, 430));
 
         TLabel artworkByMe = bodyText("Original pixel artwork by Tessa Power");
-        artworkByMe.setOrigin(new Point(70, 430));
+        artworkByMe.setOrigin(new Point(70, 460));
 
-        addAll(animatedSnakeAttr1, animatedSnakeAttr2, soundsAttr1, soundsAttr2, fontAttr, artworkByMe);
+        addAll(animatedSnakeAttr1, animatedSnakeAttr2, soundsAttr1, soundsAttr2, musicAttr1, musicAttr2, fontAttr, artworkByMe);
     }
 
     private TLabel bodyText(String str) {
@@ -59,6 +65,7 @@ class Credits extends Menu {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
+            SoundEffects.shared().menuSelect().play();
             submenuSelectionNotifier.notifySelection(SubmenuOption.CLOSE);
         }
     }

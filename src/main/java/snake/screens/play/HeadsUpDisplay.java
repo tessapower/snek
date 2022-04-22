@@ -15,7 +15,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
     private static final int AVATAR_X_PAD = -2;
     private static final int AVATAR_Y_PAD = -7;
 
-    Avatar avatar;
+    private final Avatar avatar;
     private final Scoreboard playerOneScoreboard;
     private Scoreboard playerTwoScoreboard = null;
     private final GameState state;
@@ -25,7 +25,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
         this.state = state;
 
-        playerOneScoreboard = new Scoreboard(state.playerOneState());
+        playerOneScoreboard = new Scoreboard(state.playerOneState(), state.gameConfig());
         int scoreboardX = playAreaOrigin.x + playAreaDimension.width - playerOneScoreboard.width();
         int scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
         playerOneScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
@@ -37,7 +37,7 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
         // If two player, add player two lives and score and move avatar to center
         if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwoScoreboard = new Scoreboard(state.playerTwoState());
+            playerTwoScoreboard = new Scoreboard(state.playerTwoState(), state.gameConfig());
             scoreboardX = playAreaOrigin.x;
             scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
             playerTwoScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
@@ -83,10 +83,14 @@ public class HeadsUpDisplay extends TGraphicCompound {
         TLabel appleCount;
         ArrayList<Sprite> hearts;
 
-        public Scoreboard(PlayerState playerState) {
+        public Scoreboard(PlayerState playerState, GameConfig gameConfig) {
             super(DIMENSION);
 
             hearts = new ArrayList<>(playerState.livesLeft());
+
+//            if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+//
+//            }
 
             AppleSprite apple = AppleSprite.goodApple();
             apple.setOrigin(new Point(0, DIMENSION.height - (int)(apple.height() * 1.5)));

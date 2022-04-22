@@ -2,6 +2,7 @@ package snake.screens.menu;
 
 import snake.Colors;
 import snake.FontBook;
+import snake.SoundEffects;
 import snake.screens.Button;
 import tengine.graphics.graphicsObjects.text.TLabel;
 
@@ -56,6 +57,7 @@ class HowToPlay extends Menu {
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ENTER) {
+            SoundEffects.shared().menuSelect().play();
             submenuSelectionNotifier.notifySelection(SubmenuOption.CLOSE);
         }
     }
