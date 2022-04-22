@@ -14,11 +14,15 @@ import tengine.world.World;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class GameWorld extends World {
+    private static final Random RANDOM = new Random();
+    private static final double RANDOM_CHANCE = 0.2;
     private static final int TILE_COLS = 28;
     private static final int TILE_ROWS = 24;
+    private static final int MAX_NUM_APPLES = 2;
 
     // Future support for offsetting the world around other UI elements
     private final Grid grid;
@@ -58,7 +62,7 @@ public class GameWorld extends World {
         canvas.add(hud);
 
         apples = new HashSet<>();
-        apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
+        apples.add(Apple.spawnGoodApple(this, randomUnoccupiedSquare()));
     }
 
     private void initPlayers() {
@@ -79,8 +83,17 @@ public class GameWorld extends World {
 
     public void update(double dt) {
         playerOne.update(dt);
+        if (gameState.playerOneState().livesLeft() == 0) {
+            setGameOver();
+            return;
+        }
+
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo.update(dt);
+            if (gameState.playerTwoState().livesLeft() == 0) {
+                setGameOver();
+                return;
+            }
         }
 
         checkCollisions(playerOne);
@@ -97,13 +110,15 @@ public class GameWorld extends World {
 
         if (maybeApple != null) {
             player.eat(maybeApple, gameConfig.gameMode());
-            
+
             SoundEffects.shared().appleCrunch().play();
             hud.animateAvatar();
 
             apples.remove(maybeApple);
             maybeApple.removeFromWorld();
-            apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
+            if (apples.size() < MAX_NUM_APPLES) apples.add(Apple.spawnGoodApple(this, randomUnoccupiedSquare()));
+
+            if (RANDOM.nextDouble() < RANDOM_CHANCE) apples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
         }
 
     }

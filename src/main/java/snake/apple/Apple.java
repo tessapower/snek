@@ -11,8 +11,15 @@ public class Apple extends Actor {
     private GridSquare gridSquare;
     private final AppleType appleType;
 
-    public static Apple spawnAt(GameWorld world, GridSquare gridSquare) {
+    public static Apple spawnGoodApple(GameWorld world, GridSquare gridSquare) {
         Apple apple = new Apple(world, gridSquare, AppleType.CROMCHY);
+        world.add(apple);
+
+        return apple;
+    }
+
+    public static Apple spawnBadApple(GameWorld world, GridSquare gridSquare) {
+        Apple apple = new Apple(world, gridSquare, AppleType.YUCK);
         world.add(apple);
 
         return apple;

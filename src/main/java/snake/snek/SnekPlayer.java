@@ -119,7 +119,10 @@ public class SnekPlayer extends Actor {
                     case INFINITE -> growTail();
                 }
             }
-            case YUCK -> state.reduceLivesLeft();
+            case YUCK -> {
+                state.reduceLivesLeft();
+                System.out.println(state.livesLeft());
+            }
         }
     }
 

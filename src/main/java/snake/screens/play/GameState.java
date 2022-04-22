@@ -2,6 +2,7 @@ package snake.screens.play;
 
 import snake.GameConfig;
 import snake.MultiplayerMode;
+import snake.player.Player;
 import snake.player.PlayerState;
 import snake.snek.SnekPlayer;
 
@@ -28,5 +29,12 @@ public class GameState {
 
     public PlayerState playerTwoState() {
         return playerTwoState;
+    }
+
+    public PlayerState getStateFor(Player player) {
+        return switch (player) {
+            case PLAYER_ONE -> playerOneState;
+            case PLAYER_TWO -> playerTwoState;
+        };
     }
 }
