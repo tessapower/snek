@@ -42,7 +42,7 @@ public class GameOverScreen implements Screen {
         TLabel score = new TLabel("apples eaten: " + gameState.playerOneState().score());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
-        score.setOrigin(new Point(90, 280));
+        score.setOrigin(new Point(90, 300));
 
         // Display results based on Multiplayer Mode
         if (Settings.shared().playerMode() == MultiplayerMode.MULTIPLAYER) {

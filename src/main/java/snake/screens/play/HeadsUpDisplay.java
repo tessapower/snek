@@ -21,6 +21,8 @@ public class HeadsUpDisplay extends TGraphicCompound {
     public HeadsUpDisplay(Dimension dimension, Dimension playAreaDimension, Point playAreaOrigin, GameState state) {
         super(dimension);
 
+        this.state = state;
+
         playerOneScoreboard = new Scoreboard(state.playerOneState());
         int scoreboardX = playAreaOrigin.x + playAreaDimension.width - playerOneScoreboard.width();
         int scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
@@ -50,12 +52,15 @@ public class HeadsUpDisplay extends TGraphicCompound {
         addAll(border, avatar, playerOneScoreboard, pauseLabel);
     }
 
-    public void updateScore() {
+    @Override
+    public void update(double dtMillis) {
         // set player one label text
         playerOneScoreboard.setScore(state.playerOneState().score());
 
         // set player two label text
 
+
+        super.update(dtMillis);
     }
 
     static class Scoreboard extends TGraphicCompound {

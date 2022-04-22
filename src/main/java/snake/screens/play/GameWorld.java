@@ -52,14 +52,14 @@ public class GameWorld extends World {
         // Play Area
         playAreaOrigin = new Point((int) ((dimension.width - playAreaDimension.width) * 0.5), (int) ((dimension.height - playAreaDimension.height) * 0.66));
 
-        // HUD
-        HeadsUpDisplay hud = new HeadsUpDisplay(canvas.dimension(), playAreaDimension, playAreaOrigin, gameState);
-        canvas.add(hud);
-
         // The grid tile size is fixed, so we just specify the number of tiles to create different sized grids
         grid = new Grid(playAreaOrigin, TILE_ROWS, TILE_COLS);
 
         initPlayers();
+
+        // HUD
+        HeadsUpDisplay hud = new HeadsUpDisplay(canvas.dimension(), playAreaDimension, playAreaOrigin, gameState);
+        canvas.add(hud);
 
         apples = new HashSet<>();
         apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
@@ -107,8 +107,6 @@ public class GameWorld extends World {
             apples.remove(maybeApple);
             maybeApple.removeFromWorld();
             apples.add(Apple.spawnAt(this, randomUnoccupiedSquare()));
-
-            // TODO: update HUD
         }
 
     }
