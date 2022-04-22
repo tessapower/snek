@@ -14,7 +14,7 @@ import java.awt.*;
 // Package private
 class SnekHeadSprite extends TGraphicCompound {
     private static final String SNEK_HEAD_P1 = "snek-head-p1.png";
-    private static final String SNEK_HEAD_P2 = "snek-head-p1.png";
+    private static final String SNEK_HEAD_P2 = "snek-head-p2.png";
 
     Direction direction;
     GridSquare gridSquare;

@@ -8,8 +8,8 @@ import tengine.world.GridSquare;
 import java.awt.*;
 
 class SnekTailSprite extends Sprite {
-    private static final String SNEK_TAIL_P1 = "snek-body-p1.png";
-    private static final String SNEK_TAIL_P2 = "snek-body-p1.png";
+    private static final String SNEK_TAIL_P1 = "snek-tail-p1.png";
+    private static final String SNEK_TAIL_P2 = "snek-tail-p2.png";
 
     GridSquare gridSquare;
 
