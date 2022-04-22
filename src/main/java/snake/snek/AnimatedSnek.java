@@ -9,25 +9,29 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class AnimatedSnek extends AnimatedSprite {
+    public static final int DEFAULT_FPS = 5;
+
     // We scale up the Snek otherwise he is only 32 x 32 points big
     private static final Dimension FRAME_DIMENSION = new Dimension(32, 32);
     private static final String SNEK_SPRITE_SHEET_P1 = "animated-snek-sprite-sheet.png";
     private static final String SNEK_SPRITE_SHEET_P2 = "animated-snek-sprite-sheet.png";
     private static final int NUM_FRAMES = 10;
     private static final int SCALE = 4;
-    private static final int FPS = 5;
 
-    private static final SpriteSequence IDLE = new SpriteSequence(generateRow(0), true);
-    private static final SpriteSequence SPINNING = new SpriteSequence(generateRow(1), true);
-    private static final SpriteSequence MOVING = new SpriteSequence(generateRow(2), true);
-    private static final SpriteSequence EATING = new SpriteSequence(generateRow(3), false);
-    private static final SpriteSequence DYING = new SpriteSequence(generateRow(4), false);
+    private static final SpriteSequence IDLE = new SpriteSequence(State.IDLE.id, generateRow(0), true);
+    private static final SpriteSequence SPINNING = new SpriteSequence(State.SPINNING.id, generateRow(1), true);
+    private static final SpriteSequence MOVING = new SpriteSequence(State.MOVING.id, generateRow(2), true);
+    private static final SpriteSequence EATING = new SpriteSequence(State.EATING.id, generateRow(3), false);
+    private static final SpriteSequence DYING = new SpriteSequence(State.DYING.id, generateRow(4), false);
 
     private AnimatedSnek(String path) {
-        super(ResourceLoader.load(path), FRAME_DIMENSION, FPS, MOVING);
+        super(ResourceLoader.load(path), FRAME_DIMENSION, DEFAULT_FPS, MOVING);
         setScale(SCALE);
+
         // TODO: maybe fix this hack to make snek animation delay for a second before dying
         DYING.frames().add(0, IDLE.frames().get(0));
+        EATING.frames().remove(0);
+        EATING.frames().remove(0);
     }
 
     public static AnimatedSnek animatedSnek() {
@@ -51,6 +55,18 @@ public class AnimatedSnek extends AnimatedSprite {
         return sequence;
     }
 
+    public int fps() {
+        return fps;
+    }
+
+    public static int defaultFps() {
+        return DEFAULT_FPS;
+    }
+
+    public void setFps(int fps) {
+        this.fps = fps;
+    }
+
     public void setState(State state) {
         switch(state) {
             case IDLE -> currentSequence = IDLE;
@@ -63,11 +79,27 @@ public class AnimatedSnek extends AnimatedSprite {
         currentFrame = 0;
     }
 
+    public State currentState() {
+        return switch(currentSequence.id()) {
+            case "spinning" -> State.SPINNING;
+            case "moving" -> State.MOVING;
+            case "eating" -> State.EATING;
+            case "dying" -> State.DYING;
+            default -> State.IDLE;
+        };
+    }
+
     public enum State {
-        IDLE,
-        SPINNING,
-        MOVING,
-        EATING,
-        DYING
+        IDLE("IDLE"),
+        SPINNING("SPINNING"),
+        MOVING("MOVING"),
+        EATING("EATING"),
+        DYING("DYING");
+
+        public final String id;
+
+        State(String id) {
+            this.id = id;
+        }
     }
 }
