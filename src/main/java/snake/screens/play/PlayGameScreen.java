@@ -6,7 +6,6 @@ import snake.SoundEffects;
 import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
-import tengine.AudioClip;
 
 import java.awt.event.KeyEvent;
 

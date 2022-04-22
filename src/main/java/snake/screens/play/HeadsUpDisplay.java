@@ -1,6 +1,9 @@
 package snake.screens.play;
 
-import snake.*;
+import snake.Colors;
+import snake.FontBook;
+import snake.GameConfig;
+import snake.MultiplayerMode;
 import snake.apple.AppleSprite;
 import snake.player.PlayerState;
 import snake.utils.ResourceLoader;
