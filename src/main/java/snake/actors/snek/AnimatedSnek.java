@@ -1,4 +1,4 @@
-package snake.snek;
+package snake.actors.snek;
 
 import snake.utils.ResourceLoader;
 import tengine.graphics.graphicsObjects.sprites.AnimatedSprite;
@@ -23,11 +23,13 @@ public class AnimatedSnek extends AnimatedSprite {
     private static final SpriteSequence MOVING = new SpriteSequence(State.MOVING.id, generateRow(2), true);
     private static final SpriteSequence EATING = new SpriteSequence(State.EATING.id, generateRow(3), false);
     static {
+        // Remove a few frames so that Snek starts eating faster
        EATING.frames().remove(0);
        EATING.frames().remove(0);
     }
     private static final SpriteSequence DYING = new SpriteSequence(State.DYING.id, generateRow(4), false);
     static {
+        // Lengthen the dying sequence
         DYING.frames().add(0, IDLE.frames().get(0));
     }
 
