@@ -57,7 +57,7 @@ The rules are simple:
 - Game over screen that lets the playerNumber play again or go to the main menu
 - Two playerNumber mode: play against a blue friend, fight for the highest score!
 
-![`snek!` two-playerNumber mode](docs/images/two-playerNumber-mode.png)
+![`snek!` two-playerNumber mode](docs/images/two-player-mode.png)
 
 ### Future Improvements
 

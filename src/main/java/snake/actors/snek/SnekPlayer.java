@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Optional;
 
+// TODO: Rename to Snek
 public class SnekPlayer extends Actor {
     private final GameWorld world;
     private final Dimension dimension;
@@ -75,7 +76,7 @@ public class SnekPlayer extends Actor {
         return body;
     }
 
-    public void update(double dtMillis) {
+    public void update() {
         direction = (pendingDirection == null) ? direction : pendingDirection;
         head.direction = direction;
         pendingDirection = null;
@@ -123,9 +124,7 @@ public class SnekPlayer extends Actor {
                     case INFINITE -> growTail();
                 }
             }
-            case YUCK -> {
-                player.reduceLivesLeft();
-            }
+            case YUCK -> player.reduceLivesLeft();
         }
     }
 
@@ -168,7 +167,7 @@ public class SnekPlayer extends Actor {
     }
 
     private void increaseSpeed() {
-        // TODO: Implement this
+        // TODO: Really really implement this
     }
 
     private void advanceHead() {

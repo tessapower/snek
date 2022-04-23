@@ -57,7 +57,7 @@ public class PlayGameScreen implements Screen {
     @Override
     public void update(double dtMillis) {
         if (!paused) {
-            world.update(dtMillis);
+            world.update();
         }
     }
 

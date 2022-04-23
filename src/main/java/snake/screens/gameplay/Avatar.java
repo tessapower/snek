@@ -6,7 +6,7 @@ import tengine.graphics.graphicsObjects.sprites.SpriteSequence;
 import java.awt.*;
 
 public class Avatar {
-    AnimatedSnek snek = AnimatedSnek.animatedSnek();
+    final AnimatedSnek snek = AnimatedSnek.animatedSnek();
 
     public Avatar() {
         snek.setState(AnimatedSnek.State.IDLE);
@@ -32,7 +32,7 @@ public class Avatar {
 
     private void onAnimationSequenceEnd(SpriteSequence spriteSequence) {
         if (spriteSequence.id().equals("EATING")) {
-            snek.setFps(AnimatedSnek.defaultFps());
+            snek.setFps(AnimatedSnek.DEFAULT_FPS);
             snek.setState(AnimatedSnek.State.IDLE);
         }
     }

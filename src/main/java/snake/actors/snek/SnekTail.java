@@ -10,8 +10,9 @@ import java.util.List;
 
 public class SnekTail {
     public static final int MAX_TAIL_LEN = 19;
-    List<SnekTailSprite> tailPieces;
-    PlayerNumber playerNumber;
+
+    final List<SnekTailSprite> tailPieces;
+    final PlayerNumber playerNumber;
 
     public SnekTail(Dimension dimension, GridSquare headGridSquare, Direction direction, GameWorld world,
                     PlayerNumber playerNumber) {

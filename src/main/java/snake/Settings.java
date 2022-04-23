@@ -37,8 +37,4 @@ public class Settings {
     public GameMode gameMode() {
         return gameMode;
     }
-
-    public MultiplayerMode playerMode() {
-        return playerMode;
-    }
 }

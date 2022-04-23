@@ -9,16 +9,10 @@ public class Button extends TLabel {
         FOCUSSED, UNFOCUSED
     }
 
-    private State state;
-
     public Button(String text) {
         super(text);
         setState(State.UNFOCUSED);
         setFont(FontBook.shared().buttonFont());
-    }
-
-    public State state() {
-        return state;
     }
 
     public void setState(State state) {
@@ -28,6 +22,5 @@ public class Button extends TLabel {
                 case UNFOCUSED -> Colors.Button.PRIMARY;
             }
         );
-        this.state = state;
     }
 }

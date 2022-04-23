@@ -42,14 +42,6 @@ public class AnimatedSnek extends AnimatedSprite {
         return new AnimatedSnek(SNEK_SPRITE_SHEET_P1);
     }
 
-    public static AnimatedSnek playerOneSnek() {
-        return new AnimatedSnek(SNEK_SPRITE_SHEET_P1);
-    }
-
-    public static AnimatedSnek playerTwoSnek() {
-        return new AnimatedSnek(SNEK_SPRITE_SHEET_P2);
-    }
-
     private static ArrayList<GridSquare> generateRow(int row) {
         ArrayList<GridSquare> sequence = new ArrayList<>(NUM_FRAMES);
         for (int col = 0; col < NUM_FRAMES; ++col) {
@@ -57,14 +49,6 @@ public class AnimatedSnek extends AnimatedSprite {
         }
 
         return sequence;
-    }
-
-    public int fps() {
-        return fps;
-    }
-
-    public static int defaultFps() {
-        return DEFAULT_FPS;
     }
 
     public void setFps(int fps) {
@@ -81,16 +65,6 @@ public class AnimatedSnek extends AnimatedSprite {
         }
 
         currentFrame = 0;
-    }
-
-    public State currentState() {
-        return switch(currentSequence.id()) {
-            case "spinning" -> State.SPINNING;
-            case "moving" -> State.MOVING;
-            case "eating" -> State.EATING;
-            case "dying" -> State.DYING;
-            default -> State.IDLE;
-        };
     }
 
     public enum State {

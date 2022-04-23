@@ -26,10 +26,6 @@ public record PlayerControls(Map<Integer, Action> controls) {
         };
     }
 
-    public boolean contains(int keyCode) {
-        return controls.containsKey(keyCode);
-    }
-
     public Optional<Action> mappedAction(int keyCode) {
         return Optional.ofNullable(controls.get(keyCode));
     }

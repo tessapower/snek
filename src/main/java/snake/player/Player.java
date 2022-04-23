@@ -3,8 +3,8 @@ package snake.player;
 public class Player {
     public static final int NUM_STARTING_LIVES = 3;
 
-    private PlayerNumber playerNumber;
-    private PlayerControls playerControls;
+    private final PlayerNumber playerNumber;
+    private final PlayerControls playerControls;
     private int score;
     private int livesLeft;
 

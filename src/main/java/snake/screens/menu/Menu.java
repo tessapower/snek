@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public abstract class Menu extends TGraphicCompound {
-    SubmenuSelectionNotifier submenuSelectionNotifier;
+    final SubmenuSelectionNotifier submenuSelectionNotifier;
 
     public Menu(SubmenuSelectionNotifier submenuSelectionNotifier) {
         super(new Dimension());

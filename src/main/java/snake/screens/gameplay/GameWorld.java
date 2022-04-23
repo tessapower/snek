@@ -80,14 +80,14 @@ public class GameWorld extends World {
         }
     }
 
-    public void update(double dt) {
-        playerOne.update(dt);
+    public void update() {
+        playerOne.update();
         if (gameState.playerOne().livesLeft() == 0) {
             setGameOver();
         }
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwo.update(dt);
+            playerTwo.update();
             if (gameState.playerTwo().livesLeft() == 0) {
                 setGameOver();
             }
