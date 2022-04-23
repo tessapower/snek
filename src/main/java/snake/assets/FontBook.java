@@ -1,7 +1,6 @@
 package snake.assets;
 
 import com.google.inject.Singleton;
-import snake.utils.ResourceLoader;
 
 import java.awt.*;
 import java.io.IOException;
@@ -29,7 +28,7 @@ public final class FontBook {
 
     private void loadFonts() {
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.load(FONT_NAME));
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, AssetLoader.load(FONT_NAME));
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(gameFont);
         } catch (IOException | FontFormatException e) {

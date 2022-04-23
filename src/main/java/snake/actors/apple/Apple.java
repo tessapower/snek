@@ -1,6 +1,7 @@
 package snake.actors.apple;
 
-import snake.screens.gameplay.GameWorld;
+import snake.assets.AppleSprite;
+import snake.game.GameWorld;
 import tengine.Actor;
 import tengine.world.GridSquare;
 

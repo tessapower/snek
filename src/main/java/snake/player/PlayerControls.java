@@ -1,5 +1,7 @@
 package snake.player;
 
+import snake.actors.snek.Action;
+
 import java.awt.event.KeyEvent;
 import java.util.Map;
 import java.util.Optional;

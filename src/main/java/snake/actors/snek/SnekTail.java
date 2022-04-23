@@ -1,7 +1,8 @@
 package snake.actors.snek;
 
+import snake.assets.SnekTailSprite;
+import snake.game.GameWorld;
 import snake.player.PlayerNumber;
-import snake.screens.gameplay.GameWorld;
 import tengine.world.GridSquare;
 
 import java.awt.*;
