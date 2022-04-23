@@ -20,7 +20,7 @@ class SnekHeadSprite extends TGraphicCompound {
     GridSquare gridSquare;
     TGraphicCompound rotationContainer;
 
-    public SnekHeadSprite(Dimension dimension, Direction initialDirection, Player playerNumber) {
+    public SnekHeadSprite(Dimension dimension, Direction initialDirection, PlayerNumber playerNumber) {
         super(dimension);
         direction = initialDirection;
 

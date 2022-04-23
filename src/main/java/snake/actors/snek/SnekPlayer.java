@@ -12,15 +12,13 @@ import tengine.world.GridSquare;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Optional;
 
 public class SnekPlayer extends Actor {
-    public static final int NUM_STARTING_LIVES = 3;
-
     private final GameWorld world;
     private final Dimension dimension;
-    private final PlayerConfig config;
+    private final Player player;
 
-    private final PlayerState state;
     private Direction pendingDirection;
     private Direction direction;
     private SnekHeadSprite head;
@@ -30,15 +28,13 @@ public class SnekPlayer extends Actor {
     public static SnekPlayer spawnAt(GameWorld world,
                                      GridSquare gridSquare,
                                      Direction initialDirection,
-                                     PlayerConfig config,
-                                     PlayerState playerState) {
+                                     Player player) {
         SnekPlayer snekPlayer = new SnekPlayer(
                 world,
                 gridSquare,
                 new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE),
                 initialDirection,
-                config,
-                playerState);
+                player);
 
         world.add(snekPlayer);
 
@@ -46,24 +42,22 @@ public class SnekPlayer extends Actor {
     }
 
     private SnekPlayer(GameWorld world, GridSquare square, Dimension dimension,
-                       Direction initialDirection, PlayerConfig config, PlayerState state) {
+                       Direction initialDirection, Player player) {
         this.world = world;
         this.dimension = dimension;
 
         direction = initialDirection;
         pendingDirection = null;
 
-        this.config = config;
+        this.player = player;
 
         graphicObject = initSprite(world, square);
         shouldGrowTail = false;
-
-        this.state = state;
     }
 
     private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
         // Head
-        head = new SnekHeadSprite(dimension, direction, config.playerNumber());
+        head = new SnekHeadSprite(dimension, direction, player.playerNumber());
         head.setGridSquare(square, world);
 
         // Tail
@@ -71,7 +65,7 @@ public class SnekPlayer extends Actor {
                 head.gridSquare,
                 direction,
                 world,
-                config.playerNumber());
+                player.playerNumber());
 
         // Sprite
         TGraphicCompound body = new TGraphicCompound(dimension);
@@ -116,7 +110,7 @@ public class SnekPlayer extends Actor {
     public void eat(Apple apple, GameMode gameMode) {
         switch(apple.appleType()) {
             case CROMCHY -> {
-                state.increaseScore();
+                player.increaseScore();
 
                 switch(gameMode) {
                     case NORMAL -> {
@@ -130,7 +124,7 @@ public class SnekPlayer extends Actor {
                 }
             }
             case YUCK -> {
-                state.reduceLivesLeft();
+                player.reduceLivesLeft();
             }
         }
     }
@@ -150,14 +144,10 @@ public class SnekPlayer extends Actor {
     }
 
     public boolean handleKeyEvent(KeyEvent keyEvent) {
-        Action action = config.controls().get(keyEvent.getKeyCode());
-        if (action != null) {
-            performAction(action);
+        Optional<Action> action = player.controls().mappedAction(keyEvent.getKeyCode());
+        action.ifPresent(this::performAction);
 
-            return true;
-        }
-
-        return false;
+        return action.isPresent();
     }
 
     public void performAction(Action action) {

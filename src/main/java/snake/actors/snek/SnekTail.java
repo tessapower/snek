@@ -11,10 +11,10 @@ import java.util.List;
 public class SnekTail {
     public static final int MAX_TAIL_LEN = 19;
     List<SnekTailSprite> tailPieces;
-    Player playerNumber;
+    PlayerNumber playerNumber;
 
     public SnekTail(Dimension dimension, GridSquare headGridSquare, Direction direction, GameWorld world,
-                    Player playerNumber) {
+                    PlayerNumber playerNumber) {
         tailPieces = new ArrayList<>(MAX_TAIL_LEN);
         this.playerNumber = playerNumber;
 

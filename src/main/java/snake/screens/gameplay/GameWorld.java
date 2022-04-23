@@ -69,28 +69,26 @@ public class GameWorld extends World {
                 this,
                 playerOneSpawnSquare(),
                 RANDOM.nextBoolean() ? Direction.RIGHT : Direction.DOWN,
-                PlayerConfig.configFor(Player.PLAYER_ONE),
-                gameState.playerOneState());
+                gameState.playerOne());
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo = SnekPlayer.spawnAt(
                     this,
                     playerTwoSpawnSquare(),
                     RANDOM.nextBoolean() ? Direction.UP : Direction.LEFT,
-                    PlayerConfig.configFor(Player.PLAYER_TWO),
-                    gameState.playerTwoState());
+                    gameState.playerTwo());
         }
     }
 
     public void update(double dt) {
         playerOne.update(dt);
-        if (gameState.playerOneState().livesLeft() == 0) {
+        if (gameState.playerOne().livesLeft() == 0) {
             setGameOver();
         }
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo.update(dt);
-            if (gameState.playerTwoState().livesLeft() == 0) {
+            if (gameState.playerTwo().livesLeft() == 0) {
                 setGameOver();
             }
         }

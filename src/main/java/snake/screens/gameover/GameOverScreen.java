@@ -28,12 +28,9 @@ public class GameOverScreen implements Screen {
         this.screenChangeCallback = screenChangeCallback;
 
         // Title
-        TLabel title = new TLabel("game over");
+        TLabel title = new TLabel("");
         title.setColor(Colors.Text.PRIMARY);
         title.setFont(FontBook.shared().titleFont());
-        // The origin of text is unfortunately manual as we cannot query
-        // the size of the text beforehand to properly align it
-        title.setOrigin(new Point(150, 180));
 
         // Snek
         AnimatedSnek snek = AnimatedSnek.animatedSnek();
@@ -42,31 +39,32 @@ public class GameOverScreen implements Screen {
         snek.setState(AnimatedSnek.State.DYING);
 
         // Score
-        TLabel score = new TLabel("apples eaten: " + gameState.playerOneState().score());
+        TLabel score = new TLabel("apples eaten: " + gameState.maxApplesEaten());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
         score.setOrigin(new Point(95, 300));
 
-        // Display results based on Multiplayer Mode
-        if (Settings.shared().playerMode() == MultiplayerMode.MULTIPLAYER) {
-            if (gameState.playerOneState().score() == gameState.playerTwoState().score()) {
-                title.setText("it's a draw!");
-                title.setOrigin(new Point(140, 180));
-            } else {
-                Player winner = gameState.playerOneState().score() > gameState.playerTwoState().score() ? Player.PLAYER_ONE : Player.PLAYER_TWO;
-                switch (winner) {
+        switch(gameState.gameConfig().multiplayerMode()) {
+            case SINGLE_PLAYER -> {
+                title.setText("game over");
+                title.setOrigin(new Point(150, 180));
+            }
+            case MULTIPLAYER -> gameState.winner().ifPresentOrElse(winner -> {
+                switch (winner.playerNumber()) {
                     case PLAYER_ONE -> {
                         title.setText("green wins!");
                         title.setOrigin(new Point(140, 180));
-                        score.setText("apples eaten: " + gameState.playerOneState().score());
                     }
                     case PLAYER_TWO -> {
                         title.setText("blue wins!");
                         title.setOrigin(new Point(150, 180));
-                        score.setText("apples eaten: " + gameState.playerTwoState().score());
                     }
                 }
-            }
+            },
+            () -> {
+                title.setText("it's a draw!");
+                title.setOrigin(new Point(140, 180));
+            });
         }
 
         // Buttons

@@ -3,19 +3,20 @@ package snake.screens.gameplay;
 import snake.GameConfig;
 import snake.MultiplayerMode;
 import snake.player.Player;
-import snake.player.PlayerState;
-import snake.snek.SnekPlayer;
+import snake.player.PlayerNumber;
+
+import java.util.Optional;
 
 public class GameState {
     private final GameConfig gameConfig;
-    private final PlayerState playerOneState;
-    private PlayerState playerTwoState = null;
+    private final Player playerOne;
+    private Player playerTwo = null;
 
     public GameState(GameConfig gameConfig) {
         this.gameConfig = gameConfig;
-        playerOneState = new PlayerState(SnekPlayer.NUM_STARTING_LIVES);
+        playerOne = new Player(PlayerNumber.PLAYER_ONE);
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwoState = new PlayerState(SnekPlayer.NUM_STARTING_LIVES);
+            playerTwo = new Player(PlayerNumber.PLAYER_TWO);
         }
     }
 
@@ -23,18 +24,31 @@ public class GameState {
         return gameConfig;
     }
 
-    public PlayerState playerOneState() {
-        return playerOneState;
+    public Player playerOne() {
+        return playerOne;
     }
 
-    public PlayerState playerTwoState() {
-        return playerTwoState;
+    public Player playerTwo() {
+        return playerTwo;
     }
 
-    public PlayerState getStateFor(Player player) {
-        return switch (player) {
-            case PLAYER_ONE -> playerOneState;
-            case PLAYER_TWO -> playerTwoState;
+    /**
+     * Returns the winner or none if a draw.
+     */
+    public Optional<Player> winner() {
+        return switch(gameConfig.multiplayerMode()) {
+            case SINGLE_PLAYER -> Optional.of(playerOne);
+            case MULTIPLAYER -> {
+                if (playerOne.score() == playerTwo.score()) {
+                    yield Optional.empty();
+                } else {
+                    yield Optional.of(playerOne.score() > playerTwo.score() ? playerOne : playerTwo);
+                }
+            }
         };
+    }
+
+    public int maxApplesEaten() {
+        return winner().orElse(playerOne).score();
     }
 }
