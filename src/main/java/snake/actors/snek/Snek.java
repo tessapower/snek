@@ -13,23 +13,24 @@ import tengine.world.GridSquare;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Snek extends Actor {
+    public static final int MAX_TAIL_LEN = 19;
+
     private final GameWorld world;
     private final Dimension dimension;
     private final Player player;
 
-    private Direction pendingDirection;
+    private Direction pendingDirection = null;
     private Direction direction;
     private SnekHeadSprite head;
-    private SnekTail tail;
-    private boolean shouldGrowTail;
+    final List<SnekTailSprite> tailPieces = new ArrayList<>(MAX_TAIL_LEN);
+    private boolean shouldGrowTail = false;
 
-    public static Snek spawnAt(GameWorld world,
-                               GridSquare gridSquare,
-                               Direction initialDirection,
-                               Player player) {
+    public static Snek spawnAt(GameWorld world, GridSquare gridSquare, Direction initialDirection, Player player) {
         Snek snek = new Snek(
                 world,
                 gridSquare,
@@ -46,14 +47,10 @@ public class Snek extends Actor {
                  Direction initialDirection, Player player) {
         this.world = world;
         this.dimension = dimension;
-
-        direction = initialDirection;
-        pendingDirection = null;
-
         this.player = player;
+        direction = initialDirection;
 
         graphicObject = initSprite(world, square);
-        shouldGrowTail = false;
     }
 
     private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
@@ -62,16 +59,36 @@ public class Snek extends Actor {
         head.setGridSquare(square, world);
 
         // Tail
-        tail = new SnekTail(dimension,
-                head.gridSquare(),
-                direction,
-                world,
-                player.playerNumber());
+        SnekTailSprite t1 = makeTailSprite();
+        SnekTailSprite t2 = makeTailSprite();
 
-        // Sprite
+        // Set the tailpieces according to the direction
+        switch(direction) {
+            case UP -> {
+                t1.setGridSquare(new GridSquare(head.gridSquare().row() + 1, head.gridSquare().col()), world);
+                t2.setGridSquare(new GridSquare(head.gridSquare().row() + 2, head.gridSquare().col()), world);
+            }
+            case DOWN -> {
+                t1.setGridSquare(new GridSquare(head.gridSquare().row() - 1, head.gridSquare().col()), world);
+                t2.setGridSquare(new GridSquare(head.gridSquare().row() - 2, head.gridSquare().col()), world);
+            }
+            case LEFT -> {
+                t1.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() + 1), world);
+                t2.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() + 2), world);
+            }
+            case RIGHT -> {
+                t1.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() - 1), world);
+                t2.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() - 2), world);
+            }
+        }
+
+        tailPieces.add(t1);
+        tailPieces.add(t2);
+
+        // Body Compound
         TGraphicCompound body = new TGraphicCompound(dimension);
         body.add(head);
-        tail.tailPieces.forEach(body::add);
+        tailPieces.forEach(body::add);
 
         return body;
     }
@@ -88,19 +105,19 @@ public class Snek extends Actor {
 
         if (shouldGrowTail) {
             // Grow the tail toward the head
-            SnekTailSprite newTailPiece = tail.growToward(head.gridSquare(), world);
+            SnekTailSprite newTailPiece = growTailTowardHead();
             ((TGraphicCompound) graphicObject).add(newTailPiece);
             advanceHead();
             shouldGrowTail = false;
         } else {
             // Move the tail toward the head
-            tail.moveToward(head.gridSquare(), world);
+            moveTailTowardHead();
             advanceHead();
         }
     }
 
     public boolean hasHitSelf() {
-        for (var tailPiece : tail.tailPieces) {
+        for (var tailPiece : tailPieces) {
             if (tailPiece.gridSquare().equals(head.gridSquare())) {
                 return true;
             }
@@ -120,7 +137,7 @@ public class Snek extends Actor {
 
                 switch(gameMode) {
                     case NORMAL -> {
-                        if (tail.length() < SnekTail.MAX_TAIL_LEN) {
+                        if (tailPieces.size() < MAX_TAIL_LEN) {
                             growTail();
                         } else {
                             increaseSpeed();
@@ -140,7 +157,7 @@ public class Snek extends Actor {
     public boolean occupies(GridSquare gridSquare) {
         if (head.gridSquare().equals(gridSquare)) return true;
 
-        for (var tailPiece : tail.tailPieces) {
+        for (var tailPiece : tailPieces) {
             if (tailPiece.gridSquare().equals(gridSquare)) return true;
         }
 
@@ -201,5 +218,32 @@ public class Snek extends Actor {
                 }
             }
         }
+    }
+
+    private SnekTailSprite makeTailSprite() {
+        return switch(player.playerNumber()) {
+            case PLAYER_ONE -> SnekTailSprite.playerOneTailSprite(dimension);
+            case PLAYER_TWO -> SnekTailSprite.playerTwoTailSprite(dimension);
+        };
+    }
+
+    public void moveTailTowardHead() {
+        // Recycle the end of the tail, so we don't have to allocate a new tailpiece
+        SnekTailSprite endOfTail = popTailPiece();
+        endOfTail.setGridSquare(head.gridSquare(), world);
+        tailPieces.add(0, endOfTail);
+    }
+
+    public SnekTailSprite growTailTowardHead() {
+        SnekTailSprite newTailPiece = makeTailSprite();
+
+        newTailPiece.setGridSquare(head.gridSquare(), world);
+        tailPieces.add(0, newTailPiece);
+
+        return newTailPiece;
+    }
+
+    private SnekTailSprite popTailPiece() {
+        return tailPieces.remove(tailPieces.size() - 1);
     }
 }
