@@ -10,7 +10,7 @@ public class SnekTailSprite extends Sprite {
     private static final String SNEK_TAIL_P1 = "snek-tail-p1.png";
     private static final String SNEK_TAIL_P2 = "snek-tail-p2.png";
 
-    GridSquare gridSquare;
+    private GridSquare gridSquare;
 
     private SnekTailSprite(Dimension dimension, String path) {
         super(AssetLoader.load(path), dimension);
@@ -18,11 +18,11 @@ public class SnekTailSprite extends Sprite {
         gridSquare = null;
     }
 
-   public static SnekTailSprite playerOneTailSprite(Dimension dimension) {
+    public static SnekTailSprite playerOneTailSprite(Dimension dimension) {
         return new SnekTailSprite(dimension, SNEK_TAIL_P1);
    }
 
-   public static SnekTailSprite playerTwoTailSprite(Dimension dimension) {
+    public static SnekTailSprite playerTwoTailSprite(Dimension dimension) {
         return new SnekTailSprite(dimension, SNEK_TAIL_P2);
    }
 

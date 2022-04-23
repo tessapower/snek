@@ -100,7 +100,7 @@ public class GameWorld extends World {
         }
     }
 
-    public void checkCollisions(Snek player) {
+    private void checkCollisions(Snek player) {
         boolean playerHitSomething = player.hasHitWall() || player.hasHitSelf() || playersCollided();
         if (playerHitSomething) setGameOver();
 
@@ -126,7 +126,7 @@ public class GameWorld extends World {
 
     }
 
-    public boolean playersCollided() {
+    private boolean playersCollided() {
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             return playerOne.occupies(playerTwo.gridSquare()) || playerTwo.occupies(playerOne.gridSquare());
         }
@@ -138,7 +138,7 @@ public class GameWorld extends World {
         return grid;
     }
 
-    public void setGameOver() {
+    private void setGameOver() {
         gameOverNotifier.notifyGameOver();
     }
 

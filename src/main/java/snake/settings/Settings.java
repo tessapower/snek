@@ -7,7 +7,7 @@ import snake.game.GameConfig;
 public class Settings {
     private static Settings singleton = null;
 
-    private static MultiplayerMode playerMode;
+    private static MultiplayerMode multiplayerMode;
     private static GameMode gameMode;
 
     public static Settings shared() {
@@ -20,19 +20,19 @@ public class Settings {
 
     private Settings()  {
         gameMode = GameMode.NORMAL;
-        playerMode = MultiplayerMode.SINGLE_PLAYER;
+        multiplayerMode = MultiplayerMode.SINGLE_PLAYER;
     }
 
     public GameConfig config() {
-        return new GameConfig(Settings.playerMode, Settings.gameMode);
+        return new GameConfig(Settings.multiplayerMode, Settings.gameMode);
     }
 
     public void setGameMode(GameMode gameMode) {
         Settings.gameMode = gameMode;
     }
 
-    public void setPlayerMode(MultiplayerMode playerMode) {
-        Settings.playerMode = playerMode;
+    public void setPlayerMode(MultiplayerMode multiplayerMode) {
+        Settings.multiplayerMode = multiplayerMode;
     }
 
     public GameMode gameMode() {

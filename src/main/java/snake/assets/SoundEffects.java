@@ -23,7 +23,6 @@ public class SoundEffects {
 
     private static SoundEffects singleton = null;
 
-    // TODO: Check standard singleton pattern in Java, maybe plain old statics can be used for this?
     public static SoundEffects shared() {
         if (singleton == null) {
             singleton = new SoundEffects();

@@ -21,6 +21,7 @@ public class Game extends GameEngine {
         createGame(new Game(), 10);
     }
 
+    @Override
     public void init() {
         setWindowProperties(WINDOW_DIMENSION, TITLE);
         activeScreen = null;
@@ -54,3 +55,4 @@ public class Game extends GameEngine {
         activeScreen.addToCanvas();
     }
 }
+
