@@ -28,7 +28,12 @@ class SnekHeadSprite extends TGraphicCompound {
         rotationContainer.setOrigin(new Point(dimension.width / 2, dimension.height / 2));
 
         Sprite sprite = new Sprite(
-                (playerNumber == Player.PLAYER_ONE ? ResourceLoader.load(SNEK_HEAD_P1) : ResourceLoader.load(SNEK_HEAD_P2)),
+                ResourceLoader.load(
+                    switch(playerNumber) {
+                        case PLAYER_ONE -> SNEK_HEAD_P1;
+                        case PLAYER_TWO -> SNEK_HEAD_P2;
+                    }
+                ),
                 dimension
         );
 

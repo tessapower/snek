@@ -22,7 +22,12 @@ public class Button extends TLabel {
     }
 
     public void setState(State state) {
-        setColor(state == State.FOCUSSED ? Colors.Button.FOCUSSED : Colors.Button.PRIMARY);
+        setColor(
+            switch(state) {
+                case FOCUSSED -> Colors.Button.FOCUSSED;
+                case UNFOCUSED -> Colors.Button.PRIMARY;
+            }
+        );
         this.state = state;
     }
 }
