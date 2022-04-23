@@ -57,7 +57,7 @@ public class Snek extends Actor {
 
     private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
         // Head
-        head = new SnekHead(dimension, direction, player.playerNumber());
+        head = new SnekHead(dimension, player.playerNumber());
         head.setGridSquare(square, world);
 
         // Tail
@@ -77,7 +77,12 @@ public class Snek extends Actor {
 
     public void update() {
         direction = (pendingDirection == null) ? direction : pendingDirection;
-        head.direction = direction;
+        switch(direction) {
+            case UP -> head.setRotation(0, head.midPoint());
+            case RIGHT -> head.setRotation(90, head.midPoint());
+            case DOWN -> head.setRotation(180, head.midPoint());
+            case LEFT -> head.setRotation(270, head.midPoint());
+        }
         pendingDirection = null;
 
         if (shouldGrowTail) {

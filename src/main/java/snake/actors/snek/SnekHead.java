@@ -16,16 +16,10 @@ public class SnekHead extends TGraphicCompound {
     private static final String SNEK_HEAD_P1 = "snek-head-p1.png";
     private static final String SNEK_HEAD_P2 = "snek-head-p2.png";
 
-    Direction direction;
     GridSquare gridSquare;
-    final TGraphicCompound rotationContainer;
 
-    public SnekHead(Dimension dimension, Direction initialDirection, PlayerNumber playerNumber) {
+    public SnekHead(Dimension dimension, PlayerNumber playerNumber) {
         super(dimension);
-        direction = initialDirection;
-
-        rotationContainer = new TGraphicCompound(dimension);
-        rotationContainer.setOrigin(new Point(dimension.width / 2, dimension.height / 2));
 
         Sprite sprite = new Sprite(
                 AssetLoader.load(
@@ -41,26 +35,12 @@ public class SnekHead extends TGraphicCompound {
         tongue.isFilled = true;
         tongue.fillColor = Colors.SNEK_RED;
 
-        sprite.setOrigin(new Point(-dimension.width / 2, -dimension.height / 2));
         // We want this to extend outside the snake head sprite
-        tongue.setOrigin(new Point(-dimension.width / 2 + 6, -dimension.height / 2 - 4));
-        rotationContainer.add(sprite);
-        rotationContainer.add(tongue);
-
-        add(rotationContainer);
+        tongue.setOrigin(new Point(6, -4));
+        add(sprite);
+        add(tongue);
 
         gridSquare = null;
-    }
-
-    @Override
-    public void update(double dtMillis) {
-        super.update(dtMillis);
-        switch(direction) {
-            case UP -> rotationContainer.setRotation(0);
-            case RIGHT -> rotationContainer.setRotation(90);
-            case DOWN -> rotationContainer.setRotation(180);
-            case LEFT -> rotationContainer.setRotation(270);
-        }
     }
 
     void setGridSquare(GridSquare gridSquare, GameWorld world) {
