@@ -43,15 +43,27 @@ public class GameOverScreen implements Screen {
         TLabel score = new TLabel("apples eaten: " + gameState.playerOneState().score());
         score.setColor(Colors.Text.PRIMARY);
         score.setFont(FontBook.shared().titleFont());
-        score.setOrigin(new Point(90, 300));
+        score.setOrigin(new Point(95, 300));
 
         // Display results based on Multiplayer Mode
         if (Settings.shared().playerMode() == MultiplayerMode.MULTIPLAYER) {
-            title.setOrigin(new Point(80, 180));
-            Player winner = gameState.playerOneState().score() > gameState.playerTwoState().score() ? Player.PLAYER_ONE : Player.PLAYER_TWO;
-            switch (winner) {
-                case PLAYER_ONE -> title.setText("player one wins!");
-                case PLAYER_TWO -> title.setText("player two wins!");
+            if (gameState.playerOneState().score() == gameState.playerTwoState().score()) {
+                title.setText("it's a draw!");
+                title.setOrigin(new Point(140, 180));
+            } else {
+                Player winner = gameState.playerOneState().score() > gameState.playerTwoState().score() ? Player.PLAYER_ONE : Player.PLAYER_TWO;
+                switch (winner) {
+                    case PLAYER_ONE -> {
+                        title.setText("green wins!");
+                        title.setOrigin(new Point(140, 180));
+                        score.setText("apples eaten: " + gameState.playerOneState().score());
+                    }
+                    case PLAYER_TWO -> {
+                        title.setText("blue wins!");
+                        title.setOrigin(new Point(150, 180));
+                        score.setText("apples eaten: " + gameState.playerTwoState().score());
+                    }
+                }
             }
         }
 
