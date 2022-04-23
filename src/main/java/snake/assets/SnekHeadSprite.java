@@ -1,7 +1,5 @@
-package snake.actors.snek;
+package snake.assets;
 
-import snake.assets.AssetLoader;
-import snake.assets.Colors;
 import snake.game.GameWorld;
 import snake.player.PlayerNumber;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
@@ -11,14 +9,13 @@ import tengine.world.GridSquare;
 
 import java.awt.*;
 
-// Package private
-public class SnekHead extends TGraphicCompound {
+public class SnekHeadSprite extends TGraphicCompound {
     private static final String SNEK_HEAD_P1 = "snek-head-p1.png";
     private static final String SNEK_HEAD_P2 = "snek-head-p2.png";
 
     GridSquare gridSquare;
 
-    public SnekHead(Dimension dimension, PlayerNumber playerNumber) {
+    public SnekHeadSprite(Dimension dimension, PlayerNumber playerNumber) {
         super(dimension);
 
         Sprite sprite = new Sprite(
@@ -43,8 +40,12 @@ public class SnekHead extends TGraphicCompound {
         gridSquare = null;
     }
 
-    void setGridSquare(GridSquare gridSquare, GameWorld world) {
+    public void setGridSquare(GridSquare gridSquare, GameWorld world) {
         this.gridSquare = gridSquare;
         setOrigin(world.grid().positionForSquare(this.gridSquare));
+    }
+
+    public GridSquare gridSquare() {
+        return gridSquare;
     }
 }

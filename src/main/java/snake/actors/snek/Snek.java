@@ -1,6 +1,7 @@
 package snake.actors.snek;
 
 import snake.actors.apple.Apple;
+import snake.assets.SnekHeadSprite;
 import snake.assets.SnekTailSprite;
 import snake.game.GameWorld;
 import snake.game.Grid;
@@ -21,7 +22,7 @@ public class Snek extends Actor {
 
     private Direction pendingDirection;
     private Direction direction;
-    private SnekHead head;
+    private SnekHeadSprite head;
     private SnekTail tail;
     private boolean shouldGrowTail;
 
@@ -57,12 +58,12 @@ public class Snek extends Actor {
 
     private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
         // Head
-        head = new SnekHead(dimension, player.playerNumber());
+        head = new SnekHeadSprite(dimension, player.playerNumber());
         head.setGridSquare(square, world);
 
         // Tail
         tail = new SnekTail(dimension,
-                head.gridSquare,
+                head.gridSquare(),
                 direction,
                 world,
                 player.playerNumber());
@@ -87,20 +88,20 @@ public class Snek extends Actor {
 
         if (shouldGrowTail) {
             // Grow the tail toward the head
-            SnekTailSprite newTailPiece = tail.growToward(head.gridSquare, world);
+            SnekTailSprite newTailPiece = tail.growToward(head.gridSquare(), world);
             ((TGraphicCompound) graphicObject).add(newTailPiece);
             advanceHead();
             shouldGrowTail = false;
         } else {
             // Move the tail toward the head
-            tail.moveToward(head.gridSquare, world);
+            tail.moveToward(head.gridSquare(), world);
             advanceHead();
         }
     }
 
     public boolean hasHitSelf() {
         for (var tailPiece : tail.tailPieces) {
-            if (tailPiece.gridSquare().equals(head.gridSquare)) {
+            if (tailPiece.gridSquare().equals(head.gridSquare())) {
                 return true;
             }
         }
@@ -133,11 +134,11 @@ public class Snek extends Actor {
     }
 
     public GridSquare gridSquare() {
-        return head.gridSquare;
+        return head.gridSquare();
     }
 
     public boolean occupies(GridSquare gridSquare) {
-        if (head.gridSquare.equals(gridSquare)) return true;
+        if (head.gridSquare().equals(gridSquare)) return true;
 
         for (var tailPiece : tail.tailPieces) {
             if (tailPiece.gridSquare().equals(gridSquare)) return true;
@@ -177,13 +178,13 @@ public class Snek extends Actor {
     private void advanceHead() {
         switch(direction) {
             case UP ->
-                    head.setGridSquare(new GridSquare(head.gridSquare.row() - 1, head.gridSquare.col()), world);
+                    head.setGridSquare(new GridSquare(head.gridSquare().row() - 1, head.gridSquare().col()), world);
             case DOWN ->
-                    head.setGridSquare(new GridSquare(head.gridSquare.row() + 1, head.gridSquare.col()), world);
+                    head.setGridSquare(new GridSquare(head.gridSquare().row() + 1, head.gridSquare().col()), world);
             case LEFT ->
-                    head.setGridSquare(new GridSquare(head.gridSquare.row(), head.gridSquare.col() - 1), world);
+                    head.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() - 1), world);
             case RIGHT ->
-                    head.setGridSquare(new GridSquare(head.gridSquare.row(), head.gridSquare.col() + 1), world);
+                    head.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() + 1), world);
         }
     }
 
