@@ -1,4 +1,4 @@
-package snake.apple;
+package snake.actors.apple;
 
 public enum AppleType {
     CROMCHY,

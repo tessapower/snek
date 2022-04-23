@@ -1,8 +1,8 @@
-package snake.screens.play;
+package snake.screens.gameplay;
 
 import snake.Game;
 import snake.Settings;
-import snake.SoundEffects;
+import snake.assets.SoundEffects;
 import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;

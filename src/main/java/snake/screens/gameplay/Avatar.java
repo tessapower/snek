@@ -1,6 +1,6 @@
-package snake.screens.play;
+package snake.screens.gameplay;
 
-import snake.snek.AnimatedSnek;
+import snake.actors.snek.AnimatedSnek;
 import tengine.graphics.graphicsObjects.sprites.SpriteSequence;
 
 import java.awt.*;

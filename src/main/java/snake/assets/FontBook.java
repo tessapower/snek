@@ -1,4 +1,4 @@
-package snake;
+package snake.assets;
 
 import com.google.inject.Singleton;
 import snake.utils.ResourceLoader;

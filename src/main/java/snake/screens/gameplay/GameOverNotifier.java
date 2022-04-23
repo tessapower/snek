@@ -1,4 +1,4 @@
-package snake.screens.play;
+package snake.screens.gameplay;
 
 @FunctionalInterface
 interface GameOverNotifier {

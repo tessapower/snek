@@ -1,6 +1,6 @@
-package snake.snek;
+package snake.actors.snek;
 
-import snake.screens.play.GameWorld;
+import snake.screens.gameplay.GameWorld;
 import snake.utils.ResourceLoader;
 import tengine.graphics.graphicsObjects.sprites.Sprite;
 import tengine.world.GridSquare;

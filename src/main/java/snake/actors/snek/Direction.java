@@ -1,4 +1,4 @@
-package snake.snek;
+package snake.actors.snek;
 
 public enum Direction {
     UP,

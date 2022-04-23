@@ -1,8 +1,8 @@
 package snake.screens.menu;
 
-import snake.Colors;
-import snake.FontBook;
-import snake.SoundEffects;
+import snake.assets.Colors;
+import snake.assets.FontBook;
+import snake.assets.SoundEffects;
 import snake.screens.Button;
 import tengine.graphics.graphicsObjects.text.TLabel;
 

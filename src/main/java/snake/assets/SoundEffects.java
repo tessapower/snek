@@ -1,4 +1,4 @@
-package snake;
+package snake.assets;
 
 import snake.utils.ResourceLoader;
 import tengine.AudioClip;

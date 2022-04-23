@@ -1,6 +1,6 @@
 package snake.screens;
 
-import snake.SoundEffects;
+import snake.assets.SoundEffects;
 
 import java.util.ArrayList;
 import java.util.Arrays;

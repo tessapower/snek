@@ -1,6 +1,6 @@
-package snake.apple;
+package snake.actors.apple;
 
-import snake.screens.play.Grid;
+import snake.screens.gameplay.Grid;
 import snake.utils.ResourceLoader;
 import tengine.graphics.context.GraphicsCtx;
 import tengine.graphics.graphicsObjects.sprites.Sprite;

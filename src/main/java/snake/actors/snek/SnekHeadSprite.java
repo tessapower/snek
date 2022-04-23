@@ -1,8 +1,8 @@
-package snake.snek;
+package snake.actors.snek;
 
-import snake.Colors;
-import snake.player.Player;
-import snake.screens.play.GameWorld;
+import snake.assets.Colors;
+import snake.player.PlayerNumber;
+import snake.screens.gameplay.GameWorld;
 import snake.utils.ResourceLoader;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.shapes.TRect;

@@ -1,4 +1,4 @@
-package snake;
+package snake.assets;
 
 import java.awt.*;
 

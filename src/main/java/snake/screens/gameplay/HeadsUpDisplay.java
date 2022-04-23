@@ -1,11 +1,11 @@
-package snake.screens.play;
+package snake.screens.gameplay;
 
-import snake.Colors;
-import snake.FontBook;
 import snake.GameConfig;
 import snake.MultiplayerMode;
-import snake.apple.AppleSprite;
-import snake.player.PlayerState;
+import snake.actors.apple.AppleSprite;
+import snake.assets.Colors;
+import snake.assets.FontBook;
+import snake.player.Player;
 import snake.utils.ResourceLoader;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.shapes.TRect;

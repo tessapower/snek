@@ -1,7 +1,7 @@
 package snake.screens;
 
-import snake.Colors;
-import snake.FontBook;
+import snake.assets.Colors;
+import snake.assets.FontBook;
 import tengine.graphics.graphicsObjects.text.TLabel;
 
 public class Button extends TLabel {

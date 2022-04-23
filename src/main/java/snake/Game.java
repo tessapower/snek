@@ -3,8 +3,8 @@ package snake;
 import snake.screens.Screen;
 import snake.screens.ScreenIdentifier;
 import snake.screens.gameover.GameOverScreen;
+import snake.screens.gameplay.PlayGameScreen;
 import snake.screens.menu.MenuScreen;
-import snake.screens.play.PlayGameScreen;
 import tengine.GameEngine;
 
 import java.awt.*;

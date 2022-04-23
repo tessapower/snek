@@ -1,14 +1,12 @@
-package snake.screens.play;
+package snake.screens.gameplay;
 
 import snake.GameConfig;
 import snake.MultiplayerMode;
-import snake.SoundEffects;
-import snake.apple.Apple;
-import snake.apple.AppleType;
-import snake.player.Player;
-import snake.player.PlayerConfig;
-import snake.snek.Direction;
-import snake.snek.SnekPlayer;
+import snake.actors.apple.Apple;
+import snake.actors.apple.AppleType;
+import snake.actors.snek.Direction;
+import snake.actors.snek.SnekPlayer;
+import snake.assets.SoundEffects;
 import tengine.Actor;
 import tengine.world.GridSquare;
 import tengine.world.World;

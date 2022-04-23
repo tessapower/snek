@@ -1,12 +1,11 @@
-package snake.snek;
+package snake.actors.snek;
 
 import snake.GameMode;
-import snake.apple.Apple;
+import snake.actors.apple.Apple;
 import snake.player.Action;
-import snake.player.PlayerConfig;
-import snake.player.PlayerState;
-import snake.screens.play.GameWorld;
-import snake.screens.play.Grid;
+import snake.player.Player;
+import snake.screens.gameplay.GameWorld;
+import snake.screens.gameplay.Grid;
 import tengine.Actor;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.world.GridSquare;

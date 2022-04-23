@@ -1,11 +1,13 @@
 package snake.screens.gameover;
 
-import snake.*;
-import snake.player.Player;
+import snake.Game;
+import snake.actors.snek.AnimatedSnek;
+import snake.assets.Colors;
+import snake.assets.FontBook;
+import snake.assets.SoundEffects;
 import snake.screens.Button;
 import snake.screens.*;
-import snake.screens.play.GameState;
-import snake.snek.AnimatedSnek;
+import snake.screens.gameplay.GameState;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 import tengine.graphics.graphicsObjects.text.TLabel;
 

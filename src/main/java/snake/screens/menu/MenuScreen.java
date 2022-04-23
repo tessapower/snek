@@ -3,10 +3,10 @@ package snake.screens.menu;
 import snake.Game;
 import snake.MultiplayerMode;
 import snake.Settings;
+import snake.actors.snek.AnimatedSnek;
 import snake.screens.Screen;
 import snake.screens.ScreenChangeRequestCallback;
 import snake.screens.ScreenIdentifier;
-import snake.snek.AnimatedSnek;
 import tengine.graphics.graphicsObjects.TGraphicCompound;
 
 import java.awt.*;
