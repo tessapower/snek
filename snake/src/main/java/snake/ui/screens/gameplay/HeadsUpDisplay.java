@@ -31,7 +31,6 @@ public class HeadsUpDisplay extends TGraphicCompound {
         playerOneScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
 
         // Add avatar
-        // TODO: Pause updating HUD when game is paused
         avatar = new Avatar();
         avatar.setOrigin(new Point(AVATAR_X_PAD, playAreaOrigin.y - avatar.height() + AVATAR_Y_PAD));
 
@@ -49,7 +48,6 @@ public class HeadsUpDisplay extends TGraphicCompound {
 
         // Add border
         TRect border = new TRect(playAreaDimension);
-        // TODO: maybe add a pixelated border?
         border.setOrigin(playAreaOrigin);
         border.outlineColor = Colors.SNEK_GREEN;
 

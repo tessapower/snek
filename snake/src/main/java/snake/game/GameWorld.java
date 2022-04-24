@@ -24,7 +24,6 @@ public class GameWorld extends World {
     private static final int TILE_COLS = 28;
     private static final int TILE_ROWS = 24;
 
-    // Future support for offsetting the world around other UI elements
     private final Grid grid;
     private final GameOverNotifier gameOverNotifier;
     private final GameState gameState;
@@ -174,7 +173,6 @@ public class GameWorld extends World {
     }
 
     private GridSquare randomUnoccupiedSquare() {
-        // TODO: handle no occupied squares
         GridSquare randomSquare;
 
         do {

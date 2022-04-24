@@ -50,7 +50,7 @@ The rules are simple:
 
 ### `snek!` Features
 
-- Main menu that lets the playerNumber select the game mode
+- Main menu that lets the player select the game mode
 - Infinite mode: let the snake tail grow forever
 - Avoid poisonous apples or lose a life!
 - H.U.D. shows the player(s) apple count and lives remaining
@@ -65,7 +65,7 @@ The rules are simple:
 - Game over screen that lets the player play again or go to the main menu
 - Two player mode: play against a blue friend, fight for the highest score!
 
-![`snek!` two-playerNumber mode](docs/images/two-player-mode.png)
+![`snek!` two-player mode](docs/images/two-player-mode.png)
 
 ### Future Improvements
 

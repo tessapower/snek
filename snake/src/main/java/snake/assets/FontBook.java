@@ -13,7 +13,6 @@ public final class FontBook {
 
     private Font gameFont;
 
-    // TODO: Check standard singleton pattern in Java, maybe plain old statics can be used for this?
     public static FontBook shared() {
         if (singleton == null) {
             singleton = new FontBook();

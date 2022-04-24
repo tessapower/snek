@@ -12,10 +12,16 @@ If you are using IntelliJ, you can use the pre-existing run Maven configurations
 
 ## Architecture
 
+TODO...
+
 ### Project Overview and Maven
+
+TODO...
 
 ### Package Diagram
 
+TODO...
+
 ## Class Diagrams for Graphics
 
-
+TODO...

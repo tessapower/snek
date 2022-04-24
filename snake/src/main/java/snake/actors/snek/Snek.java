@@ -138,8 +138,6 @@ public class Snek extends Actor {
                     case NORMAL -> {
                         if (tailPieces.size() < MAX_TAIL_LEN) {
                             shouldGrowTail = true;
-                        } else {
-                            increaseSpeed();
                         }
                     }
                     case INFINITE -> shouldGrowTail = true;
@@ -177,10 +175,6 @@ public class Snek extends Actor {
             case MOVE_LEFT -> setPendingDirection(Direction.LEFT);
             case MOVE_RIGHT -> setPendingDirection(Direction.RIGHT);
         }
-    }
-
-    private void increaseSpeed() {
-        // TODO: Really really implement this
     }
 
     private void advanceHead() {
