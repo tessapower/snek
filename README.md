@@ -46,7 +46,7 @@ The rules are simple:
 
 - Use the arrow keys to move snek around the world
 - Eat the apples, but watch out for the poisonous ones! 
-- Try not to hit the wall or your tail, or it's game over
+- Try not to hit the walls, rocks, or your tail, or it's game over
 
 ### `snek!` Features
 
@@ -54,9 +54,9 @@ The rules are simple:
 - Infinite mode: let the snake tail grow forever
 - Avoid poisonous apples or lose a life!
 - H.U.D. shows the player(s) apple count and lives remaining
-- DOOM-inspired H.U.D. avatar that responds when the player eats an apple
+- DOOM-inspired H.U.D. avatars that respond when players eat apples
 - In-game pause function
-- Watch out for cool sound effects:
+- Listen out for cool sound effects:
   - Satisfying crunch when an apple is eaten
   - Disgusted noise when a poisonous apple is eaten
   - Death scream when the player loses the game
@@ -70,8 +70,8 @@ The rules are simple:
 ### Future Improvements
 
 - Track high-scores and high-score submenu in the main menu
-- Player Two Blue H.U.D. Avatar
-- Randomly placed obstacles, like rocks
+- ~~Player Two Blue H.U.D. Avatar~~
+- ~~Randomly placed obstacles, like rocks~~
 - Infinite-walls mode: go through walls and appear on the opposite side
 - Power-ups, like extra lives, or to make snek faster
 
