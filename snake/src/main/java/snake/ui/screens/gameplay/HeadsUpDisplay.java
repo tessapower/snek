@@ -52,8 +52,8 @@ public class HeadsUpDisplay extends TGraphicCompound {
         }
 
         // Add border
-        TRect border = new TRect(playAreaDimension);
-        border.setOrigin(playAreaOrigin);
+        TRect border = new TRect(new Dimension(playAreaDimension.width + 4, playAreaDimension.height + 4));
+        border.setOrigin(new Point(playAreaOrigin.x - 2, playAreaOrigin.y - 2));
         border.outlineColor = Colors.SNEK_GREEN;
 
         // Add pause instruction
