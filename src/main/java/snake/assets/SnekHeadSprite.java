@@ -13,7 +13,7 @@ public class SnekHeadSprite extends TGraphicCompound {
     private static final String SNEK_HEAD_P1 = "snek-head-p1.png";
     private static final String SNEK_HEAD_P2 = "snek-head-p2.png";
 
-    GridSquare gridSquare;
+    private GridSquare gridSquare = null;
 
     public SnekHeadSprite(Dimension dimension, PlayerNumber playerNumber) {
         super(dimension);
@@ -36,8 +36,6 @@ public class SnekHeadSprite extends TGraphicCompound {
         tongue.setOrigin(new Point(6, -4));
         add(sprite);
         add(tongue);
-
-        gridSquare = null;
     }
 
     public void setGridSquare(GridSquare gridSquare, GameWorld world) {

@@ -6,7 +6,6 @@ import snake.assets.SnekTailSprite;
 import snake.game.GameWorld;
 import snake.game.Grid;
 import snake.player.Player;
-import snake.settings.GameMode;
 import tengine.Actor;
 import tengine.graphics.entities.TGraphicCompound;
 import tengine.world.GridSquare;
@@ -59,8 +58,8 @@ public class Snek extends Actor {
         head.setGridSquare(square, world);
 
         // Tail
-        SnekTailSprite t1 = makeTailSprite();
-        SnekTailSprite t2 = makeTailSprite();
+        SnekTailSprite t1 = new SnekTailSprite(dimension, player.playerNumber());
+        SnekTailSprite t2 = new SnekTailSprite(dimension, player.playerNumber());
 
         // Set the tailpieces according to the direction
         switch(direction) {
@@ -127,30 +126,30 @@ public class Snek extends Actor {
     }
 
     public boolean hasHitWall() {
-        return !world.grid().contains(gridSquare());
+        return !world.grid().contains(headGridSquare());
     }
 
-    public void eat(Apple apple, GameMode gameMode) {
+    public void eat(Apple apple) {
         switch(apple.appleType()) {
             case CROMCHY -> {
                 player.increaseScore();
 
-                switch(gameMode) {
+                switch(world.gameConfig().gameMode()) {
                     case NORMAL -> {
                         if (tailPieces.size() < MAX_TAIL_LEN) {
-                            growTail();
+                            shouldGrowTail = true;
                         } else {
                             increaseSpeed();
                         }
                     }
-                    case INFINITE -> growTail();
+                    case INFINITE -> shouldGrowTail = true;
                 }
             }
             case YUCK -> player.reduceLivesLeft();
         }
     }
 
-    public GridSquare gridSquare() {
+    public GridSquare headGridSquare() {
         return head.gridSquare();
     }
 
@@ -171,21 +170,13 @@ public class Snek extends Actor {
         return action.isPresent();
     }
 
-    public void performAction(Action action) {
+    private void performAction(Action action) {
         switch(action) {
             case MOVE_UP -> setPendingDirection(Direction.UP);
             case MOVE_DOWN -> setPendingDirection(Direction.DOWN);
             case MOVE_LEFT -> setPendingDirection(Direction.LEFT);
             case MOVE_RIGHT -> setPendingDirection(Direction.RIGHT);
         }
-    }
-
-    /**
-     * Mark the tail to grow by one on the next update. Should only be called <i>once</i>
-     * per update cycle, multiple calls will still only grow the tail by one on the next draw.
-     */
-    private void growTail() {
-        shouldGrowTail = true;
     }
 
     private void increaseSpeed() {
@@ -220,13 +211,6 @@ public class Snek extends Actor {
         }
     }
 
-    private SnekTailSprite makeTailSprite() {
-        return switch(player.playerNumber()) {
-            case PLAYER_ONE -> SnekTailSprite.playerOneTailSprite(dimension);
-            case PLAYER_TWO -> SnekTailSprite.playerTwoTailSprite(dimension);
-        };
-    }
-
     public void moveTailTowardHead() {
         // Recycle the end of the tail, so we don't have to allocate a new tailpiece
         SnekTailSprite endOfTail = popTailPiece();
@@ -235,7 +219,7 @@ public class Snek extends Actor {
     }
 
     public SnekTailSprite growTailTowardHead() {
-        SnekTailSprite newTailPiece = makeTailSprite();
+        SnekTailSprite newTailPiece = new SnekTailSprite(dimension, player.playerNumber());
 
         newTailPiece.setGridSquare(head.gridSquare(), world);
         tailPieces.add(0, newTailPiece);

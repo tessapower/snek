@@ -107,7 +107,7 @@ public class GameWorld extends World {
         Apple maybeApple = checkForEatenApples(player);
 
         if (maybeApple != null) {
-            player.eat(maybeApple, gameConfig.gameMode());
+            player.eat(maybeApple);
 
             hud.animateAvatar();
 
@@ -128,7 +128,7 @@ public class GameWorld extends World {
 
     private boolean playersCollided() {
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            return playerOne.occupies(playerTwo.gridSquare()) || playerTwo.occupies(playerOne.gridSquare());
+            return playerOne.occupies(playerTwo.headGridSquare()) || playerTwo.occupies(playerOne.headGridSquare());
         }
 
         return false;
@@ -152,12 +152,12 @@ public class GameWorld extends World {
     }
 
     private Apple checkForEatenApples(Snek player) {
-        if (goodApple.gridSquare().equals(player.gridSquare())) {
+        if (goodApple.gridSquare().equals(player.headGridSquare())) {
             return goodApple;
         }
 
         for (var badApple : badApples) {
-            if (badApple.gridSquare().equals(player.gridSquare())) {
+            if (badApple.gridSquare().equals(player.headGridSquare())) {
                 return badApple;
             }
         }
@@ -197,5 +197,9 @@ public class GameWorld extends World {
         }
 
         return null;
+    }
+
+    public GameConfig gameConfig() {
+        return gameConfig;
     }
 }
