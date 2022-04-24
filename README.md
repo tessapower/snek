@@ -15,7 +15,7 @@ A simple remake of the classic game Snake, built in Java.
 
 If you are using IntelliJ, you can use the pre-existing run configuration "Run Game":
 
-!["Run Game" run configuration](docs/images/run-game-config.png)
+!["Run Game" run configuration](snake/docs/images/run-game-config.png)
 
 ### Run from Commandline
 
@@ -32,7 +32,7 @@ java -jar target/snek.jar
 
 A window should appear for you to play the game:
 
-![`snek!` running](docs/images/game-running.png)
+![`snek!` running](snake/docs/images/game-running.png)
 
 The rules are simple:
 
@@ -57,7 +57,7 @@ The rules are simple:
 - Game over screen that lets the playerNumber play again or go to the main menu
 - Two playerNumber mode: play against a blue friend, fight for the highest score!
 
-![`snek!` two-playerNumber mode](docs/images/two-player-mode.png)
+![`snek!` two-playerNumber mode](snake/docs/images/two-player-mode.png)
 
 ### Future Improvements
 
@@ -83,7 +83,7 @@ The project is organised to work with the Maven build system—you can find all 
 
 Within the source files, there are the following packages:
 
-![`snek!` package diagram](docs/images/package-diagram.png)
+![`snek!` package diagram](snake/docs/images/package-diagram.png)
 
 ### `TEngine`
 

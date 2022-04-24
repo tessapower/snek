@@ -4,9 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>co.tessapower.159261.a1</groupId>
-    <artifactId>snek-lib</artifactId>
-    <version>0.1.0</version>
+    <parent>
+        <groupId>co.tessapower.159261.a1</groupId>
+        <artifactId>a1</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>snake</artifactId>
+    <name>Snek Game</name>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
@@ -38,18 +44,11 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>TEngine_lib</id>
-            <url>file://${project.basedir}/../../../TEngine</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
-            <groupId>co.tessapower.tengine</groupId>
-            <artifactId>TEngine</artifactId>
-            <version>0.1.0</version>
+            <groupId>co.tessapower.159261.a1</groupId>
+            <artifactId>tengine</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -58,10 +57,4 @@
             <type>maven-plugin</type>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
-    
 </project>

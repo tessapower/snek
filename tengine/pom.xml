@@ -4,9 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>co.tessapower.tengine</groupId>
-    <artifactId>TEngine</artifactId>
-    <version>0.1.0</version>
+    <parent>
+        <groupId>co.tessapower.159261.a1</groupId>
+        <artifactId>a1</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>tengine</artifactId>
+    <name>TEngine Game Engine</name>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
@@ -36,10 +42,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
-    
 </project>
