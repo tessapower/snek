@@ -2,9 +2,11 @@ package snake.game;
 
 import snake.actors.apple.Apple;
 import snake.actors.apple.AppleType;
+import snake.actors.rock.Rock;
 import snake.actors.snek.Direction;
 import snake.actors.snek.Snek;
 import snake.assets.SoundEffects;
+import snake.player.PlayerNumber;
 import snake.settings.MultiplayerMode;
 import snake.ui.screens.gameplay.GameOverNotifier;
 import snake.ui.screens.gameplay.HeadsUpDisplay;
@@ -38,6 +40,7 @@ public class GameWorld extends World {
     // Apples
     private Apple goodApple;
     private final Set<Apple> badApples;
+    private final Set<Rock> rocks;
 
     public GameWorld(Dimension dimension, GameOverNotifier gameOverNotifier, GameState gameState) {
         super(dimension);
@@ -60,8 +63,9 @@ public class GameWorld extends World {
         hud = new HeadsUpDisplay(canvas.dimension(), playAreaDimension, playAreaOrigin, gameState);
         canvas.add(hud);
 
-        goodApple = Apple.spawnGoodApple(this, randomUnoccupiedSquare());
         badApples = new HashSet<>();
+        rocks = new HashSet<>();
+        goodApple = Apple.spawnGoodApple(this, randomUnoccupiedSquare());
     }
 
     private void initPlayers() {
@@ -100,7 +104,7 @@ public class GameWorld extends World {
     }
 
     private void checkCollisions(Snek player) {
-        boolean playerHitSomething = player.hasHitWall() || player.hasHitSelf() || playersCollided();
+        boolean playerHitSomething = player.hasHitWall() || player.hasHitSelf() || playersCollided() || playerHitRock(player);
         if (playerHitSomething) setGameOver();
 
         Apple maybeApple = checkForEatenApples(player);
@@ -120,7 +124,13 @@ public class GameWorld extends World {
                 badApples.remove(maybeApple);
             }
 
-            if (RANDOM.nextDouble() < RANDOM_CHANCE) badApples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
+            if (RANDOM.nextDouble() < RANDOM_CHANCE) {
+                if (RANDOM.nextBoolean()) {
+                    badApples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
+                } else {
+                    rocks.add(Rock.spawnRockAt(this, randomUnoccupiedSquare()));
+                }
+            }
         }
 
     }
@@ -128,6 +138,16 @@ public class GameWorld extends World {
     private boolean playersCollided() {
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             return playerOne.occupies(playerTwo.headGridSquare()) || playerTwo.occupies(playerOne.headGridSquare());
+        }
+
+        return false;
+    }
+
+    private boolean playerHitRock(Snek player) {
+        for (var rock : rocks) {
+            if (rock.gridSquare().equals(player.headGridSquare())) {
+                return true;
+            }
         }
 
         return false;
@@ -187,10 +207,25 @@ public class GameWorld extends World {
             return playerOne;
         }
 
-        for (Actor actor : actors) {
-            if (actor instanceof Snek) continue;
-            if (((Apple) actor).gridSquare().equals(gridSquare)) {
-                return actor;
+        if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            if (playerTwo.occupies(gridSquare)) {
+                return playerOne;
+            }
+        }
+
+        if (goodApple != null && goodApple.gridSquare().equals(gridSquare)) {
+            return goodApple;
+        }
+
+        for (var apple : badApples) {
+            if (apple.gridSquare().equals(gridSquare)) {
+                return apple;
+            }
+        }
+
+        for (var rock : rocks) {
+            if (rock.gridSquare().equals(gridSquare)) {
+                return rock;
             }
         }
 
