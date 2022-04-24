@@ -7,6 +7,7 @@ import snake.assets.FontBook;
 import snake.game.GameConfig;
 import snake.player.Player;
 import tengine.graphics.entities.TGraphicCompound;
+import tengine.graphics.entities.shapes.TRect;
 import tengine.graphics.entities.sprites.Sprite;
 import tengine.graphics.entities.text.TLabel;
 
@@ -18,7 +19,7 @@ class Scoreboard extends TGraphicCompound {
     private static final String HEART_P1 = "heart-p1.png";
     private static final String HEART_P2 = "heart-p2.png";
     private static final Dimension HEART_DIMENSION = new Dimension(16, 16);
-    private static final Dimension DIMENSION = new Dimension(80, 50);
+    private static final Dimension DIMENSION = new Dimension(75, 50);
 
     private final Player player;
     private final TLabel appleCount;
@@ -43,17 +44,32 @@ class Scoreboard extends TGraphicCompound {
         this.player = player;
 
         AppleSprite apple = AppleSprite.goodApple();
-        apple.setOrigin(new Point(0, DIMENSION.height - (int)(apple.height() * 1.5)));
+        int appleX = switch(player.playerNumber()) {
+            case PLAYER_ONE -> 0;
+            case PLAYER_TWO -> dimension.width - apple.width();
+        };
+        apple.setOrigin(new Point(appleX, DIMENSION.height - (int)(apple.height() * 1.5)));
 
         appleCount = new TLabel("");
         appleCount.setFont(FontBook.shared().scoreBoardFont());
         appleCount.setColor(Colors.Text.HIGHLIGHTED);
-        appleCount.setOrigin(new Point((int) (apple.width() * 1.5), apple.y() + apple.height()));
+
+        int appleCountX = switch(player.playerNumber()) {
+            case PLAYER_ONE -> (int) (apple.width() * 1.5);
+            case PLAYER_TWO -> 0;
+        };
+
+        appleCount.setOrigin(new Point(appleCountX, apple.y() + apple.height()));
 
         hearts = new ArrayList<>(player.livesLeft());
+        int heartXPadding = switch(player.playerNumber()) {
+            case PLAYER_ONE -> -2;
+            case PLAYER_TWO -> 0;
+        };
+
         for (var i = 0; i < player.livesLeft(); i++) {
             Sprite heartSprite = new Sprite(AssetLoader.load(heart), HEART_DIMENSION);
-            heartSprite.setOrigin(new Point(appleCount.x() - 2 + (i * (heartSprite.width() + 2)),
+            heartSprite.setOrigin(new Point(appleCount.x() + heartXPadding + (i * (heartSprite.width() + 2)),
                     apple.y() - apple.height() - 5));
             hearts.add(heartSprite);
             add(heartSprite);

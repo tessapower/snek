@@ -4,7 +4,6 @@ import snake.assets.Colors;
 import snake.assets.FontBook;
 import snake.game.GameState;
 import snake.player.PlayerNumber;
-import snake.settings.MultiplayerMode;
 import tengine.graphics.entities.TGraphicCompound;
 import tengine.graphics.entities.shapes.TRect;
 import tengine.graphics.entities.text.TLabel;
@@ -15,34 +14,37 @@ public class HeadsUpDisplay extends TGraphicCompound {
     private static final int AVATAR_X_PAD = -2;
     private static final int AVATAR_Y_PAD = -7;
 
-    private final Avatar playerOneAvatar;
-    private Avatar playerTwoAvatar = null;
+    private final Avatar p1Avatar;
+    private Avatar p2Avatar = null;
 
     public HeadsUpDisplay(Dimension dimension, Dimension playAreaDimension, Point playAreaOrigin, GameState state) {
         super(dimension);
 
-        Scoreboard playerOneScoreboard = Scoreboard.playerOneScoreboard(state.playerOne(), state.gameConfig());
-        int scoreboardX = playAreaOrigin.x + playAreaDimension.width - playerOneScoreboard.width();
-        int scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
-        playerOneScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
+        Scoreboard p1Scoreboard = Scoreboard.playerOneScoreboard(state.playerOne(), state.gameConfig());
+        int scoreboardX = playAreaOrigin.x + playAreaDimension.width - p1Scoreboard.width();
+        int scoreboardY = playAreaOrigin.y - p1Scoreboard.height();
+        p1Scoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
 
         // Add avatar
-        playerOneAvatar = new Avatar(PlayerNumber.PLAYER_ONE);
-        playerOneAvatar.setOrigin(new Point(AVATAR_X_PAD, playAreaOrigin.y - playerOneAvatar.height() + AVATAR_Y_PAD));
+        p1Avatar = new Avatar(PlayerNumber.PLAYER_ONE);
+        int avatarY = playAreaOrigin.y - p1Avatar.height() + AVATAR_Y_PAD;
 
-        // If two player, add player two lives and score and move avatar to center
-        if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
-            playerTwoAvatar = new Avatar(PlayerNumber.PLAYER_TWO);
+        switch(state.gameConfig().multiplayerMode()) {
+            case SINGLE_PLAYER ->
+                p1Avatar.setOrigin(new Point(AVATAR_X_PAD, avatarY));
+            case MULTIPLAYER -> {
+                p2Avatar = new Avatar(PlayerNumber.PLAYER_TWO);
 
-            Scoreboard playerTwoScoreboard = Scoreboard.playerTwoScoreboard(state.playerTwo());
-            scoreboardX = playAreaOrigin.x;
-            scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
-            playerTwoScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
-            playerTwoAvatar.setOrigin(new Point(playerTwoScoreboard.x() + playerTwoAvatar.width() / 2, playerOneAvatar.snek.y()));
+                Scoreboard p2Scoreboard = Scoreboard.playerTwoScoreboard(state.playerTwo());
+                scoreboardX = playAreaOrigin.x;
+                scoreboardY = playAreaOrigin.y - p1Scoreboard.height();
+                p2Scoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
 
-            playerOneAvatar.setOrigin(new Point(playerOneScoreboard.x() - playerOneAvatar.width(), playerOneAvatar.snek.y()));
+                p1Avatar.setOrigin(new Point(p1Scoreboard.x() - p1Avatar.width() + 20, avatarY));
+                p2Avatar.setOrigin(new Point(p2Scoreboard.x() + p2Scoreboard.width() - 20, avatarY));
 
-            addAll(playerTwoScoreboard, playerTwoAvatar.snek);
+                addAll(p2Scoreboard, p2Avatar.snek);
+            }
         }
 
         // Add border
@@ -57,15 +59,15 @@ public class HeadsUpDisplay extends TGraphicCompound {
         pauseLabel.setOrigin(new Point(playAreaOrigin.x + playAreaDimension.width - 85,
                 playAreaOrigin.y + playAreaDimension.height + 15));
 
-        addAll(border, playerOneAvatar.snek, playerOneScoreboard, pauseLabel);
+        addAll(border, p1Avatar.snek, p1Scoreboard, pauseLabel);
     }
 
     public void animateAvatar(PlayerNumber playerNumber) {
         switch(playerNumber) {
-            case PLAYER_ONE -> playerOneAvatar.eat();
+            case PLAYER_ONE -> p1Avatar.eat();
             case PLAYER_TWO -> {
-                if (playerTwoAvatar != null) {
-                    playerTwoAvatar.eat();
+                if (p2Avatar != null) {
+                    p2Avatar.eat();
                 }
             }
         }
