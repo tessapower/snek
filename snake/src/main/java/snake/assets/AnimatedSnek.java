@@ -1,5 +1,6 @@
 package snake.assets;
 
+import snake.player.PlayerNumber;
 import tengine.graphics.entities.sprites.AnimatedSprite;
 import tengine.graphics.entities.sprites.SpriteSequence;
 import tengine.world.GridSquare;
@@ -14,7 +15,7 @@ public class AnimatedSnek extends AnimatedSprite {
     private static final Dimension FRAME_DIMENSION = new Dimension(32, 32);
     private static final String SNEK_SPRITE_SHEET_P1 = "animated-snek-sprite-sheet.png";
     // Future support for a blue Snek H.U.D. avatar
-    private static final String SNEK_SPRITE_SHEET_P2 = "animated-snek-sprite-sheet.png";
+    private static final String SNEK_SPRITE_SHEET_P2 = "blue-animated-snek-sprite-sheet.png";
     private static final int NUM_FRAMES = 10;
     private static final int SCALE = 4;
 
@@ -40,6 +41,13 @@ public class AnimatedSnek extends AnimatedSprite {
 
     public static AnimatedSnek animatedSnek() {
         return new AnimatedSnek(SNEK_SPRITE_SHEET_P1);
+    }
+
+    public static AnimatedSnek animatedSnek(PlayerNumber playerNumber) {
+        return switch(playerNumber) {
+            case PLAYER_ONE -> new AnimatedSnek(SNEK_SPRITE_SHEET_P1);
+            case PLAYER_TWO -> new AnimatedSnek(SNEK_SPRITE_SHEET_P2);
+        };
     }
 
     private static ArrayList<GridSquare> generateRow(int row) {

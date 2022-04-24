@@ -6,6 +6,7 @@ import snake.assets.SnekTailSprite;
 import snake.game.GameWorld;
 import snake.game.Grid;
 import snake.player.Player;
+import snake.player.PlayerNumber;
 import tengine.Actor;
 import tengine.graphics.entities.TGraphicCompound;
 import tengine.world.GridSquare;
@@ -219,6 +220,10 @@ public class Snek extends Actor {
         tailPieces.add(0, newTailPiece);
 
         return newTailPiece;
+    }
+
+    public PlayerNumber playerNumber() {
+        return player.playerNumber();
     }
 
     private SnekTailSprite popTailPiece() {

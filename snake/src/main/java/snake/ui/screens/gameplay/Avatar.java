@@ -1,14 +1,16 @@
 package snake.ui.screens.gameplay;
 
 import snake.assets.AnimatedSnek;
+import snake.player.PlayerNumber;
 import tengine.graphics.entities.sprites.SpriteSequence;
 
 import java.awt.*;
 
 public class Avatar {
-    final AnimatedSnek snek = AnimatedSnek.animatedSnek();
+    AnimatedSnek snek;
 
-    public Avatar() {
+    public Avatar(PlayerNumber playerNumber) {
+        snek = AnimatedSnek.animatedSnek(playerNumber);
         snek.setState(AnimatedSnek.State.IDLE);
         snek.setSequenceEndCallback(this::onAnimationSequenceEnd);
     }

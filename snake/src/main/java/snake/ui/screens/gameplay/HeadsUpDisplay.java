@@ -7,6 +7,7 @@ import snake.assets.FontBook;
 import snake.game.GameConfig;
 import snake.game.GameState;
 import snake.player.Player;
+import snake.player.PlayerNumber;
 import snake.settings.MultiplayerMode;
 import tengine.graphics.entities.TGraphicCompound;
 import tengine.graphics.entities.shapes.TRect;
@@ -20,7 +21,8 @@ public class HeadsUpDisplay extends TGraphicCompound {
     private static final int AVATAR_X_PAD = -2;
     private static final int AVATAR_Y_PAD = -7;
 
-    private final Avatar avatar;
+    private final Avatar playerOneAvatar;
+    private Avatar playerTwoAvatar = null;
 
     public HeadsUpDisplay(Dimension dimension, Dimension playAreaDimension, Point playAreaOrigin, GameState state) {
         super(dimension);
@@ -31,19 +33,22 @@ public class HeadsUpDisplay extends TGraphicCompound {
         playerOneScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
 
         // Add avatar
-        avatar = new Avatar();
-        avatar.setOrigin(new Point(AVATAR_X_PAD, playAreaOrigin.y - avatar.height() + AVATAR_Y_PAD));
+        playerOneAvatar = new Avatar(PlayerNumber.PLAYER_ONE);
+        playerOneAvatar.setOrigin(new Point(AVATAR_X_PAD, playAreaOrigin.y - playerOneAvatar.height() + AVATAR_Y_PAD));
 
         // If two player, add player two lives and score and move avatar to center
         if (state.gameConfig().multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
+            playerTwoAvatar = new Avatar(PlayerNumber.PLAYER_TWO);
+
             Scoreboard playerTwoScoreboard = Scoreboard.playerTwoScoreboard(state.playerTwo());
             scoreboardX = playAreaOrigin.x;
             scoreboardY = playAreaOrigin.y - playerOneScoreboard.height();
             playerTwoScoreboard.setOrigin(new Point(scoreboardX, scoreboardY));
+            playerTwoAvatar.setOrigin(new Point(playerTwoScoreboard.x() + playerTwoAvatar.width() / 2, playerOneAvatar.snek.y()));
 
-            avatar.setOrigin(new Point((int) ((dimension.width - avatar.width()) * 0.5), avatar.snek.y()));
+            playerOneAvatar.setOrigin(new Point(playerOneScoreboard.x() - playerOneAvatar.width(), playerOneAvatar.snek.y()));
 
-            add(playerTwoScoreboard);
+            addAll(playerTwoScoreboard, playerTwoAvatar.snek);
         }
 
         // Add border
@@ -58,11 +63,18 @@ public class HeadsUpDisplay extends TGraphicCompound {
         pauseLabel.setOrigin(new Point(playAreaOrigin.x + playAreaDimension.width - 85,
                 playAreaOrigin.y + playAreaDimension.height + 15));
 
-        addAll(border, avatar.snek, playerOneScoreboard, pauseLabel);
+        addAll(border, playerOneAvatar.snek, playerOneScoreboard, pauseLabel);
     }
 
-    public void animateAvatar() {
-        avatar.eat();
+    public void animateAvatar(PlayerNumber playerNumber) {
+        switch(playerNumber) {
+            case PLAYER_ONE -> playerOneAvatar.eat();
+            case PLAYER_TWO -> {
+                if (playerTwoAvatar != null) {
+                    playerTwoAvatar.eat();
+                }
+            }
+        }
     }
 
     static class Scoreboard extends TGraphicCompound {

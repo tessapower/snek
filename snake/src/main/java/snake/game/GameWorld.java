@@ -108,7 +108,7 @@ public class GameWorld extends World {
         if (maybeApple != null) {
             player.eat(maybeApple);
 
-            hud.animateAvatar();
+            hud.animateAvatar(player.playerNumber());
 
             maybeApple.removeFromWorld();
 
