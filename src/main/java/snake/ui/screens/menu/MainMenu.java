@@ -6,7 +6,7 @@ import snake.assets.SoundEffects;
 import snake.settings.Settings;
 import snake.ui.components.Button;
 import snake.ui.components.ButtonGroup;
-import tengine.graphics.graphicsObjects.text.TLabel;
+import tengine.graphics.entities.text.TLabel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

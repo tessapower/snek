@@ -1,6 +1,6 @@
 package snake.assets;
 
-import tengine.AudioClip;
+import tengine.audio.AudioClip;
 
 public class SoundEffects {
     private static final String APPLE_GOOD = "apple-good.wav";

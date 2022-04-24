@@ -1,7 +1,7 @@
 package snake.ui.screens.gameplay;
 
 import snake.assets.AnimatedSnek;
-import tengine.graphics.graphicsObjects.sprites.SpriteSequence;
+import tengine.graphics.entities.sprites.SpriteSequence;
 
 import java.awt.*;
 

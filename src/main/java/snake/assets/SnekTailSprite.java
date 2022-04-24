@@ -1,7 +1,7 @@
 package snake.assets;
 
 import snake.game.GameWorld;
-import tengine.graphics.graphicsObjects.sprites.Sprite;
+import tengine.graphics.entities.sprites.Sprite;
 import tengine.world.GridSquare;
 
 import java.awt.*;

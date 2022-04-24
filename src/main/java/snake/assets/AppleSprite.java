@@ -2,7 +2,7 @@ package snake.assets;
 
 import snake.game.Grid;
 import tengine.graphics.context.GraphicsCtx;
-import tengine.graphics.graphicsObjects.sprites.Sprite;
+import tengine.graphics.entities.sprites.Sprite;
 
 import java.awt.*;
 import java.io.InputStream;

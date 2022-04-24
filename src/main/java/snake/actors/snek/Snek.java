@@ -8,7 +8,7 @@ import snake.game.Grid;
 import snake.player.Player;
 import snake.settings.GameMode;
 import tengine.Actor;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
+import tengine.graphics.entities.TGraphicCompound;
 import tengine.world.GridSquare;
 
 import java.awt.*;
@@ -50,7 +50,7 @@ public class Snek extends Actor {
         this.player = player;
         direction = initialDirection;
 
-        graphicObject = initSprite(world, square);
+        graphicEntity = initSprite(world, square);
     }
 
     private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
@@ -106,7 +106,7 @@ public class Snek extends Actor {
         if (shouldGrowTail) {
             // Grow the tail toward the head
             SnekTailSprite newTailPiece = growTailTowardHead();
-            ((TGraphicCompound) graphicObject).add(newTailPiece);
+            ((TGraphicCompound) graphicEntity).add(newTailPiece);
             advanceHead();
             shouldGrowTail = false;
         } else {

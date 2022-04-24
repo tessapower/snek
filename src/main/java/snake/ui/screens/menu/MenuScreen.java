@@ -7,7 +7,7 @@ import snake.settings.Settings;
 import snake.ui.screens.Screen;
 import snake.ui.screens.ScreenChangeRequestCallback;
 import snake.ui.screens.ScreenIdentifier;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
+import tengine.graphics.entities.TGraphicCompound;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

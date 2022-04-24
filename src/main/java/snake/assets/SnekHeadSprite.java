@@ -2,9 +2,9 @@ package snake.assets;
 
 import snake.game.GameWorld;
 import snake.player.PlayerNumber;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
-import tengine.graphics.graphicsObjects.shapes.TRect;
-import tengine.graphics.graphicsObjects.sprites.Sprite;
+import tengine.graphics.entities.TGraphicCompound;
+import tengine.graphics.entities.shapes.TRect;
+import tengine.graphics.entities.sprites.Sprite;
 import tengine.world.GridSquare;
 
 import java.awt.*;

@@ -8,10 +8,10 @@ import snake.game.GameConfig;
 import snake.game.GameState;
 import snake.player.Player;
 import snake.settings.MultiplayerMode;
-import tengine.graphics.graphicsObjects.TGraphicCompound;
-import tengine.graphics.graphicsObjects.shapes.TRect;
-import tengine.graphics.graphicsObjects.sprites.Sprite;
-import tengine.graphics.graphicsObjects.text.TLabel;
+import tengine.graphics.entities.TGraphicCompound;
+import tengine.graphics.entities.shapes.TRect;
+import tengine.graphics.entities.sprites.Sprite;
+import tengine.graphics.entities.text.TLabel;
 
 import java.awt.*;
 import java.util.ArrayList;

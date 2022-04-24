@@ -2,7 +2,7 @@ package snake.ui.components;
 
 import snake.assets.Colors;
 import snake.assets.FontBook;
-import tengine.graphics.graphicsObjects.text.TLabel;
+import tengine.graphics.entities.text.TLabel;
 
 public class Button extends TLabel {
     public enum State {

@@ -38,8 +38,8 @@ public class Apple extends Actor {
         this.world = world;
         this.appleType = appleType;
         switch(appleType) {
-            case CROMCHY -> graphicObject = AppleSprite.goodApple();
-            case YUCK -> graphicObject = AppleSprite.badApple();
+            case CROMCHY -> graphicEntity = AppleSprite.goodApple();
+            case YUCK -> graphicEntity = AppleSprite.badApple();
         }
 
         setGridSquare(gridSquare);
