@@ -117,7 +117,5 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void update(double dtMillis) {
-
-    }
+    public void update(double dtMillis) {}
 }
