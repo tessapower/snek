@@ -13,17 +13,25 @@ A simple remake of the classic game Snake, built in Java.
 
 ### Run with IntelliJ
 
-If you are using IntelliJ, you can use the pre-existing run configuration "Run Game":
+This project was developed using the Maven build system. When first opening the project, you'll see the project 
+plugins and dependencies being downloaded. It may take a minute for the project to process and index all the build 
+files.
 
-!["Run Game" run configuration](snake/docs/images/run-game-config.png)
+⚠️ Please do **not** delete the `.idea` directory—it contains the "Run Game" configuration necessary for you to 
+build and run the game.
+
+When the project has loaded, you will find the Run Game configuration in the menu bar
+
+!["Run Game" run configuration](docs/images/run-game-config.png)
 
 ### Run from Commandline
 
-Or to build from the command-line only, you can use Maven, if you have it installed, and then run the `.JAR` directly:
+To build from the command-line only, you can use Maven, if you have it installed, and then run the `.JAR` 
+directly. Enter the following commands in the project root:
 
 ```shell
-mvn package
-java -jar target/snek.jar
+mvn install
+java -jar snake/target/snek.jar
 ```
 
 ---
@@ -32,7 +40,7 @@ java -jar target/snek.jar
 
 A window should appear for you to play the game:
 
-![`snek!` running](snake/docs/images/game-running.png)
+![`snek!` running](docs/images/main-menu.png)
 
 The rules are simple:
 
@@ -45,19 +53,19 @@ The rules are simple:
 - Main menu that lets the playerNumber select the game mode
 - Infinite mode: let the snake tail grow forever
 - Avoid poisonous apples or lose a life!
-- H.U.D. shows the playerNumber(s) apple count and lives remaining
-- DOOM-inspired H.U.D. avatar that responds when the playerNumber eats an apple
+- H.U.D. shows the player(s) apple count and lives remaining
+- DOOM-inspired H.U.D. avatar that responds when the player eats an apple
 - In-game pause function
 - Watch out for cool sound effects:
   - Satisfying crunch when an apple is eaten
   - Disgusted noise when a poisonous apple is eaten
-  - Death scream when the playerNumber loses the game
+  - Death scream when the player loses the game
   - Menu navigation and selection
 - Epic music to set the scene during gameplay
-- Game over screen that lets the playerNumber play again or go to the main menu
-- Two playerNumber mode: play against a blue friend, fight for the highest score!
+- Game over screen that lets the player play again or go to the main menu
+- Two player mode: play against a blue friend, fight for the highest score!
 
-![`snek!` two-playerNumber mode](snake/docs/images/two-player-mode.png)
+![`snek!` two-playerNumber mode](docs/images/two-player-mode.png)
 
 ### Future Improvements
 
@@ -73,37 +81,81 @@ The rules are simple:
 
 ### Overview
 
-`snek` was developed with the minimum version of OpenJDK 17, and uses Maven to build and package the `.JAR`.
-The game engine used to develop Snek is my external `TEngine` project, which has been included locally to simplify
-the build process.
+`snek` was developed with the minimum version of OpenJDK 17, and uses Maven to build the project including its 
+dependencies, and package it into an executable `.JAR`. The game engine used to develop Snek is my external 
+`TEngine` project, which has been included locally as a module to simplify the build process. 
 
 ### Project Overview and Maven
 
-The project is organised to work with the Maven build system—you can find all the source code in `./src/main/java/`.
+The project is organised to work with the Maven build system—you can find all the source code in `./snake/src/main/java/`.
 
 Within the source files, there are the following packages:
 
-![`snek!` package diagram](snake/docs/images/package-diagram.png)
+![`snek!` package diagram](docs/images/package-diagram.png)
 
 ### `TEngine`
 
+The `TEngine` is my personal rebuild of the Massey GameEngine, loosely based on the ECS software architecture pattern. 
+It's a work in progress, so the following is only a brief summary:
 
+- Graphics Engine: Supported ✅
+  - Drawing primitives: ovals, rectangles
+  - Compound primitive containers
+  - Text
+  - Sprites
+  - Animated Sprites & Sprite Sequences
+  - Transforms
+- Physics Engine: WIP ⚠️
+- Audio: Supported ✅
+- Actors & Actor Management: Supported ✅
+- World Management: Supported ✅
 
-### Class Diagram for `snek!`
+### The `snek!` Game Actor
 
+As the `TEngine` is loosely based on ECS, the `Snek` Actor is also structured this way—we separate out the logic 
+from the graphical representation, and this decoupled structure offers more flexibility throughout development. The 
+graphical representation is further broken down into two separate components, the head and the tail. The logical
+representation is also further separated out and encapsulated in the Player class, which you can see in the class
+diagram below:
 
+![The `snek!` Game Actor](docs/images/snek-actor.png)
 
-### State Machine Diagram for Screen Transitions
+This makes it quite easy to have each aspect of the `Snek` Actor manage itself and update its different components 
+separately.
 
+The `Snek` Actor largely manages itself, including growing its tail as necessary, rotating its head to face the right 
+direction, and handling key events. The only parts that need to be coordinated from the outside are responding to
+collisions and needing to be told to eat an apple. A higher level `GameWorld` manages the interactions between the actors.
 
+### The `GameWorld`
 
-### Deployment Diagram?
+The `GameWorld` coordinates the gameplay, which is grid based, and manages the interactions between actors depending on 
+the game configuration (one or two player, infinite or normal mode).
 
+![The `GameWorld`](docs/images/game-world.png)
 
+On a given tick, the `GameWorld` will check if the `Snek` actors have collided with the walls, with themselves,
+or with each other. It then checks if an `Apple` has been eaten, and passes that to the appropriate `snek` player,
+which will know what to do with it. The `GameWorld` will then organise removing the `Apple` from the world, 
+and placing a new one at a random location. We can see this interaction fleshed out below:
 
-## TODO:
+![`GameWorld` managing interactions](docs/images/world-management.png)
 
-- Update the maven reference to the game engine once the game engine has been duplicated into this assignment
+### Screen Management
+
+At a higher level than the `GameWorld` is the `PlayGameScreen`, which is, as the name suggests, the screen that is 
+loaded when the user starts playing the game. We also have the `MenuScreen`, which internally is made up of 
+smaller `Menu`s, and the `GameOverScreen`. To manage moving between all of these screens at a higher level, we have the 
+`Game` class, which extends the `TEngine` game engine, and is the entry point for the program. The `Game` is where we
+initially set up everything needed for `Snek`, and then it manages loading and unloading each of these screens. It then
+listens for callbacks from each screen to know when to transition and which screen to load next.
+
+![`GameWorld` managing interactions](docs/images/screen-management.png)
+
+The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes 
+that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the 
+`GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and 
+display the results.
 
 ## Attributions
 
@@ -111,3 +163,5 @@ Within the source files, there are the following packages:
 - [Retro Gaming Font by Daymarius](https://www.dafont.com/retro-gaming.font), free for personal and commercial use.
 - [Music by Steven Melin](https://stevenmelin.com), free for personal and commercial use.
 - [Sound Effects by Juhani Junkala](https://juhanijunkala.com/), free for personal and commercial use.
+
+![`snek`](docs/images/snake-idle.gif)
