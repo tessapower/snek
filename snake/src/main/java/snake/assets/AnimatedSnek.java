@@ -14,7 +14,6 @@ public class AnimatedSnek extends AnimatedSprite {
     // We scale up the Snek otherwise he is only 32 x 32 points big
     private static final Dimension FRAME_DIMENSION = new Dimension(32, 32);
     private static final String SNEK_SPRITE_SHEET_P1 = "animated-snek-sprite-sheet.png";
-    // Future support for a blue Snek H.U.D. avatar
     private static final String SNEK_SPRITE_SHEET_P2 = "blue-animated-snek-sprite-sheet.png";
     private static final int NUM_FRAMES = 10;
     private static final int SCALE = 4;
