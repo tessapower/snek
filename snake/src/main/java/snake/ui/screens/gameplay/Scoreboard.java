@@ -7,7 +7,6 @@ import snake.assets.FontBook;
 import snake.game.GameConfig;
 import snake.player.Player;
 import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.shapes.TRect;
 import tengine.graphics.entities.sprites.Sprite;
 import tengine.graphics.entities.text.TLabel;
 
