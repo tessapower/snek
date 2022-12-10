@@ -17,10 +17,12 @@ This project was developed using the Maven build system. When first opening the 
 plugins and dependencies being downloaded. It may take a minute for the project to process and index all the build 
 files.
 
-⚠️ Please do **not** delete the `.idea` directory—it contains the "Run Game" configuration necessary for you to 
-build and run the game.
+> **Warning**
+>
+> Please do **not** delete the `.idea` directory—it contains the "Run Game" configuration 
+> necessary for you to build and run the game.
 
-When the project has loaded, you will find the Run Game configuration in the menu bar
+When the project has loaded, you will find the Run Game configuration in the menu bar.
 
 !["Run Game" run configuration](docs/images/run-game-config.png)
 
