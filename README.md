@@ -1,161 +1,117 @@
-# `snek!`
+# `snek!` ![snek](https://user-images.githubusercontent.com/25911223/206885551-74c5e2ef-65f3-44d0-a13a-7d6d6f83317e.gif)
 
-A simple remake of the classic game Snake, built in Java.
+[![Java CI with Maven](https://github.com/tessapower/snek/actions/workflows/maven-build.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/maven-build.yml)
+
+A simple remake of the classic game Snake (with a few flourishes!) using my own 2D game
+engine, [TEngine](https://github.com/tessapower/tengine).
+
+> **Note**
+>
+> This was my very first game, and looking back on it now, there are a lot of improvements I'd make.
+> The architecture is slightly more reminiscent of a GUI library than what you would expect from a
+> game engine. In any case, here it is preserved for the sake of nostalgia! :)
 
 ## Requirements
 
-- Java SE 17 or above
-- IntelliJ (or Maven for command-line-only builds)
-
----
+- Minimum Java SE 17+
+- IntelliJ, Eclipse, or your favourite Java editor
+- Maven (install locally for command-line-only builds)
 
 ## How to run `snek!`
 
-### Run with IntelliJ
+This project uses the Maven build system. My editor of choice is IntelliJ, so there is a ready-made
+run configuration included in this project called "Run Game". If your editor supports
+Maven, you can run the `install` goal and launch the `snek.jar` found in `snake/target`
+directory. Otherwise, you can build and run the game from the command line.
 
-This project was developed using the Maven build system. When first opening the project, you'll see the project 
-plugins and dependencies being downloaded. It may take a minute for the project to process and index all the build 
-files.
+Building the project from the command line requires you to have Maven installed locally, so `brew
+install maven` or `choco install maven` or however you need to with your package manager of choice.
 
-⚠️ Please do **not** delete the `.idea` directory—it contains the "Run Game" configuration necessary for you to 
-build and run the game.
-
-When the project has loaded, you will find the Run Game configuration in the menu bar
-
-!["Run Game" run configuration](docs/images/run-game-config.png)
-
-### Run from Commandline
-
-To build from the command-line only, you can use Maven, if you have it installed, and then run the `.JAR` 
-directly. Enter the following commands in the project root:
+Then enter the following commands from the project root:
 
 ```shell
+# install dependencies and build
 mvn install
+# run the game
 java -jar snake/target/snek.jar
 ```
 
----
+## How to play `snek!`
 
-## Playing `snek!`
+Snake is a bit of a rite of passage, so we all know the rules. Use the arrow keys (or W-A-S-D if
+you're player two), to move around the world. Eat the apples, try not to crash into stuff, don't
+hit your own tail, etc.
 
-A window should appear for you to play the game:
-
-![`snek!` running](docs/images/main-menu.png)
-
-The rules are simple:
-
-- Use the arrow keys to move snek around the world
-- Eat the apples, but watch out for the poisonous ones! 
-- Try not to hit the walls, rocks, or your tail, or it's game over
-
-### `snek!` Features
-
-- Main menu that lets the player select the game mode
-- Infinite mode: let the snake tail grow forever
-- Avoid poisonous apples or lose a life!
-- H.U.D. shows the player(s) apple count and lives remaining
-- DOOM-inspired H.U.D. avatars that respond when players eat apples
-- In-game pause function
-- Listen out for cool sound effects:
-  - Satisfying crunch when an apple is eaten
-  - Disgusted noise when a poisonous apple is eaten
-  - Death scream when the player loses the game
-  - Menu navigation and selection
-- Epic music to set the scene during gameplay
-- Game over screen that lets the player play again or go to the main menu
-- Two player mode: play against a blue friend, fight for the highest score!
-
-![`snek!` two-player mode](docs/images/two-player-mode.png)
-
-### Future Improvements
-
-- Track high-scores and high-score submenu in the main menu
-- ~~Player Two Blue H.U.D. Avatar~~
-- ~~Randomly placed obstacles, like rocks~~
-- Infinite-walls mode: go through walls and appear on the opposite side
-- Power-ups, like extra lives, or to make snek faster
-
----
+https://user-images.githubusercontent.com/25911223/206885403-cf983a9c-0557-4816-bd44-db15b6a3cfe9.mp4
 
 ## Architecture
 
 ### Overview
 
-`snek` was developed with the minimum version of OpenJDK 17, and uses Maven to build the project including its 
-dependencies, and package it into an executable `.JAR`. The game engine used to develop Snek is my external 
-`TEngine` project, which has been included locally as a module to simplify the build process. 
-
-### Project Overview and Maven
-
-The project is organised to work with the Maven build system—you can find all the source code in `./snake/src/main/java/`.
-
-Within the source files, there are the following packages:
-
-![`snek!` package diagram](docs/images/package-diagram.png)
+`snek!` was developed with the minimum version of Java 17, and uses Maven to build the project
+including its dependencies, and package it into an executable `.JAR`. The project is organised to
+work with the Maven build system—you'll find all the source code in `snake/src/main/java/`.
 
 ### `TEngine`
 
-The `TEngine` is my personal rebuild of the Massey GameEngine, loosely based on the ECS software architecture pattern. 
-It's a work in progress, so the following is only a brief summary:
-
-- Graphics Engine: Supported ✅
-  - Drawing primitives: ovals, rectangles
-  - Compound primitive containers
-  - Text
-  - Sprites
-  - Animated Sprites & Sprite Sequences
-  - Transforms
-- Physics Engine: WIP ⚠️
-- Audio: Supported ✅
-- Actors & Actor Management: Supported ✅
-- World Management: Supported ✅
+The game engine used to develop `snek!` is my very own (and very first) game engine, called
+`TEngine`! You can find out more about it [here](https://github.com/tessapower/tengine). The version
+used at the time has been included locally as a module to simplify the build process.
 
 ### The `snek!` Game Actor
 
-As the `TEngine` is loosely based on ECS, the `Snek` Actor is also structured this way—we separate out the logic 
-from the graphical representation, and this decoupled structure offers more flexibility throughout development. The 
-graphical representation is further broken down into two separate components, the head and the tail. The logical
-representation is also further separated out and encapsulated in the Player class, which you can see in the class
-diagram below:
+The star of the show is `snek`, of course! As the `TEngine` uses ECS to model Actors, the `snek`
+Actor is also structured this way—we separate out the logic from the graphical representation, and
+this decoupled structure offers more flexibility throughout development. The graphical
+representation is further broken down into two separate components, the head and the tail. The
+logical representation is also further separated out and encapsulated in the Player class, which
+you can see in the class diagram below:
 
-![The `snek!` Game Actor](docs/images/snek-actor.png)
+![The `snek!` Game Actor](docs/images/snek-actor.svg)
 
-This makes it quite easy to have each aspect of the `Snek` Actor manage itself and update its different components 
+This makes it quite easy to have each aspect of the `Snek` Actor manage itself and update its different components
 separately.
 
-The `Snek` Actor largely manages itself, including growing its tail as necessary, rotating its head to face the right 
+The `Snek` Actor largely manages itself, including growing its tail as necessary, rotating its head to face the right
 direction, and handling key events. The only parts that need to be coordinated from the outside are responding to
 collisions and needing to be told to eat an apple. A higher level `GameWorld` manages the interactions between the actors.
 
 ### The `GameWorld`
 
-The `GameWorld` coordinates the gameplay, which is grid based, and manages the interactions between actors depending on 
+The `GameWorld` coordinates the gameplay, which is grid based, and manages the interactions between actors depending on
 the game configuration (one or two player, infinite or normal mode).
 
-![The `GameWorld`](docs/images/game-world.png)
+![The `GameWorld`](docs/images/game-world.svg)
 
 On a given tick, the `GameWorld` will check if the `Snek` actors have collided with the walls, with themselves,
 or with each other. It then checks if an `Apple` has been eaten, and passes that to the appropriate `snek` player,
-which will know what to do with it. The `GameWorld` will then organise removing the `Apple` from the world, 
+which will know what to do with it. The `GameWorld` will then organise removing the `Apple` from the world,
 and placing a new one at a random location. We can see this interaction fleshed out below:
 
-![`GameWorld` managing interactions](docs/images/world-management.png)
+![`GameWorld` managing interactions](docs/images/world-management.svg)
 
 ### Screen Management
 
-At a higher level than the `GameWorld` is the `PlayGameScreen`, which is, as the name suggests, the screen that is 
-loaded when the user starts playing the game. We also have the `MenuScreen`, which internally is made up of 
-smaller `Menu`s, and the `GameOverScreen`. To manage moving between all of these screens at a higher level, we have the 
+At a higher level than the `GameWorld` is the `PlayGameScreen`, which is, as the name suggests, the screen that is
+loaded when the user starts playing the game. We also have the `MenuScreen`, which internally is made up of
+smaller `Menu`s, and the `GameOverScreen`. To manage moving between all of these screens at a higher level, we have the
 `Game` class, which extends the `TEngine` game engine, and is the entry point for the program. The `Game` is where we
 initially set up everything needed for `Snek`, and then it manages loading and unloading each of these screens. It then
 listens for callbacks from each screen to know when to transition and which screen to load next.
 
-![`GameWorld` managing interactions](docs/images/screen-management.png)
+![`GameWorld` managing interactions](docs/images/screen-management.svg)
 
-The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes 
-that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the 
-`GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and 
+The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes
+that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the
+`GameState` so that when the game is over and the `GameOverScreen` is loaded, it can be passed the `GameState` and
 display the results.
+
+### Package Diagram
+
+There are lots of things I didn't cover, so here's an overview of the packages and classes in 
+`snek!`:
+
+![Package Diagram](docs/images/package-diagram.svg)
 
 ## Attributions
 
@@ -163,5 +119,3 @@ display the results.
 - [Retro Gaming Font by Daymarius](https://www.dafont.com/retro-gaming.font), free for personal and commercial use.
 - [Music by Steven Melin](https://stevenmelin.com), free for personal and commercial use.
 - [Sound Effects by Juhani Junkala](https://juhanijunkala.com/), free for personal and commercial use.
-
-![`snek`](docs/images/snake-idle.gif)
