@@ -124,8 +124,8 @@ public class GameWorld extends World {
                 badApples.remove(maybeApple);
             }
 
-            if (RANDOM.nextDouble() < RANDOM_CHANCE) {
-                if (RANDOM.nextBoolean()) {
+            if (RANDOM.nextDouble() > RANDOM_CHANCE) {
+                if (RANDOM.nextDouble() < RANDOM_CHANCE) {
                     badApples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
                 } else {
                     rocks.add(Rock.spawnRockAt(this, randomUnoccupiedSquare()));
