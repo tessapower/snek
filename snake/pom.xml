@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>co.tessapower.159261.a1</groupId>
-        <artifactId>a1</artifactId>
+        <groupId>co.tessapower</groupId>
+        <artifactId>snek</artifactId>
         <version>1.0</version>
     </parent>
 
@@ -46,14 +46,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>co.tessapower.159261.a1</groupId>
+            <groupId>co.tessapower</groupId>
             <artifactId>tengine</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.3.0</version>
+            <version>3.4.2</version>
             <type>maven-plugin</type>
         </dependency>
     </dependencies>

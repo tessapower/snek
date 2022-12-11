@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>co.tessapower.159261.a1</groupId>
-    <artifactId>a1</artifactId>
+    <groupId>co.tessapower</groupId>
+    <artifactId>snek</artifactId>
     <version>1.0</version>
-    <name>159.261 Assignment 1 Parent Project</name>
+    <name>Snek</name>
     <packaging>pom</packaging>
 
     <modules>
