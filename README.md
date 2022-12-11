@@ -5,7 +5,7 @@
 A simple remake of the classic game Snake (with a few flourishes!) using my own 2D game
 engine, [TEngine](https://github.com/tessapower/tengine).
 
-> **Warning**
+> **Note**
 >
 > This was my very first game, and looking back on it now, there are a lot of improvements I'd make.
 > The architecture is slightly more reminiscent of a GUI library than what you would expect from a
@@ -67,7 +67,7 @@ representation is further broken down into two separate components, the head and
 logical representation is also further separated out and encapsulated in the Player class, which
 you can see in the class diagram below:
 
-![The `snek!` Game Actor](docs/images/snek-actor.png)
+![The `snek!` Game Actor](docs/images/snek-actor.svg)
 
 This makes it quite easy to have each aspect of the `Snek` Actor manage itself and update its different components
 separately.
@@ -81,14 +81,14 @@ collisions and needing to be told to eat an apple. A higher level `GameWorld` ma
 The `GameWorld` coordinates the gameplay, which is grid based, and manages the interactions between actors depending on
 the game configuration (one or two player, infinite or normal mode).
 
-![The `GameWorld`](docs/images/game-world.png)
+![The `GameWorld`](docs/images/game-world.svg)
 
 On a given tick, the `GameWorld` will check if the `Snek` actors have collided with the walls, with themselves,
 or with each other. It then checks if an `Apple` has been eaten, and passes that to the appropriate `snek` player,
 which will know what to do with it. The `GameWorld` will then organise removing the `Apple` from the world,
 and placing a new one at a random location. We can see this interaction fleshed out below:
 
-![`GameWorld` managing interactions](docs/images/world-management.png)
+![`GameWorld` managing interactions](docs/images/world-management.svg)
 
 ### Screen Management
 
@@ -99,7 +99,7 @@ smaller `Menu`s, and the `GameOverScreen`. To manage moving between all of these
 initially set up everything needed for `Snek`, and then it manages loading and unloading each of these screens. It then
 listens for callbacks from each screen to know when to transition and which screen to load next.
 
-![`GameWorld` managing interactions](docs/images/screen-management.png)
+![`GameWorld` managing interactions](docs/images/screen-management.svg)
 
 The first screen loaded is the `MenuScreen`, which lets the player select the game configuration and makes
 that available to the `PlayGameScreen` through `Settings`. While the `PlayGameScreen` is loaded, it updates the
@@ -111,7 +111,7 @@ display the results.
 There are lots of things I didn't cover, so here's an overview of the packages and classes in 
 `snek!`:
 
-![`snek!` package diagram](docs/images/package-diagram.png)
+![Package Diagram](docs/images/package-diagram.svg)
 
 ## Attributions
 
