@@ -1,4 +1,4 @@
-# `snek!`
+# `snek!` ![snek](https://user-images.githubusercontent.com/25911223/206885551-74c5e2ef-65f3-44d0-a13a-7d6d6f83317e.gif)
 
 [![Java CI with Maven](https://github.com/tessapower/snek/actions/workflows/maven-build.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/maven-build.yml)
 
@@ -42,7 +42,7 @@ Snake is a bit of a rite of passage, so we all know the rules. Use the arrow key
 you're player two), to move around the world. Eat the apples, try not to crash into stuff, don't
 hit your own tail, etc.
 
-![Playing the game](docs/images/gameplay.mp4)
+https://user-images.githubusercontent.com/25911223/206885403-cf983a9c-0557-4816-bd44-db15b6a3cfe9.mp4
 
 ## Architecture
 
@@ -119,5 +119,3 @@ There are lots of things I didn't cover, so here's an overview of the packages a
 - [Retro Gaming Font by Daymarius](https://www.dafont.com/retro-gaming.font), free for personal and commercial use.
 - [Music by Steven Melin](https://stevenmelin.com), free for personal and commercial use.
 - [Sound Effects by Juhani Junkala](https://juhanijunkala.com/), free for personal and commercial use.
-
-![`snek`](docs/images/snake-idle.gif)
