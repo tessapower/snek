@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>co.tessapower.159261.a1</groupId>
-        <artifactId>a1</artifactId>
+        <groupId>co.tessapower</groupId>
+        <artifactId>snek</artifactId>
         <version>1.0</version>
     </parent>
 
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
