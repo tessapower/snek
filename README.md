@@ -119,3 +119,12 @@ There are lots of things I didn't cover, so here's an overview of the packages a
 - [Retro Gaming Font by Daymarius](https://www.dafont.com/retro-gaming.font), free for personal and commercial use.
 - [Music by Steven Melin](https://stevenmelin.com), free for personal and commercial use.
 - [Sound Effects by Juhani Junkala](https://juhanijunkala.com/), free for personal and commercial use.
+
+## License
+
+This project is licensed under the [MIT license](https://github.com/tessapower/snek/blob/main/LICENSE).
+
+### Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in 
+this repository by you, shall be licensed as MIT, without any additional terms or conditions.
