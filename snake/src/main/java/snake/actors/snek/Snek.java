@@ -7,7 +7,7 @@ import snake.game.GameWorld;
 import snake.game.Grid;
 import snake.player.Player;
 import snake.player.PlayerNumber;
-import tengine.Actor;
+import tengine.TActor;
 import tengine.graphics.entities.TGraphicCompound;
 import tengine.world.GridSquare;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Snek extends Actor {
+public class Snek extends TActor {
     public static final int MAX_TAIL_LEN = 19;
 
     private final GameWorld world;

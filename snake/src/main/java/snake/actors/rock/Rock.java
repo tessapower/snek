@@ -3,9 +3,9 @@ package snake.actors.rock;
 import snake.assets.AssetLoader;
 import snake.game.GameWorld;
 import snake.game.Grid;
-import tengine.Actor;
 import tengine.graphics.entities.sprites.Sprite;
 import tengine.world.GridSquare;
+import tengine.TActor;
 
 import java.awt.*;
 
@@ -16,7 +16,7 @@ import java.awt.*;
  * @author Tessa Power
  * @see Rock#spawnRockAt(GameWorld, GridSquare)
  */
-public class Rock extends Actor {
+public class Rock extends TActor {
     private static final String ROCK = "rock.png";
     private static final Dimension DIMENSION = new Dimension(Grid.SQUARE_SIZE, Grid.SQUARE_SIZE);
 

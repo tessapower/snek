@@ -2,8 +2,8 @@ package snake.actors.apple;
 
 import snake.assets.AppleSprite;
 import snake.game.GameWorld;
-import tengine.Actor;
 import tengine.world.GridSquare;
+import tengine.TActor;
 
 import java.awt.*;
 
@@ -19,7 +19,7 @@ import java.awt.*;
  * @see Apple#spawnGoodApple(GameWorld, TGridSquare)
  * @see Apple#spawnBadApple(GameWorld, TGridSquare)
  */
-public class Apple extends Actor {
+public class Apple extends TActor {
     private final GameWorld world;
     private GridSquare gridSquare;
     private final AppleType appleType;

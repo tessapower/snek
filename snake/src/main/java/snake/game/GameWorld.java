@@ -9,9 +9,9 @@ import snake.player.PlayerControls;
 import snake.settings.MultiplayerMode;
 import snake.ui.screens.gameplay.GameOverNotifier;
 import snake.ui.screens.gameplay.HeadsUpDisplay;
-import tengine.Actor;
 import tengine.world.GridSquare;
 import tengine.world.World;
+import tengine.TActor;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- * Class that contains all of the <code>Actor</code>s (a.k.a. game objects) and game logic for
+ * Class that contains all of the <code>TActor</code>s (a.k.a. game objects) and game logic for
  * <code>snek!</code> Handles the game play and notifying the main controller when the game is over.
  */
 public class GameWorld extends World {
@@ -125,7 +125,7 @@ public class GameWorld extends World {
     }
 
     /**
-     * Checks for collisions between each <code>Player</code> and any other <code>Actor</code>
+     * Checks for collisions between each <code>Player</code> and any other <code>TActor</code>
      * and handles the collision appropriately.
      */
     private void checkCollisions(Snek player) {
@@ -251,7 +251,7 @@ public class GameWorld extends World {
     }
 
     /**
-     * Finds a random square in the <code>Grid</code> that doesn't have any <code>Actor</code>
+     * Finds a random square in the <code>Grid</code> that doesn't have any <code>TActor</code>
      * already on it.
      */
     private GridSquare randomUnoccupiedSquare() {
@@ -265,10 +265,10 @@ public class GameWorld extends World {
     }
 
     /**
-     * Returns the <code>Actor</code> that is on the given <code>GridSquare</code>, if any, or
+     * Returns the <code>TActor</code> that is on the given <code>GridSquare</code>, if any, or
      * returns null.
      */
-    private Actor getActorAtSquare(GridSquare gridSquare) {
+    private TActor getActorAtSquare(GridSquare gridSquare) {
         if (playerOne.occupies(gridSquare)) {
             return playerOne;
         }
