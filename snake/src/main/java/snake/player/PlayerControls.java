@@ -6,6 +6,16 @@ import java.awt.event.KeyEvent;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Maps keyboard input as <code>KeyEvent</code>s to <code>Action</code>s to represent player input.
+ * There are pre-existing mappings for players 1 and 2 which can be accessed through the static
+ * factory method <code>controlsForPlayer(PlayerNumber)</code>.
+ * 
+ * @author Tessa Power
+ * @see KeyEvent
+ * @see Action
+ * @see PlayerControls#controlsForPlayer(PlayerNumber)
+ */
 public record PlayerControls(Map<Integer, Action> controls) {
     private static final Map<Integer, Action> PLAYER_ONE_CONTROLS =
             Map.of(KeyEvent.VK_UP, Action.MOVE_UP,
@@ -21,6 +31,11 @@ public record PlayerControls(Map<Integer, Action> controls) {
                     KeyEvent.VK_D, Action.MOVE_RIGHT
             );
 
+    /**
+     * Retrieves the mapped keyboard inputs to <code>Action</code>s for the given player.
+     *
+     * @see PlayerNumber
+     */
     public static PlayerControls controlsForPlayer(PlayerNumber playerNumber) {
         return switch (playerNumber) {
             case PLAYER_ONE -> new PlayerControls(PLAYER_ONE_CONTROLS);
@@ -28,6 +43,11 @@ public record PlayerControls(Map<Integer, Action> controls) {
         };
     }
 
+    /**
+     * The <code>Action</code> mapped to the given keyCode, if any.
+     *
+     * @see Action
+     */
     public Optional<Action> mappedAction(int keyCode) {
         return Optional.ofNullable(controls.get(keyCode));
     }
