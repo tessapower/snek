@@ -18,7 +18,9 @@ public class TRotation {
      * Constructs a rotation of <code>thetaDegrees</code> around <code>rotationOrigin</code>.
      */
     public TRotation(double thetaDegrees, Point rotationOrigin) {
-        this.thetaDegrees = thetaDegrees;
+        // Adjust rotations that are negative and greater than 360 to be within the range 0 - 359
+        this.thetaDegrees = (thetaDegrees < 0) ? thetaDegrees + 360 : thetaDegrees;
+        this.thetaDegrees %= 360;
         this.origin = rotationOrigin;
     }
 
