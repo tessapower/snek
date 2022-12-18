@@ -11,6 +11,13 @@ import tengine.graphics.entities.text.TLabel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * The content that is displayed when the player is using the main menu. Responsible for
+ * setting the <code>GameMode</code> before a game is started.
+ *
+ * @author Tessa Power
+ * @see MenuScreen
+ */
 class MainMenu extends Menu {
     private final ButtonGroup buttons;
     private final Button onePlayer;
@@ -19,6 +26,13 @@ class MainMenu extends Menu {
     private final Button howToPlay;
     private final Button credits;
 
+    /**
+     * Constructs a new <code>MainMenu</code> with the given <code>SubmenuSelectionNotifier</code>
+     * callback method.
+     *
+     * @see SubmenuOption
+     * @see SubmenuSelectionNotifier
+     */
     public MainMenu(SubmenuSelectionNotifier submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
 
@@ -73,6 +87,11 @@ class MainMenu extends Menu {
         }
     }
 
+
+    /**
+     * Allows this <code>MainMenu</code> to update itself since it was last updated
+     * <code>dtMillis</code> ago.
+     */
     @Override
     public void update(double dtMillis) {
         infiniteMode.setText("infinite mode: " +

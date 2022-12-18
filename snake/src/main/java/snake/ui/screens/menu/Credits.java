@@ -9,7 +9,20 @@ import tengine.graphics.entities.text.TLabel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * The content that is displayed when the player selects the Credits menu option.
+ *
+ * @author Tessa Power
+ * @see MenuScreen
+ */
 class Credits extends Menu {
+    /**
+     * Constructs a new <code>Credits</code> submenu with the given
+     * <code>SubmenuSelectionNotifier</code> callback method.
+     *
+     * @see SubmenuOption
+     * @see SubmenuSelectionNotifier
+     */
     public Credits(SubmenuSelectionNotifier submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
 
@@ -27,8 +40,8 @@ class Credits extends Menu {
         addAll(title, close);
     }
 
-    public void initContent() {
-        // Our text drawing functions don't currently support
+    private void initContent() {
+        // Our text drawing methods don't currently support
         // drawing multiline strings, hence the following ugliness.
         TLabel animatedSnakeAttr1 = bodyText("Animated Snake by Calciumtrice, usable");
         TLabel animatedSnakeAttr2 = bodyText("under Creative Commons Attribution 3.0");

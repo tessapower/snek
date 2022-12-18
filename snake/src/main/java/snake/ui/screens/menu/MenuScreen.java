@@ -5,32 +5,44 @@ import snake.game.Game;
 import snake.settings.MultiplayerMode;
 import snake.settings.Settings;
 import snake.ui.screens.Screen;
-import snake.ui.screens.ScreenChangeRequestCallback;
 import snake.ui.screens.ScreenIdentifier;
 import tengine.graphics.entities.TGraphicCompound;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * The main menu screen and one of the sub-controllers in the program. Responsible for managing the
+ * displayed (sub)menu content, and setting the <code>MultiplayerMode</code> in the
+ * <code>GameConfig</code> before starting a game.
+ *
+ * @author Tessa Power
+ */
 public class MenuScreen implements Screen {
-    private static final double ANIMATION_SPEED = 0.5;
-
     private final ScreenChangeRequestCallback screenChangeCallback;
+    // Link to main controller
     private final Game engine;
 
+    // Graphical components
     private final TGraphicCompound container;
     private Menu displayedMenu;
 
+    // Menus
     private final Menu mainMenu;
     private final Menu howToPlay;
     private final Menu credits;
 
+    // Snek animation
+    private static final double ANIMATION_SPEED = 0.5;
     private final AnimatedSnek snek;
     private final Point snekStartOrigin;
 
-    public MenuScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
+    /**
+     * Constructs a new <code>MenuScreen</code> linked to the given main program controller
+     * (<code>Game</code>).
+     */
+    public MenuScreen(Game game) {
         this.engine = game;
-        this.screenChangeCallback = screenChangeCallback;
 
         // Menus
         mainMenu = new MainMenu(this::onSubmenuSelection);
@@ -49,16 +61,25 @@ public class MenuScreen implements Screen {
         container.addAll(displayedMenu, snek);
     }
 
+    /**
+     * Propagates the given <code>KeyEvent</code> to the currently displayed menu.
+     */
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         displayedMenu.handleKeyEvent(keyEvent);
     }
 
+    /**
+     * Adds this <code>MenuScreen</code> to the window to be displayed.
+     */
     @Override
     public void addToCanvas() {
         engine.graphicsEngine().add(container);
     }
 
+    /**
+     * Removes this <code>MenuScreen</code> from the window.
+     */
     @Override
     public void removeFromCanvas() {
         container.removeFromParent();
@@ -75,6 +96,9 @@ public class MenuScreen implements Screen {
         container.update(dtMillis);
     }
 
+    /**
+     * Animates the little snek moving across the screen.
+     */
     private void animateSnek(double dtMillis) {
         if (snek.origin().x < -snek.width()) {
             snek.setOrigin(snekStartOrigin);
@@ -85,17 +109,22 @@ public class MenuScreen implements Screen {
         }
     }
 
+    /**
+     * Callback method used to indicate that a submenu was selected. Handles swapping out the
+     * displayed menu, setting the player mode to single player or multiplayer depending on the
+     * player's selection, and requesting the main controller to change to a different screen.
+     */
     private void onSubmenuSelection(SubmenuOption submenuOption) {
         displayedMenu.removeFromParent();
 
         switch(submenuOption) {
             case ONE_PLAYER -> {
                 Settings.shared().setPlayerMode(MultiplayerMode.SINGLE_PLAYER);
-                screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+                engine.requestScreenChange(ScreenIdentifier.PLAYING);
             }
             case TWO_PLAYER -> {
                 Settings.shared().setPlayerMode(MultiplayerMode.MULTIPLAYER);
-                screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+                engine.requestScreenChange(ScreenIdentifier.PLAYING);
             }
             case CREDITS -> {
                 displayedMenu = credits;

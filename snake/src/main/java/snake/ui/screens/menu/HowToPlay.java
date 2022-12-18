@@ -9,7 +9,20 @@ import tengine.graphics.entities.text.TLabel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * The content that is displayed when the player selects the How to Play menu option.
+ *
+ * @author Tessa Power
+ * @see MenuScreen
+ */
 class HowToPlay extends Menu {
+    /**
+     * Constructs a new <code>HowToPlay</code> submenu with the given
+     * <code>SubmenuSelectionNotifier</code> callback method.
+     *
+     * @see SubmenuOption
+     * @see SubmenuSelectionNotifier
+     */
     public HowToPlay(SubmenuSelectionNotifier submenuSelectionNotifier) {
         super(submenuSelectionNotifier);
 
@@ -27,7 +40,7 @@ class HowToPlay extends Menu {
         addAll(title, close);
     }
 
-    public void initContent() {
+    private void initContent() {
         TLabel onePlayer = bodyText("PLAYER 1");
         TLabel onePlayerKeys = bodyText("use the arrow keys to move snek");
         onePlayer.setOrigin(new Point(210, 300));

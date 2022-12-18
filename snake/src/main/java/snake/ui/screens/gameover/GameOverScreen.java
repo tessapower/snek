@@ -17,6 +17,13 @@ import tengine.graphics.entities.text.TLabel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/**
+ * The game over screen and one of the sub-controllers in the program. Handles displaying the
+ * outcome of the game, in particular who won a multiplayer game, and either returning to the main
+ * menu screen or starting a new game.
+ *
+ * @author Tessa Power
+ */
 public class GameOverScreen implements Screen {
     private final ScreenChangeRequestCallback screenChangeCallback;
     private final Game engine;
@@ -26,6 +33,10 @@ public class GameOverScreen implements Screen {
     private final Button playAgain;
     private final Button quit;
 
+    /**
+     * Constructs a new <code>GameOverScreen</code> linked to the given main program controller
+     * (<code>Game</code>).
+     */
     public GameOverScreen(Game game, ScreenChangeRequestCallback screenChangeCallback, GameState gameState) {
         this.engine = game;
         this.screenChangeCallback = screenChangeCallback;
@@ -85,6 +96,9 @@ public class GameOverScreen implements Screen {
         graphic.addAll(title, snek, score, playAgain, quit);
     }
 
+    /**
+     * Handles the given <code>KeyEvent</code> appropriately.
+     */
     @Override
     public void handleKeyEvent(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()) {
@@ -101,11 +115,17 @@ public class GameOverScreen implements Screen {
         }
     }
 
+    /**
+     * Adds this <code>GameOverScreen</code> to the window to be displayed.
+     */
     @Override
     public void addToCanvas() {
         engine.graphicsEngine().add(graphic);
     }
 
+    /**
+     * Removes this <code>MenuScreen</code> from the window.
+     */
     @Override
     public void removeFromCanvas() {
         graphic.removeFromParent();
@@ -117,5 +137,7 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void update(double dtMillis) {}
+    public void update(double dtMillis) {
+        // No-op
+    }
 }
