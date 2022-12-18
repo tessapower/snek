@@ -1,6 +1,6 @@
 package tengine.graphics.context;
 
-import tengine.GameEngine;
+import tengine.TGameEngine;
 import tengine.graphics.transforms.TRotation;
 import tengine.graphics.transforms.TScale;
 import tengine.graphics.transforms.TTranslation;
@@ -12,9 +12,9 @@ import java.awt.*;
  * can be thrown away, and we can simply use the built-in <code>Graphics2D</code> library.
  */
 public class MasseyGraphicsCtx implements TGraphicsCtx {
-    GameEngine masseyCtx;
+    TGameEngine masseyCtx;
 
-    public MasseyGraphicsCtx(GameEngine masseyCtx) {
+    public MasseyGraphicsCtx(TGameEngine masseyCtx) {
         this.masseyCtx = masseyCtx;
     }
 
@@ -42,10 +42,10 @@ public class MasseyGraphicsCtx implements TGraphicsCtx {
     @Override
     public void drawFilledCircle(Dimension dimension, Color color) {
         masseyCtx.changeColor(color);
-        // The Massey GameEngine strangely treats the center of the circle as the origin for drawing a circle,
+        // The Massey TGameEngine strangely treats the center of the circle as the origin for drawing a circle,
         // which is odd as all other shapes consider the top left as the origin. A rect with the same origin
         // and dimensions as a circle would not enclose the circle.
-        // TODO: Set drawing coordinates back to 0, 0 when replacing Massey GameEngine!
+        // TODO: Set drawing coordinates back to 0, 0 when replacing Massey TGameEngine!
         masseyCtx.drawSolidCircle(dimension.width / 2.0, dimension.height / 2.0, dimension.width * 0.5);
     }
 

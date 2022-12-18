@@ -5,7 +5,7 @@ import snake.ui.screens.ScreenIdentifier;
 import snake.ui.screens.gameover.GameOverScreen;
 import snake.ui.screens.gameplay.PlayGameScreen;
 import snake.ui.screens.menu.MenuScreen;
-import tengine.GameEngine;
+import tengine.TGameEngine;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
  * propagating key events to the currently displayed screen, and updating the game logic and
  * graphics every tick.
  */
-public class Game extends GameEngine {
+public class Game extends TGameEngine {
     public static final Dimension WINDOW_DIMENSION = new Dimension(512, 512);
     public static final Point WINDOW_CENTER = new Point(WINDOW_DIMENSION.width / 2, WINDOW_DIMENSION.height / 2);
     private static final String TITLE = "Snek!";
