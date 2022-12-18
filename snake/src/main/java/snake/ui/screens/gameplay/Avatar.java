@@ -2,7 +2,7 @@ package snake.ui.screens.gameplay;
 
 import snake.assets.AnimatedSnek;
 import snake.player.PlayerNumber;
-import tengine.graphics.entities.sprites.SpriteSequence;
+import tengine.graphics.entities.sprites.TSpriteSequence;
 
 import java.awt.*;
 
@@ -58,11 +58,11 @@ public class Avatar {
 
     /**
      * Callback method for <code>MenuScreen</code> to receive notifications when a given
-     * <code>SpriteSequence</code> is over.
+     * <code>TSpriteSequence</code> is over.
      *
-     * @see SpriteSequence
+     * @see TSpriteSequence
      */
-    private void onAnimationSequenceEnd(SpriteSequence spriteSequence) {
+    private void onAnimationSequenceEnd(TSpriteSequence spriteSequence) {
         // Set the Avatar back to idling once the eating animation sequence has ended
         if (spriteSequence.id().equals("EATING")) {
             snek.setFps(AnimatedSnek.DEFAULT_FPS);

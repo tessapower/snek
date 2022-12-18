@@ -1,8 +1,9 @@
 package snake.assets;
 
 import snake.player.PlayerNumber;
-import tengine.graphics.entities.sprites.AnimatedSprite;
-import tengine.graphics.entities.sprites.SpriteSequence;
+import snake.ui.screens.gameplay.Avatar;
+import tengine.graphics.entities.sprites.TAnimatedSprite;
+import tengine.graphics.entities.sprites.TSpriteSequence;
 import tengine.world.TGridSquare;
 
 import java.awt.*;
@@ -15,10 +16,10 @@ import java.util.ArrayList;
  * @author Tessa Power
  * @see AnimatedSnek#animatedSnek()
  * @see AnimatedSnek#animatedSnek(PlayerNumber)
- * @see SpriteSequence
+ * @see TSpriteSequence
  * @see Avatar
  */
-public class AnimatedSnek extends AnimatedSprite {
+public class AnimatedSnek extends TAnimatedSprite {
     public static final int DEFAULT_FPS = 5;
 
     // We scale up the Snek otherwise he is only 32 x 32 points big
@@ -28,16 +29,17 @@ public class AnimatedSnek extends AnimatedSprite {
     private static final int NUM_FRAMES = 10;
     private static final int SCALE = 4;
 
-    private static final SpriteSequence IDLE = new SpriteSequence(State.IDLE.id, generateRow(0), true);
-    private static final SpriteSequence SPINNING = new SpriteSequence(State.SPINNING.id, generateRow(1), true);
-    private static final SpriteSequence MOVING = new SpriteSequence(State.MOVING.id, generateRow(2), true);
-    private static final SpriteSequence EATING = new SpriteSequence(State.EATING.id, generateRow(3), false);
+    // All SpriteSequences, which also correspond to all possible States.
+    private static final TSpriteSequence IDLE = new TSpriteSequence(State.IDLE.id, generateRow(0), true);
+    private static final TSpriteSequence SPINNING = new TSpriteSequence(State.SPINNING.id, generateRow(1), true);
+    private static final TSpriteSequence MOVING = new TSpriteSequence(State.MOVING.id, generateRow(2), true);
+    private static final TSpriteSequence EATING = new TSpriteSequence(State.EATING.id, generateRow(3), false);
     static {
         // Remove a few frames so that Snek starts eating faster
        EATING.frames().remove(0);
        EATING.frames().remove(0);
     }
-    private static final SpriteSequence DYING = new SpriteSequence(State.DYING.id, generateRow(4), false);
+    private static final TSpriteSequence DYING = new TSpriteSequence(State.DYING.id, generateRow(4), false);
     static {
         // Lengthen the dying sequence
         DYING.frames().add(0, IDLE.frames().get(0));
@@ -77,8 +79,8 @@ public class AnimatedSnek extends AnimatedSprite {
      * animation sequence appears in the sprite sheet. The entire animation sequence appears on a
      * single row, and all frames in the animation sequence have the same dimension.
      *
-     * @see AnimatedSprite
-     * @see SpriteSequence
+     * @see TAnimatedSprite
+     * @see TSpriteSequence
      * @see TGridSquare
      */
     private static ArrayList<TGridSquare> generateRow(int row) {
