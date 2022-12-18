@@ -9,9 +9,9 @@ import snake.player.PlayerControls;
 import snake.settings.MultiplayerMode;
 import snake.ui.screens.gameplay.GameOverNotifier;
 import snake.ui.screens.gameplay.HeadsUpDisplay;
-import tengine.world.GridSquare;
 import tengine.world.World;
 import tengine.TActor;
+import tengine.world.TGridSquare;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -237,25 +237,25 @@ public class GameWorld extends World {
     }
 
     /**
-     * The <code>GridSquare</code> where player one is spawned.
+     * The <code>TGridSquare</code> where player one is spawned.
      */
-    private GridSquare playerOneSpawnSquare() {
-        return new GridSquare(10, 10);
+    private TGridSquare playerOneSpawnSquare() {
+        return new TGridSquare(10, 10);
     }
 
     /**
-     * The <code>GridSquare</code> where player two is spawned.
+     * The <code>TGridSquare</code> where player two is spawned.
      */
-    private GridSquare playerTwoSpawnSquare() {
-        return new GridSquare(20, 20);
+    private TGridSquare playerTwoSpawnSquare() {
+        return new TGridSquare(20, 20);
     }
 
     /**
      * Finds a random square in the <code>Grid</code> that doesn't have any <code>TActor</code>
      * already on it.
      */
-    private GridSquare randomUnoccupiedSquare() {
-        GridSquare randomSquare;
+    private TGridSquare randomUnoccupiedSquare() {
+        TGridSquare randomSquare;
 
         do {
             randomSquare = grid.randomGridSquare();
@@ -265,10 +265,10 @@ public class GameWorld extends World {
     }
 
     /**
-     * Returns the <code>TActor</code> that is on the given <code>GridSquare</code>, if any, or
+     * Returns the <code>TActor</code> that is on the given <code>TGridSquare</code>, if any, or
      * returns null.
      */
-    private TActor getActorAtSquare(GridSquare gridSquare) {
+    private TActor getActorAtSquare(TGridSquare gridSquare) {
         if (playerOne.occupies(gridSquare)) {
             return playerOne;
         }

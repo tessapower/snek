@@ -3,7 +3,7 @@ package snake.assets;
 import snake.player.PlayerNumber;
 import tengine.graphics.entities.sprites.AnimatedSprite;
 import tengine.graphics.entities.sprites.SpriteSequence;
-import tengine.world.GridSquare;
+import tengine.world.TGridSquare;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -73,18 +73,18 @@ public class AnimatedSnek extends AnimatedSprite {
     }
 
     /**
-     * Generates a row of <code>GridSquare</code>s with coordinates that correspond to where an
+     * Generates a row of <code>TGridSquare</code>s with coordinates that correspond to where an
      * animation sequence appears in the sprite sheet. The entire animation sequence appears on a
      * single row, and all frames in the animation sequence have the same dimension.
      *
      * @see AnimatedSprite
      * @see SpriteSequence
-     * @see GridSquare
+     * @see TGridSquare
      */
-    private static ArrayList<GridSquare> generateRow(int row) {
-        ArrayList<GridSquare> sequence = new ArrayList<>(NUM_FRAMES);
+    private static ArrayList<TGridSquare> generateRow(int row) {
+        ArrayList<TGridSquare> sequence = new ArrayList<>(NUM_FRAMES);
         for (int col = 0; col < NUM_FRAMES; ++col) {
-            sequence.add(new GridSquare(row, col));
+            sequence.add(new TGridSquare(row, col));
         }
 
         return sequence;

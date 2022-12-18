@@ -9,7 +9,7 @@ import snake.player.Player;
 import snake.player.PlayerNumber;
 import tengine.TActor;
 import tengine.graphics.entities.TGraphicCompound;
-import tengine.world.GridSquare;
+import tengine.world.TGridSquare;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -30,7 +30,7 @@ public class Snek extends TActor {
     final List<SnekTailSprite> tailPieces = new ArrayList<>(MAX_TAIL_LEN);
     private boolean shouldGrowTail = false;
 
-    public static Snek spawnAt(GameWorld world, GridSquare gridSquare, Direction initialDirection, Player player) {
+    public static Snek spawnAt(GameWorld world, TGridSquare gridSquare, Direction initialDirection, Player player) {
         Snek snek = new Snek(
                 world,
                 gridSquare,
@@ -43,7 +43,7 @@ public class Snek extends TActor {
         return snek;
     }
 
-    private Snek(GameWorld world, GridSquare square, Dimension dimension,
+    private Snek(GameWorld world, TGridSquare square, Dimension dimension,
                  Direction initialDirection, Player player) {
         this.world = world;
         this.dimension = dimension;
@@ -53,7 +53,7 @@ public class Snek extends TActor {
         graphicEntity = initSprite(world, square);
     }
 
-    private TGraphicCompound initSprite(GameWorld world, GridSquare square) {
+    private TGraphicCompound initSprite(GameWorld world, TGridSquare square) {
         // Head
         head = new SnekHeadSprite(dimension, player.playerNumber());
         head.setGridSquare(square, world);
@@ -65,20 +65,20 @@ public class Snek extends TActor {
         // Set the tailpieces according to the direction
         switch(direction) {
             case UP -> {
-                t1.setGridSquare(new GridSquare(head.gridSquare().row() + 1, head.gridSquare().col()), world);
-                t2.setGridSquare(new GridSquare(head.gridSquare().row() + 2, head.gridSquare().col()), world);
+                t1.setGridSquare(new TGridSquare(head.gridSquare().row() + 1, head.gridSquare().col()), world);
+                t2.setGridSquare(new TGridSquare(head.gridSquare().row() + 2, head.gridSquare().col()), world);
             }
             case DOWN -> {
-                t1.setGridSquare(new GridSquare(head.gridSquare().row() - 1, head.gridSquare().col()), world);
-                t2.setGridSquare(new GridSquare(head.gridSquare().row() - 2, head.gridSquare().col()), world);
+                t1.setGridSquare(new TGridSquare(head.gridSquare().row() - 1, head.gridSquare().col()), world);
+                t2.setGridSquare(new TGridSquare(head.gridSquare().row() - 2, head.gridSquare().col()), world);
             }
             case LEFT -> {
-                t1.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() + 1), world);
-                t2.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() + 2), world);
+                t1.setGridSquare(new TGridSquare(head.gridSquare().row(), head.gridSquare().col() + 1), world);
+                t2.setGridSquare(new TGridSquare(head.gridSquare().row(), head.gridSquare().col() + 2), world);
             }
             case RIGHT -> {
-                t1.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() - 1), world);
-                t2.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() - 2), world);
+                t1.setGridSquare(new TGridSquare(head.gridSquare().row(), head.gridSquare().col() - 1), world);
+                t2.setGridSquare(new TGridSquare(head.gridSquare().row(), head.gridSquare().col() - 2), world);
             }
         }
 
@@ -148,11 +148,11 @@ public class Snek extends TActor {
         }
     }
 
-    public GridSquare headGridSquare() {
+    public TGridSquare headGridSquare() {
         return head.gridSquare();
     }
 
-    public boolean occupies(GridSquare gridSquare) {
+    public boolean occupies(TGridSquare gridSquare) {
         if (head.gridSquare().equals(gridSquare)) return true;
 
         for (var tailPiece : tailPieces) {
@@ -181,13 +181,13 @@ public class Snek extends TActor {
     private void advanceHead() {
         switch(direction) {
             case UP ->
-                    head.setGridSquare(new GridSquare(head.gridSquare().row() - 1, head.gridSquare().col()), world);
+                    head.setGridSquare(new TGridSquare(head.gridSquare().row() - 1, head.gridSquare().col()), world);
             case DOWN ->
-                    head.setGridSquare(new GridSquare(head.gridSquare().row() + 1, head.gridSquare().col()), world);
+                    head.setGridSquare(new TGridSquare(head.gridSquare().row() + 1, head.gridSquare().col()), world);
             case LEFT ->
-                    head.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() - 1), world);
+                    head.setGridSquare(new TGridSquare(head.gridSquare().row(), head.gridSquare().col() - 1), world);
             case RIGHT ->
-                    head.setGridSquare(new GridSquare(head.gridSquare().row(), head.gridSquare().col() + 1), world);
+                    head.setGridSquare(new TGridSquare(head.gridSquare().row(), head.gridSquare().col() + 1), world);
         }
     }
 

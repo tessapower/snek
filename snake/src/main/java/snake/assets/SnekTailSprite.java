@@ -4,7 +4,7 @@ import snake.actors.snek.Snek;
 import snake.game.GameWorld;
 import snake.player.PlayerNumber;
 import tengine.graphics.entities.sprites.Sprite;
-import tengine.world.GridSquare;
+import tengine.world.TGridSquare;
 
 import java.awt.*;
 
@@ -21,7 +21,7 @@ public class SnekTailSprite extends Sprite {
     private static final String SNEK_TAIL_P1 = "snek-tail-p1.png";
     private static final String SNEK_TAIL_P2 = "snek-tail-p2.png";
 
-    private GridSquare gridSquare = null;
+    private TGridSquare gridSquare = null;
 
     /**
      * Constructs a new <code>SnekTailSprite</code> with the given <code>Dimension</code> for the
@@ -40,10 +40,10 @@ public class SnekTailSprite extends Sprite {
     }
 
     /**
-     * Set the <code>GridSquare</code> location in the given <code>GameWorld</code> of this
+     * Set the <code>TGridSquare</code> location in the given <code>GameWorld</code> of this
      * <code>SnekTailSprite</code>.
      */
-    public void setGridSquare(GridSquare gridSquare, GameWorld world) {
+    public void setGridSquare(TGridSquare gridSquare, GameWorld world) {
         this.gridSquare = gridSquare;
         // We use the world to set the origin as worlds of different sizes and with different
         // origins will map grid squares to different screen locations
@@ -51,9 +51,9 @@ public class SnekTailSprite extends Sprite {
     }
 
     /**
-     * The <code>GridSquare</code> location of this <code>SnekTailSprite</code>.
+     * The <code>TGridSquare</code> location of this <code>SnekTailSprite</code>.
      */
-    public GridSquare gridSquare() {
+    public TGridSquare gridSquare() {
         return gridSquare;
     }
 }

@@ -2,8 +2,8 @@ package snake.actors.apple;
 
 import snake.assets.AppleSprite;
 import snake.game.GameWorld;
-import tengine.world.GridSquare;
 import tengine.TActor;
+import tengine.world.TGridSquare;
 
 import java.awt.*;
 
@@ -21,18 +21,18 @@ import java.awt.*;
  */
 public class Apple extends TActor {
     private final GameWorld world;
-    private GridSquare gridSquare;
+    private TGridSquare gridSquare;
     private final AppleType appleType;
 
     /**
-     * Spawns a delicious <code>Apple</code> at the given <code>GridSquare</code> in the given
+     * Spawns a delicious <code>Apple</code> at the given <code>TGridSquare</code> in the given
      * <code>GameWorld</code>.
      *
      * @return The new cromchy <code>Apple</code> spawned.
      * @see GameWorld
-     * @see GridSquare
+     * @see TGridSquare
      */
-    public static Apple spawnGoodApple(GameWorld world, GridSquare gridSquare) {
+    public static Apple spawnGoodApple(GameWorld world, TGridSquare gridSquare) {
         Apple apple = new Apple(world, gridSquare, AppleType.CROMCHY);
         world.add(apple);
 
@@ -40,14 +40,14 @@ public class Apple extends TActor {
     }
 
     /**
-     * Spawns a bad poisonous <code>Apple</code> at the given <code>GridSquare</code> in the given
+     * Spawns a bad poisonous <code>Apple</code> at the given <code>TGridSquare</code> in the given
      * <code>GameWorld</code>.
      *
      * @return The new poisonous <code>Apple</code> spawned.
      * @see GameWorld
-     * @see GridSquare
+     * @see TGridSquare
      */
-    public static Apple spawnBadApple(GameWorld world, GridSquare gridSquare) {
+    public static Apple spawnBadApple(GameWorld world, TGridSquare gridSquare) {
         Apple apple = new Apple(world, gridSquare, AppleType.YUCK);
         world.add(apple);
 
@@ -55,11 +55,11 @@ public class Apple extends TActor {
     }
 
     /**
-     * The <code>GridSquare</code> where this <code>Apple</code> is located.
+     * The <code>TGridSquare</code> where this <code>Apple</code> is located.
      *
-     * @see GridSquare
+     * @see TGridSquare
      */
-    public GridSquare gridSquare() {
+    public TGridSquare gridSquare() {
         return gridSquare;
     }
 
@@ -74,14 +74,14 @@ public class Apple extends TActor {
 
     /**
      * Private constructor for an <code>Apple</code>. Adds itself to the given
-     * <code>GameWorld</code> at the given <code>GridSquare</code> location. Can be of any
+     * <code>GameWorld</code> at the given <code>TGridSquare</code> location. Can be of any
      * valid <code>AppleType</code>.
      *
      * @see GameWorld
-     * @see GridSquare
+     * @see TGridSquare
      * @see AppleType
      */
-    private Apple(GameWorld world, GridSquare gridSquare, AppleType appleType) {
+    private Apple(GameWorld world, TGridSquare gridSquare, AppleType appleType) {
         this.world = world;
         this.appleType = appleType;
         switch(appleType) {
@@ -93,12 +93,12 @@ public class Apple extends TActor {
     }
 
     /**
-     * Set the <code>GridSquare</code> for this <code>Apple</code>. Doesn't usually change
+     * Set the <code>TGridSquare</code> for this <code>Apple</code>. Doesn't usually change
      * throughout the lifetime of this <code>Apple</code>, so this method is private.
      *
-     * @see GridSquare
+     * @see TGridSquare
      */
-    private void setGridSquare(GridSquare gridSquare) {
+    private void setGridSquare(TGridSquare gridSquare) {
         this.gridSquare = gridSquare;
 
         // Inset the Apple's origin slightly so the graphic is centered nicely
