@@ -1,9 +1,17 @@
 package tengine.graphics.entities.shapes;
 
 import tengine.graphics.context.GraphicsCtx;
+import tengine.graphics.entities.TGraphicObject;
 
 import java.awt.*;
 
+/**
+ * A graphical representation of a Rectangle.
+ *
+ * @author Tessa Power
+ * @see TShape
+ * @see TGraphicObject
+ */
 public class TRect extends TShape {
     public TRect() {
         this(new Dimension());
@@ -13,6 +21,9 @@ public class TRect extends TShape {
         super(dimension);
     }
 
+    /**
+     * Draw this <code>TRect</code> using the given <code>TGraphicsCtx</code>.
+     */
     @Override
     protected void draw(GraphicsCtx ctx) {
         if (isFilled) {
