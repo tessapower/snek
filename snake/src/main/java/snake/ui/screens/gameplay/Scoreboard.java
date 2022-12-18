@@ -13,6 +13,15 @@ import tengine.graphics.entities.text.TLabel;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Represents a scoreboard that displays the player's score and lives remaining.
+ *
+ * @author Tessa Power
+ * @see HeadsUpDisplay
+ * @see Scoreboard#playerOneScoreboard(Player, GameConfig)
+ * @see Scoreboard#playerTwoScoreboard(Player)
+ * @see Player
+ */
 class Scoreboard extends TGraphicCompound {
     private static final String HEART = "heart.png";
     private static final String HEART_P1 = "heart-p1.png";
@@ -24,6 +33,10 @@ class Scoreboard extends TGraphicCompound {
     private final TLabel appleCount;
     private final ArrayList<Sprite> hearts;
 
+    /**
+     * A <code>Scoreboard</code> specifically for player one with the appropriate colored hearts
+     * for single player and multiplayer modes.
+     */
     public static Scoreboard playerOneScoreboard(Player player, GameConfig gameConfig) {
         String heart = switch(gameConfig.multiplayerMode()) {
             case SINGLE_PLAYER -> HEART;
@@ -33,6 +46,9 @@ class Scoreboard extends TGraphicCompound {
         return new Scoreboard(player, heart);
     }
 
+    /**
+     * A <code>Scoreboard</code> specifically for player two.
+     */
     public static Scoreboard playerTwoScoreboard(Player player) {
         return new Scoreboard(player, HEART_P2);
     }
@@ -87,6 +103,10 @@ class Scoreboard extends TGraphicCompound {
         return "" + score;
     }
 
+    /**
+     * Allow this <code>Scoreboard</code> to update itself since it was last updated
+     * <code>dtMillis</code> ago.
+     */
     @Override
     public void update(double dtMillis) {
         appleCount.setText(padScoreText(player.score()));
