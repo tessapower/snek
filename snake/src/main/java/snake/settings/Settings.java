@@ -1,9 +1,7 @@
 package snake.settings;
 
-import com.google.inject.Singleton;
 import snake.game.GameConfig;
 
-@Singleton
 /**
  * A Singleton for configuring the settings for <code>snek!</code>
  */

@@ -1,11 +1,8 @@
 package snake.assets;
 
-import com.google.inject.Singleton;
-
 import java.awt.*;
 import java.io.IOException;
 
-@Singleton
 /**
  * A Singleton for accessing fonts for different UI elements in <code>snek!</code>
  *
