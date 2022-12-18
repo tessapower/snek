@@ -9,9 +9,9 @@ import snake.player.PlayerControls;
 import snake.settings.MultiplayerMode;
 import snake.ui.screens.gameplay.GameOverNotifier;
 import snake.ui.screens.gameplay.HeadsUpDisplay;
-import tengine.world.World;
 import tengine.TActor;
 import tengine.world.TGridSquare;
+import tengine.world.TWorld;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -23,7 +23,7 @@ import java.util.Set;
  * Class that contains all of the <code>TActor</code>s (a.k.a. game objects) and game logic for
  * <code>snek!</code> Handles the game play and notifying the main controller when the game is over.
  */
-public class GameWorld extends World {
+public class GameWorld extends TWorld {
     // Random number generation
     private static final Random RNG = new Random();
     private static final double RANDOM_CHANCE_THRESHOLD = 0.35;
