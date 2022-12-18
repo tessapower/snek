@@ -1,6 +1,6 @@
 package tengine.graphics.entities;
 
-import tengine.graphics.context.GraphicsCtx;
+import tengine.graphics.context.TGraphicsCtx;
 import tengine.graphics.transforms.TRotation;
 import tengine.graphics.transforms.TScale;
 import tengine.graphics.transforms.TTranslation;
@@ -137,7 +137,7 @@ abstract public class TGraphicObject {
      * Applies the current transforms for this <code>TGraphicObject</code> and then draws it.
      * The state of transforms is restored when this method finishes executing.
      */
-    public void paint(GraphicsCtx ctx) {
+    public void paint(TGraphicsCtx ctx) {
         ctx.pushCurrentTransform();
 
         ctx.applyTransforms(translation, rotation, scale);
@@ -148,9 +148,9 @@ abstract public class TGraphicObject {
 
     /**
      * Override this method to specify how to draw this graphical object to the screen with the
-     * given <code>GraphicsCtx</code>.
+     * given <code>TGraphicsCtx</code>.
      */
-    protected abstract void draw(GraphicsCtx ctx);
+    protected abstract void draw(TGraphicsCtx ctx);
 
     /**
      * Override this method to specify how to update this <code>TGraphicObject</code> a chance to

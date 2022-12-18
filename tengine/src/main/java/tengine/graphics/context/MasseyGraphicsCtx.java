@@ -7,9 +7,11 @@ import tengine.graphics.transforms.TTranslation;
 
 import java.awt.*;
 
-// Wraps and adapts the Massey GameEngine to conform to our GraphicsCtx interface.
-// Later this can be thrown away, and we can simply use the built-in Graphics2D library.
-public class MasseyGraphicsCtx implements GraphicsCtx {
+/**
+ * Wraps and adapts the Massey GameEngine to conform to our TGraphicsCtx interface. Later this
+ * can be thrown away, and we can simply use the built-in <code>Graphics2D</code> library.
+ */
+public class MasseyGraphicsCtx implements TGraphicsCtx {
     GameEngine masseyCtx;
 
     public MasseyGraphicsCtx(GameEngine masseyCtx) {

@@ -1,6 +1,6 @@
 package tengine.graphics.entities.shapes;
 
-import tengine.graphics.context.GraphicsCtx;
+import tengine.graphics.context.TGraphicsCtx;
 import tengine.graphics.entities.TGraphicObject;
 
 import java.awt.*;
@@ -28,7 +28,7 @@ public class TOval extends TShape {
      * Draw this <code>TOval</code> using the given <code>TGraphicsCtx</code>.
      */
     @Override
-    protected void draw(GraphicsCtx ctx) {
+    protected void draw(TGraphicsCtx ctx) {
         if (isFilled) {
             ctx.drawFilledCircle(dimension, fillColor);
         } else {

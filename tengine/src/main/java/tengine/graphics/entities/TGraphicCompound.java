@@ -1,6 +1,6 @@
 package tengine.graphics.entities;
 
-import tengine.graphics.context.GraphicsCtx;
+import tengine.graphics.context.TGraphicsCtx;
 
 import java.awt.*;
 import java.util.Collections;
@@ -97,7 +97,7 @@ public class TGraphicCompound extends TGraphicObject {
      * <code>paint</code> on all of its children. Children are not drawn in any specific order.
      */
     @Override
-    public void paint(GraphicsCtx ctx) {
+    public void paint(TGraphicsCtx ctx) {
         ctx.pushCurrentTransform();
 
         ctx.applyTransforms(translation, rotation, scale);
@@ -112,10 +112,10 @@ public class TGraphicCompound extends TGraphicObject {
      * WARNING: Do not call this method on a <code>TGraphicCompound</code>, instead call
      * <code>paint()</code>.
      *
-     * @see TGraphicCompound#paint(GraphicsCtx)
+     * @see TGraphicCompound#paint(TGraphicsCtx)
      */
     @Override
-    protected void draw(GraphicsCtx ctx) {
+    protected void draw(TGraphicsCtx ctx) {
         // No-op
     }
 }

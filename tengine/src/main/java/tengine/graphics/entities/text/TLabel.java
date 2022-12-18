@@ -1,6 +1,6 @@
 package tengine.graphics.entities.text;
 
-import tengine.graphics.context.GraphicsCtx;
+import tengine.graphics.context.TGraphicsCtx;
 import tengine.graphics.entities.TGraphicObject;
 
 import java.awt.*;
@@ -99,10 +99,10 @@ public class TLabel extends TGraphicObject {
     }
 
     /**
-     * Draws this <code>TLabel</code> onto the screen using the given <code>GraphicsCtx</code>.
+     * Draws this <code>TLabel</code> onto the screen using the given <code>TGraphicsCtx</code>.
      */
     @Override
-    protected void draw(GraphicsCtx ctx) {
+    protected void draw(TGraphicsCtx ctx) {
         ctx.drawText(new Point(0, 0), text, font, color);
     }
 

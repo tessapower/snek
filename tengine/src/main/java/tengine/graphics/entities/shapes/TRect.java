@@ -1,6 +1,6 @@
 package tengine.graphics.entities.shapes;
 
-import tengine.graphics.context.GraphicsCtx;
+import tengine.graphics.context.TGraphicsCtx;
 import tengine.graphics.entities.TGraphicObject;
 
 import java.awt.*;
@@ -25,7 +25,7 @@ public class TRect extends TShape {
      * Draw this <code>TRect</code> using the given <code>TGraphicsCtx</code>.
      */
     @Override
-    protected void draw(GraphicsCtx ctx) {
+    protected void draw(TGraphicsCtx ctx) {
         if (isFilled) {
             ctx.drawFilledRect(dimension, fillColor);
         } else {

@@ -2,7 +2,7 @@ package snake.assets;
 
 import snake.actors.apple.Apple;
 import snake.game.Grid;
-import tengine.graphics.context.GraphicsCtx;
+import tengine.graphics.context.TGraphicsCtx;
 import tengine.graphics.entities.sprites.TSprite;
 
 import java.awt.*;
@@ -50,7 +50,7 @@ public class AppleSprite extends TSprite {
     }
 
     @Override
-    protected void draw(GraphicsCtx graphicsCtx) {
+    protected void draw(TGraphicsCtx graphicsCtx) {
         graphicsCtx.drawImage(image, DIMENSION);
     }
 }
