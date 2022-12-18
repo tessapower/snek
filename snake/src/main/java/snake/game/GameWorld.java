@@ -1,12 +1,11 @@
 package snake.game;
 
-import snake.actors.apple.Apple;
-import snake.actors.apple.AppleType;
+import snake.actors.apple.*;
 import snake.actors.rock.Rock;
 import snake.actors.snek.Direction;
 import snake.actors.snek.Snek;
 import snake.assets.SoundEffects;
-import snake.player.PlayerNumber;
+import snake.player.PlayerControls;
 import snake.settings.MultiplayerMode;
 import snake.ui.screens.gameplay.GameOverNotifier;
 import snake.ui.screens.gameplay.HeadsUpDisplay;
@@ -20,17 +19,26 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * Class that contains all of the <code>Actor</code>s (a.k.a. game objects) and game logic for
+ * <code>snek!</code> Handles the game play and notifying the main controller when the game is over.
+ */
 public class GameWorld extends World {
-    private static final Random RANDOM = new Random();
-    private static final double RANDOM_CHANCE = 0.35;
-    private static final int TILE_COLS = 28;
-    private static final int TILE_ROWS = 24;
+    // Random number generation
+    private static final Random RNG = new Random();
+    private static final double RANDOM_CHANCE_THRESHOLD = 0.35;
 
+    // Settings for the Grid
+    private static final int GRID_COLS = 28;
+    private static final int GRID_ROWS = 24;
     private final Grid grid;
+
+    // Game state and configuration
     private final GameOverNotifier gameOverNotifier;
     private final GameState gameState;
     private final GameConfig gameConfig;
 
+    // HUD
     private final HeadsUpDisplay hud;
 
     // Players
@@ -42,6 +50,14 @@ public class GameWorld extends World {
     private final Set<Apple> badApples;
     private final Set<Rock> rocks;
 
+    /**
+     * Construct a new <code>GameWorld</code> with the given dimension and starting
+     * <code>GameState</code>. Will call the given <code>GameOverNotifier</code> callback method
+     * once the game is over.
+     *
+     * @see GameOverNotifier
+     * @see GameState
+     */
     public GameWorld(Dimension dimension, GameOverNotifier gameOverNotifier, GameState gameState) {
         super(dimension);
 
@@ -50,12 +66,13 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         // Play Area
-        Dimension playAreaDimension = new Dimension(TILE_COLS * Grid.TILE_SIZE, TILE_ROWS * Grid.TILE_SIZE);
+        Dimension playAreaDimension = new Dimension(GRID_COLS * Grid.TILE_SIZE, GRID_ROWS * Grid.TILE_SIZE);
         Point playAreaOrigin =
                 new Point((int) ((dimension.width - playAreaDimension.width) * 0.5), (int) ((dimension.height - playAreaDimension.height) * 0.66));
 
-        // The grid tile size is fixed, so we just specify the number of tiles to create different sized grids
-        grid = new Grid(playAreaOrigin, TILE_ROWS, TILE_COLS);
+        // The grid square size is fixed, so we just specify the number of tiles to create
+        // different sized grids
+        grid = new Grid(playAreaOrigin, GRID_ROWS, GRID_COLS);
 
         initPlayers();
 
@@ -70,20 +87,24 @@ public class GameWorld extends World {
 
     private void initPlayers() {
         playerOne = Snek.spawnAt(
-                this,
-                playerOneSpawnSquare(),
-                RANDOM.nextBoolean() ? Direction.RIGHT : Direction.DOWN,
-                gameState.playerOne());
+            this,
+            playerOneSpawnSquare(),
+            RNG.nextBoolean() ? Direction.RIGHT : Direction.DOWN,
+            gameState.playerOne());
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             playerTwo = Snek.spawnAt(
-                    this,
-                    playerTwoSpawnSquare(),
-                    RANDOM.nextBoolean() ? Direction.UP : Direction.LEFT,
-                    gameState.playerTwo());
+                this,
+                playerTwoSpawnSquare(),
+                RNG.nextBoolean() ? Direction.UP : Direction.LEFT,
+                gameState.playerTwo());
         }
     }
 
+    /**
+     * Updates this <code>GameWorld</code>, which moves each <code>Player</code>, checks for
+     * collisions, and sets game over if necessary.
+     */
     public void update() {
         playerOne.update();
         if (gameState.playerOne().livesLeft() == 0) {
@@ -103,6 +124,10 @@ public class GameWorld extends World {
         }
     }
 
+    /**
+     * Checks for collisions between each <code>Player</code> and any other <code>Actor</code>
+     * and handles the collision appropriately.
+     */
     private void checkCollisions(Snek player) {
         boolean playerHitSomething = player.hasHitWall() || player.hasHitSelf() || playersCollided() || playerHitRock(player);
         if (playerHitSomething) setGameOver();
@@ -124,8 +149,8 @@ public class GameWorld extends World {
                 badApples.remove(maybeApple);
             }
 
-            if (RANDOM.nextDouble() > RANDOM_CHANCE) {
-                if (RANDOM.nextDouble() < RANDOM_CHANCE) {
+            if (RNG.nextDouble() > RANDOM_CHANCE_THRESHOLD) {
+                if (RNG.nextDouble() < RANDOM_CHANCE_THRESHOLD) {
                     badApples.add(Apple.spawnBadApple(this, randomUnoccupiedSquare()));
                 } else {
                     rocks.add(Rock.spawnRockAt(this, randomUnoccupiedSquare()));
@@ -135,6 +160,10 @@ public class GameWorld extends World {
 
     }
 
+    /**
+     * If the <code>MultiplayerMode</code> is set to <code>MULTIPLAYER</code>, returns whether
+     * player one or player two collided with the other.
+     */
     private boolean playersCollided() {
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             return playerOne.occupies(playerTwo.headGridSquare()) || playerTwo.occupies(playerOne.headGridSquare());
@@ -143,6 +172,12 @@ public class GameWorld extends World {
         return false;
     }
 
+    /**
+     * Whether the given <code>Snek</code> player has hit a <code>Rock</code>.
+     *
+     * @see Snek
+     * @see Rock
+     */
     private boolean playerHitRock(Snek player) {
         for (var rock : rocks) {
             if (rock.gridSquare().equals(player.headGridSquare())) {
@@ -153,15 +188,28 @@ public class GameWorld extends World {
         return false;
     }
 
+    /**
+     * The <code>Grid</code> belonging to this <code>GameWorld</code>.
+     */
     public Grid grid() {
         return grid;
     }
 
+    /**
+     * Calls the <code>GameOverNotifier</code> callback method to notify the receiver that the
+     * game is over.
+     */
     private void setGameOver() {
         gameOverNotifier.notifyGameOver();
     }
 
-    // Dispatch relevant key events to the appropriate actors
+    /**
+     * Handles the given <code>KeyEvent</code> by dispatching relevant <code>KeyEvent</code>s
+     * to the appropriate player.
+     *
+     * @see KeyEvent
+     * @see PlayerControls
+     */
     public void handleKeyEvent(KeyEvent keyEvent) {
         if (playerOne.handleKeyEvent(keyEvent)) return;
 
@@ -170,6 +218,10 @@ public class GameWorld extends World {
         }
     }
 
+    /**
+     * Finds any apples that have been eaten by the given <code>Player</code>, if any, or returns
+     * null.
+     */
     private Apple checkForEatenApples(Snek player) {
         if (goodApple.gridSquare().equals(player.headGridSquare())) {
             return goodApple;
@@ -184,14 +236,24 @@ public class GameWorld extends World {
         return null;
     }
 
+    /**
+     * The <code>GridSquare</code> where player one is spawned.
+     */
     private GridSquare playerOneSpawnSquare() {
         return new GridSquare(10, 10);
     }
 
+    /**
+     * The <code>GridSquare</code> where player two is spawned.
+     */
     private GridSquare playerTwoSpawnSquare() {
         return new GridSquare(20, 20);
     }
 
+    /**
+     * Finds a random square in the <code>Grid</code> that doesn't have any <code>Actor</code>
+     * already on it.
+     */
     private GridSquare randomUnoccupiedSquare() {
         GridSquare randomSquare;
 
@@ -202,6 +264,10 @@ public class GameWorld extends World {
         return randomSquare;
     }
 
+    /**
+     * Returns the <code>Actor</code> that is on the given <code>GridSquare</code>, if any, or
+     * returns null.
+     */
     private Actor getActorAtSquare(GridSquare gridSquare) {
         if (playerOne.occupies(gridSquare)) {
             return playerOne;
@@ -232,6 +298,9 @@ public class GameWorld extends World {
         return null;
     }
 
+    /**
+     * The <code>GameConfig</code> for this <code>GameWorld</code>.
+     */
     public GameConfig gameConfig() {
         return gameConfig;
     }
