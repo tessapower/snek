@@ -9,7 +9,6 @@ import snake.game.GameState;
 import snake.ui.components.Button;
 import snake.ui.components.ButtonGroup;
 import snake.ui.screens.Screen;
-import snake.ui.screens.ScreenChangeRequestCallback;
 import snake.ui.screens.ScreenIdentifier;
 import tengine.graphics.entities.TGraphicCompound;
 import tengine.graphics.entities.text.TLabel;
@@ -25,7 +24,6 @@ import java.awt.event.KeyEvent;
  * @author Tessa Power
  */
 public class GameOverScreen implements Screen {
-    private final ScreenChangeRequestCallback screenChangeCallback;
     private final Game engine;
     private final TGraphicCompound graphic;
 
@@ -37,9 +35,8 @@ public class GameOverScreen implements Screen {
      * Constructs a new <code>GameOverScreen</code> linked to the given main program controller
      * (<code>Game</code>).
      */
-    public GameOverScreen(Game game, ScreenChangeRequestCallback screenChangeCallback, GameState gameState) {
+    public GameOverScreen(Game game, GameState gameState) {
         this.engine = game;
-        this.screenChangeCallback = screenChangeCallback;
 
         // Title
         TLabel title = new TLabel("");
@@ -107,9 +104,9 @@ public class GameOverScreen implements Screen {
             case KeyEvent.VK_ENTER -> {
                 SoundEffects.shared().menuSelect().play();
                 if (buttonGroup.getFocussed() == playAgain) {
-                    screenChangeCallback.requestScreenChange(ScreenIdentifier.PLAYING);
+                    engine.requestScreenChange(ScreenIdentifier.PLAYING);
                 } else if (buttonGroup.getFocussed() == quit){
-                    screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_MENU);
+                    engine.requestScreenChange(ScreenIdentifier.SHOWING_MENU);
                 }
             }
         }

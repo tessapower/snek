@@ -6,7 +6,6 @@ import snake.game.GameState;
 import snake.game.GameWorld;
 import snake.settings.Settings;
 import snake.ui.screens.Screen;
-import snake.ui.screens.ScreenChangeRequestCallback;
 import snake.ui.screens.ScreenIdentifier;
 
 import java.awt.event.KeyEvent;
@@ -19,7 +18,6 @@ import java.awt.event.KeyEvent;
  * @author Tessa Power
  */
 public class PlayGameScreen implements Screen {
-    private final ScreenChangeRequestCallback screenChangeCallback;
     private final Game engine;
     private final GameWorld world;
     private final GameState gameState;
@@ -28,10 +26,9 @@ public class PlayGameScreen implements Screen {
     /**
      * Constructs a new <code>PlayGameScreen</code> for the
      */
-    public PlayGameScreen(Game game, ScreenChangeRequestCallback screenChangeCallback) {
+    public PlayGameScreen(Game game) {
         SoundEffects.shared().backgroundMusic().playOnLoop();
         this.engine = game;
-        this.screenChangeCallback = screenChangeCallback;
         paused = false;
         gameState = new GameState(Settings.shared().config());
         world = new GameWorld(
@@ -46,7 +43,7 @@ public class PlayGameScreen implements Screen {
     public void onGameOver() {
         SoundEffects.shared().backgroundMusic().stopPlayingLoop();
         SoundEffects.shared().gameOver().play();
-        screenChangeCallback.requestScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
+        engine.requestScreenChange(ScreenIdentifier.SHOWING_GAME_OVER);
     }
 
     /**

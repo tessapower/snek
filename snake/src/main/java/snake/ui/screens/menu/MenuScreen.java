@@ -19,7 +19,6 @@ import java.awt.event.KeyEvent;
  * @author Tessa Power
  */
 public class MenuScreen implements Screen {
-    private final ScreenChangeRequestCallback screenChangeCallback;
     // Link to main controller
     private final Game engine;
 
