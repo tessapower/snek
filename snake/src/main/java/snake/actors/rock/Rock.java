@@ -3,8 +3,8 @@ package snake.actors.rock;
 import snake.assets.AssetLoader;
 import snake.game.GameWorld;
 import snake.game.Grid;
-import tengine.graphics.entities.sprites.Sprite;
 import tengine.TActor;
+import tengine.graphics.entities.sprites.TSprite;
 import tengine.world.TGridSquare;
 
 import java.awt.*;
@@ -56,7 +56,7 @@ public class Rock extends TActor {
      */
     private Rock(GameWorld world, TGridSquare gridSquare) {
         this.world = world;
-        graphicEntity = new Sprite(AssetLoader.load(ROCK), DIMENSION);
+        graphicEntity = new TSprite(AssetLoader.load(ROCK), DIMENSION);
 
         setGridSquare(gridSquare);
     }

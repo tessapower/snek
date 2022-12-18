@@ -5,14 +5,14 @@ import snake.game.GameWorld;
 import snake.player.PlayerNumber;
 import tengine.graphics.entities.TGraphicCompound;
 import tengine.graphics.entities.shapes.TRect;
-import tengine.graphics.entities.sprites.Sprite;
+import tengine.graphics.entities.sprites.TSprite;
 import tengine.world.TGridSquare;
 
 import java.awt.*;
 
 /**
- * Represents the <code>Sprite</code> for a <code>snek</code>'s head. This is used in conjunction
- * with the <code>SnekTailSprite</code> to create the composed <code>Sprite</code> for a
+ * Represents the <code>TSprite</code> for a <code>snek</code>'s head. This is used in conjunction
+ * with the <code>SnekTailSprite</code> to create the composed <code>TSprite</code> for a
  * <code>snek</code>.
  *
  * @author Tessa Power
@@ -34,7 +34,7 @@ public class SnekHeadSprite extends TGraphicCompound {
     public SnekHeadSprite(Dimension dimension, PlayerNumber playerNumber) {
         super(dimension);
 
-        Sprite sprite = new Sprite(
+        TSprite sprite = new TSprite(
                 AssetLoader.load(
                     switch(playerNumber) {
                         case PLAYER_ONE -> SNEK_HEAD_P1;

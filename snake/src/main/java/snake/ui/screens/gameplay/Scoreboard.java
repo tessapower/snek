@@ -7,7 +7,7 @@ import snake.assets.FontBook;
 import snake.game.GameConfig;
 import snake.player.Player;
 import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.sprites.Sprite;
+import tengine.graphics.entities.sprites.TSprite;
 import tengine.graphics.entities.text.TLabel;
 
 import java.awt.*;
@@ -31,7 +31,7 @@ class Scoreboard extends TGraphicCompound {
 
     private final Player player;
     private final TLabel appleCount;
-    private final ArrayList<Sprite> hearts;
+    private final ArrayList<TSprite> hearts;
 
     /**
      * A <code>Scoreboard</code> specifically for player one with the appropriate colored hearts
@@ -83,7 +83,7 @@ class Scoreboard extends TGraphicCompound {
         };
 
         for (var i = 0; i < player.livesLeft(); i++) {
-            Sprite heartSprite = new Sprite(AssetLoader.load(heart), HEART_DIMENSION);
+            TSprite heartSprite = new TSprite(AssetLoader.load(heart), HEART_DIMENSION);
             heartSprite.setOrigin(new Point(appleCount.x() + heartXPadding + (i * (heartSprite.width() + 2)),
                     apple.y() - apple.height() - 5));
             hearts.add(heartSprite);
@@ -112,7 +112,7 @@ class Scoreboard extends TGraphicCompound {
         appleCount.setText(padScoreText(player.score()));
 
         if (player.livesLeft() < hearts.size()) {
-            Sprite heart = hearts.remove(0);
+            TSprite heart = hearts.remove(0);
             heart.removeFromParent();
         }
 
