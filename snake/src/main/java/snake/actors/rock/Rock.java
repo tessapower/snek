@@ -18,7 +18,7 @@ import java.awt.*;
  */
 public class Rock extends Actor {
     private static final String ROCK = "rock.png";
-    private static final Dimension DIMENSION = new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE);
+    private static final Dimension DIMENSION = new Dimension(Grid.SQUARE_SIZE, Grid.SQUARE_SIZE);
 
     private final GameWorld world;
     private GridSquare gridSquare;

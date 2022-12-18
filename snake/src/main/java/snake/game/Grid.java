@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public record Grid(Point origin, int numRows, int numCols) {
     private static final Random RANDOM = new Random();
-    public static final int TILE_SIZE = 16;
+    public static final int SQUARE_SIZE = 16;
 
     /**
      * Maps the given <code>GridSquare</code> to a physical pixel coordinate on the screen relative
@@ -23,7 +23,7 @@ public record Grid(Point origin, int numRows, int numCols) {
      * @see GridSquare
      */
     public Point positionForSquare(GridSquare gridSquare) {
-        Point point = new Point(gridSquare.col() * TILE_SIZE, gridSquare.row() * TILE_SIZE);
+        Point point = new Point(gridSquare.col() * SQUARE_SIZE, gridSquare.row() * SQUARE_SIZE);
         point.translate(origin.x, origin.y);
 
         return point;

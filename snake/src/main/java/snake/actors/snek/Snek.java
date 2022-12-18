@@ -34,7 +34,7 @@ public class Snek extends Actor {
         Snek snek = new Snek(
                 world,
                 gridSquare,
-                new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE),
+                new Dimension(Grid.SQUARE_SIZE, Grid.SQUARE_SIZE),
                 initialDirection,
                 player);
 

@@ -20,7 +20,7 @@ import java.io.InputStream;
 public class AppleSprite extends Sprite {
     private static final String GOOD_APPLE = "apple-good.png";
     private static final String BAD_APPLE = "apple-bad.png";
-    private static final Dimension DIMENSION = new Dimension(Grid.TILE_SIZE, Grid.TILE_SIZE);
+    private static final Dimension DIMENSION = new Dimension(Grid.SQUARE_SIZE, Grid.SQUARE_SIZE);
 
     /**
      * The private constructor for this class.

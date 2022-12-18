@@ -66,7 +66,7 @@ public class GameWorld extends World {
         gameConfig = gameState.gameConfig();
 
         // Play Area
-        Dimension playAreaDimension = new Dimension(GRID_COLS * Grid.TILE_SIZE, GRID_ROWS * Grid.TILE_SIZE);
+        Dimension playAreaDimension = new Dimension(GRID_COLS * Grid.SQUARE_SIZE, GRID_ROWS * Grid.SQUARE_SIZE);
         Point playAreaOrigin =
                 new Point((int) ((dimension.width - playAreaDimension.width) * 0.5), (int) ((dimension.height - playAreaDimension.height) * 0.66));
 
