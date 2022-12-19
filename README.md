@@ -1,6 +1,9 @@
 # `snek!` ![snek](https://user-images.githubusercontent.com/25911223/206885551-74c5e2ef-65f3-44d0-a13a-7d6d6f83317e.gif)
 
-[![Java CI with Maven](https://github.com/tessapower/snek/actions/workflows/maven-build.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/maven-build.yml)
+[![Java CI with Maven](https://github.com/tessapower/snek/actions/workflows/maven-build.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/maven-build.yml) 
+[![Javadoc](https://github.com/tessapower/snek/actions/workflows/javadoc.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/javadoc.yml)
+
+[→ Documentation](https://tessapower.github.io/snek)
 
 A simple remake of the classic game Snake (with a few flourishes!) using my own 2D game
 engine, [TEngine](https://github.com/tessapower/tengine).
@@ -39,7 +42,7 @@ java -jar snake/target/snek.jar
 ## How to play `snek!`
 
 Snake is a bit of a rite of passage, so we all know the rules. Use the arrow keys (or W-A-S-D if
-you're player two), to move around the world. Eat the apples, try not to crash into stuff, don't
+you are player two), to move around the world. Eat the apples, try not to crash into stuff, don't
 hit your own tail, etc.
 
 https://user-images.githubusercontent.com/25911223/206885403-cf983a9c-0557-4816-bd44-db15b6a3cfe9.mp4
