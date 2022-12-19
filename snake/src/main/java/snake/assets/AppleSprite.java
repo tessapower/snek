@@ -3,7 +3,7 @@ package snake.assets;
 import snake.actors.apple.Apple;
 import snake.game.Grid;
 import tengine.graphics.context.TGraphicsCtx;
-import tengine.graphics.entities.sprites.TSprite;
+import tengine.graphics.components.sprites.TSprite;
 
 import java.awt.*;
 import java.io.InputStream;

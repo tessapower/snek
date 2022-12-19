@@ -2,8 +2,8 @@ package tengine.graphics;
 
 import tengine.TGameEngine;
 import tengine.graphics.context.TGraphicsCtx;
-import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.TGraphicObject;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.TGraphicObject;
 
 import java.awt.*;
 

@@ -1,6 +1,6 @@
 package tengine;
 
-import tengine.graphics.entities.TGraphicObject;
+import tengine.graphics.components.TGraphicObject;
 import tengine.world.TWorld;
 
 import java.awt.*;

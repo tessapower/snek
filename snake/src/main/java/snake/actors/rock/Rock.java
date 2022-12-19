@@ -4,7 +4,7 @@ import snake.assets.AssetLoader;
 import snake.game.GameWorld;
 import snake.game.Grid;
 import tengine.TActor;
-import tengine.graphics.entities.sprites.TSprite;
+import tengine.graphics.components.sprites.TSprite;
 import tengine.world.TGridSquare;
 
 import java.awt.*;

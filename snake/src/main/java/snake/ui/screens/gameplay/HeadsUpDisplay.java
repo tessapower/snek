@@ -4,9 +4,9 @@ import snake.assets.Colors;
 import snake.assets.FontBook;
 import snake.game.GameState;
 import snake.player.PlayerNumber;
-import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.shapes.TRect;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.shapes.TRect;
+import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 

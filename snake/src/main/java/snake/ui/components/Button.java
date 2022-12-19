@@ -2,7 +2,7 @@ package snake.ui.components;
 
 import snake.assets.Colors;
 import snake.assets.FontBook;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.text.TLabel;
 
 /**
  * A simple text button that can have a focussed or unfocused state.

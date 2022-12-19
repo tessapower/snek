@@ -4,7 +4,7 @@ import snake.assets.Colors;
 import snake.assets.FontBook;
 import snake.assets.SoundEffects;
 import snake.ui.components.Button;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

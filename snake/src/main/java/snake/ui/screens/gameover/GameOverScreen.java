@@ -10,8 +10,8 @@ import snake.ui.components.Button;
 import snake.ui.components.ButtonGroup;
 import snake.ui.screens.Screen;
 import snake.ui.screens.ScreenIdentifier;
-import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

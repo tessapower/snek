@@ -6,9 +6,9 @@ import snake.assets.Colors;
 import snake.assets.FontBook;
 import snake.game.GameConfig;
 import snake.player.Player;
-import tengine.graphics.entities.TGraphicCompound;
-import tengine.graphics.entities.sprites.TSprite;
-import tengine.graphics.entities.text.TLabel;
+import tengine.graphics.components.TGraphicCompound;
+import tengine.graphics.components.sprites.TSprite;
+import tengine.graphics.components.text.TLabel;
 
 import java.awt.*;
 import java.util.ArrayList;

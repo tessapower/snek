@@ -3,7 +3,7 @@ package snake.assets;
 import snake.actors.snek.Snek;
 import snake.game.GameWorld;
 import snake.player.PlayerNumber;
-import tengine.graphics.entities.sprites.TSprite;
+import tengine.graphics.components.sprites.TSprite;
 import tengine.world.TGridSquare;
 
 import java.awt.*;

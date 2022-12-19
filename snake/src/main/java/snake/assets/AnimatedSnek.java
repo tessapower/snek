@@ -2,8 +2,8 @@ package snake.assets;
 
 import snake.player.PlayerNumber;
 import snake.ui.screens.gameplay.Avatar;
-import tengine.graphics.entities.sprites.TAnimatedSprite;
-import tengine.graphics.entities.sprites.TSpriteSequence;
+import tengine.graphics.components.sprites.TAnimatedSprite;
+import tengine.graphics.components.sprites.TSpriteSequence;
 import tengine.world.TGridSquare;
 
 import java.awt.*;

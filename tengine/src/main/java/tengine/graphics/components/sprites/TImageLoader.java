@@ -1,4 +1,4 @@
-package tengine.graphics.entities.sprites;
+package tengine.graphics.components.sprites;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

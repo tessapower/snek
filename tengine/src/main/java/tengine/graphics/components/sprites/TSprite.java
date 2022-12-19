@@ -1,7 +1,7 @@
-package tengine.graphics.entities.sprites;
+package tengine.graphics.components.sprites;
 
 import tengine.graphics.context.TGraphicsCtx;
-import tengine.graphics.entities.TGraphicObject;
+import tengine.graphics.components.TGraphicObject;
 
 import java.awt.*;
 import java.io.InputStream;

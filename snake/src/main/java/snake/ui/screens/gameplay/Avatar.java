@@ -2,7 +2,7 @@ package snake.ui.screens.gameplay;
 
 import snake.assets.AnimatedSnek;
 import snake.player.PlayerNumber;
-import tengine.graphics.entities.sprites.TSpriteSequence;
+import tengine.graphics.components.sprites.TSpriteSequence;
 
 import java.awt.*;
 

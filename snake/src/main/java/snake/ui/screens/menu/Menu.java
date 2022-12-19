@@ -1,6 +1,6 @@
 package snake.ui.screens.menu;
 
-import tengine.graphics.entities.TGraphicCompound;
+import tengine.graphics.components.TGraphicCompound;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

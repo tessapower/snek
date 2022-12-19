@@ -8,7 +8,7 @@ import snake.game.Grid;
 import snake.player.Player;
 import snake.player.PlayerNumber;
 import tengine.TActor;
-import tengine.graphics.entities.TGraphicCompound;
+import tengine.graphics.components.TGraphicCompound;
 import tengine.world.TGridSquare;
 
 import java.awt.*;

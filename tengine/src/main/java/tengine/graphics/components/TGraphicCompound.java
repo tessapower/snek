@@ -1,4 +1,4 @@
-package tengine.graphics.entities;
+package tengine.graphics.components;
 
 import tengine.graphics.context.TGraphicsCtx;
 
