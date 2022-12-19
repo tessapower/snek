@@ -2,6 +2,7 @@
 
 [![Java CI with Maven](https://github.com/tessapower/snek/actions/workflows/maven-build.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/maven-build.yml) 
 [![Javadoc](https://github.com/tessapower/snek/actions/workflows/javadoc.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/javadoc.yml)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/tessapower/snek/blob/main/LICENSE)
 
 [→ Documentation](https://tessapower.github.io/snek)
 
