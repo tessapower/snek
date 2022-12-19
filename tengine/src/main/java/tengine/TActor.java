@@ -6,7 +6,7 @@ import tengine.world.TWorld;
 import java.awt.*;
 
 /**
- * A <code>TActor</code>, a.k.a. 'Game Object", "Game Entity", or "Node", is a general purpose
+ * A <code>TActor</code>, AKA "Game Object", "Game Entity", or "Node", is a general purpose
  * object that interacts with your game, and responds to player input or other
  * <code>TActor</code>s in the world. <code>TActor</code>s are modelled on an "Entity Component
  * System" (ECS). Currently, an <code>TActor</code> comprises only a graphical component, but can
