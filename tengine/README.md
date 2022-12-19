@@ -14,12 +14,22 @@ based on the ECS model. There is support for actors and actor management, level 
 management, audio, composite primitive containers, transforms, text, animated sprites and sprite 
 sequences, and basic broad-phase collision detection and collision event notifications.
 
+## Why is `TEngine` included as a module?
+
+`TEngine` is included in this project as a module to make building the entire game easier and
+preserve the state of the `TEngine` project as it was used when `snek!` was finished.
+
+> **Note**
+>
+> At the time, `TEngine` was a work in progress, and the state of the code in this module
+> reflects that. To see the most recent and more polished version of `TEngine`, visit the
+> [GitHub page](https://github.com/tessapower/tengine).
+
 ## Requirements
 
 - Minimum Java SE 17+
 - IntelliJ, Eclipse, or your favourite Java editor
 - Maven (install locally for command-line-only builds)
-
 
 ## How to Build `TEngine`
 
@@ -30,14 +40,3 @@ parent project.
 
 A file called `TEngine.jar` will be created in the `out/artifacts/TEngine_jar/` dir. This `.jar` can
 be included in external projects in the usual way you link to external libraries.
-
-## Why is `TEngine` included as a module?
-
-`TEngine` is included in this project as a module to make building the entire game easier and 
-preserve the state of the `TEngine` project as it was used when `snek!` was finished.
-
-> **Warning**
-> 
-> At the time, `TEngine` was a work in progress, and the state of the code in this module 
-> reflects that. To see the most recent and more polished version of `TEngine`, visit the
-> [GitHub page](https://github.com/tessapower/tengine).
