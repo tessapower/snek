@@ -275,7 +275,7 @@ public class GameWorld extends TWorld {
 
         if (gameConfig.multiplayerMode() == MultiplayerMode.MULTIPLAYER) {
             if (playerTwo.occupies(gridSquare)) {
-                return playerOne;
+                return playerTwo;
             }
         }
 

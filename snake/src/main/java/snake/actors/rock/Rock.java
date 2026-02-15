@@ -62,7 +62,7 @@ public class Rock extends TActor {
     }
 
     /**
-     * Set the <code>TGridSquare</code> for this <code>Apple</code>. Doesn't usually change
+     * Set the <code>TGridSquare</code> for this <code>Rock</code>. Doesn't usually change
      * throughout the lifetime of this <code>Rock</code>, so this method is private.
      *
      * @see TGridSquare
