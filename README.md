@@ -1,6 +1,6 @@
 # `snek!` ![snek](https://user-images.githubusercontent.com/25911223/206885551-74c5e2ef-65f3-44d0-a13a-7d6d6f83317e.gif)
 
-[![Java CI with Maven](https://github.com/tessapower/snek/actions/workflows/maven-build.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/maven-build.yml) 
+[![Java CI with Maven](https://github.com/tessapower/snek/actions/workflows/maven-build.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/maven-build.yml)
 [![Javadoc](https://github.com/tessapower/snek/actions/workflows/javadoc.yml/badge.svg)](https://github.com/tessapower/snek/actions/workflows/javadoc.yml)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/tessapower/snek/blob/main/LICENSE)
 
@@ -8,6 +8,8 @@
 
 A simple remake of the classic game Snake (with a few flourishes!) using my own 2D game
 engine, [TEngine](https://github.com/tessapower/tengine).
+
+![Gameplay](./docs/game-play.gif)
 
 > **Note**
 >
@@ -112,7 +114,7 @@ display the results.
 
 ### Package Diagram
 
-There are lots of things I didn't cover, so here's an overview of the packages and classes in 
+There are lots of things I didn't cover, so here's an overview of the packages and classes in
 `snek!`:
 
 ![Package Diagram](docs/images/package-diagram.svg)
@@ -130,5 +132,5 @@ This project is licensed under the [MIT license](https://github.com/tessapower/s
 
 ### Contribution
 
-Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in 
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in
 this repository by you, shall be licensed as MIT, without any additional terms or conditions.
